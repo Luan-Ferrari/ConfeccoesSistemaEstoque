@@ -16,16 +16,16 @@ public class DevConfig {
     @Autowired
     private DBService dbService;
 
-    @Value("${spring.jpa.hibernate.dll-auto}")
+    @Value("${spring.jpa.hibernate.ddl-auto}")
     private String strategyDatabase;
 
     @Bean
-    public boolean instantiateDatebase() throws ParseException {
+    public boolean instantiateDatabase() throws ParseException {
 
         if (!"create".equals(strategyDatabase)) {
             return false;
         }
-        dbService.intanciateTestDataBase();
+        dbService.intanciateTestDatabase();
         return true;
     }
 }

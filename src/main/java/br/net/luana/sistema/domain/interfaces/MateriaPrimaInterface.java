@@ -1,7 +1,7 @@
 package br.net.luana.sistema.domain.interfaces;
 
 import br.net.luana.sistema.domain.Colecao;
-import br.net.luana.sistema.domain.materias.MateriaPrima;
+import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 
 import java.util.List;
 

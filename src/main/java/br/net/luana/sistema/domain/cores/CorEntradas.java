@@ -1,8 +1,13 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.resources.utils.Conversors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +22,7 @@ public class CorEntradas implements Serializable {
     private Double preco;
     private Double quantidade;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cor_id")
     private Cor cor;
@@ -25,15 +31,17 @@ public class CorEntradas implements Serializable {
     }
 
     public CorEntradas(Integer id,
-                       LocalDate dataEntrada,
-                       LocalDate dataFim,
+                       String dataEntrada,
                        Double preco,
-                       Double quantidade) {
+                       Double quantidade,
+                       Cor cor) {
         this.id = id;
-        this.dataEntrada = dataEntrada;
-        this.dataFim = dataFim;
+        this.dataEntrada = Conversors.stringToLocalDateSemHorario(dataEntrada);
         this.preco = preco;
         this.quantidade = quantidade;
+        this.cor = cor;
+
+        cor.acrescentarQuantidade(quantidade);
     }
 
     public Integer getId() {

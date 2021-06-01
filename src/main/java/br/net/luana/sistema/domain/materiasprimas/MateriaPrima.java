@@ -1,4 +1,4 @@
-package br.net.luana.sistema.domain.materias;
+package br.net.luana.sistema.domain.materiasprimas;
 
 import br.net.luana.sistema.domain.Colecao;
 import br.net.luana.sistema.domain.Fornecedor;

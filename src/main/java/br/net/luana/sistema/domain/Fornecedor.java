@@ -1,6 +1,7 @@
 package br.net.luana.sistema.domain;
 
-import br.net.luana.sistema.domain.materias.MateriaPrima;
+import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,26 +18,34 @@ public class Fornecedor implements Serializable {
     private Integer id;
     private String nome;
     private String cnpj;
+    private String email;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "fornecedor_tipo_fornecedor",
     joinColumns = @JoinColumn(name = "fornecedor_id"),
     inverseJoinColumns = @JoinColumn(name = "tipo_fornecedor_id"))
-    private List<TipoFornecedor> tipoFornecedor;
+    private List<TipoFornecedor> tipoFornecedor = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "fornecedor")
     private List<MateriaPrima> materiasPrimas = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "fornecedores")
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "fornecedor_contato",
+    joinColumns = @JoinColumn(name = "fornecedor_id"),
+    inverseJoinColumns = @JoinColumn(name = "contato_id"))
     private List<Contato> contatos = new ArrayList<>();
 
     public Fornecedor() {
     }
 
-    public Fornecedor(Integer id, String nome, String cnpj) {
+    public Fornecedor(Integer id, String nome, String cnpj, String email) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -61,6 +70,14 @@ public class Fornecedor implements Serializable {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<TipoFornecedor> getTipoFornecedor() {

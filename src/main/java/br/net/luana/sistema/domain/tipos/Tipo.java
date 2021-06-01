@@ -1,11 +1,12 @@
 package br.net.luana.sistema.domain.tipos;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Tipo {
+public abstract class Tipo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -17,6 +18,8 @@ public abstract class Tipo {
     }
 
     public Tipo(Integer id, String tipo) {
+        this.id = id;
+        this.tipo = tipo;
     }
 
     public Integer getId() {

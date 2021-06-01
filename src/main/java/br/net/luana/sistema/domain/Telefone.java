@@ -13,7 +13,9 @@ public class Telefone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String ddd;
     private String telefone;
+    private String ramal;
     private Integer tipoTelefone;
 
     @ManyToOne
@@ -23,10 +25,18 @@ public class Telefone implements Serializable {
     public Telefone() {
     }
 
-    public Telefone(Integer id, String telefone, TipoTelefone tipoTelefone) {
+    public Telefone(Integer id,
+                    String ddd,
+                    String telefone,
+                    String ramal,
+                    TipoTelefone tipoTelefone,
+                    Contato contato) {
         this.id = id;
+        this.ddd = ddd;
         this.telefone = telefone;
+        this.ramal = ramal;
         this.tipoTelefone = (tipoTelefone==null) ? null : tipoTelefone.getCodigo();
+        this.contato = contato;
     }
 
     public Integer getId() {
@@ -37,12 +47,28 @@ public class Telefone implements Serializable {
         this.id = id;
     }
 
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
     public String getTelefone() {
         return telefone;
     }
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getRamal() {
+        return ramal;
+    }
+
+    public void setRamal(String ramal) {
+        this.ramal = ramal;
     }
 
     public TipoTelefone getTipoTelefone() {
@@ -60,6 +86,9 @@ public class Telefone implements Serializable {
     public void setContato(Contato contato) {
         this.contato = contato;
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {

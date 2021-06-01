@@ -1,12 +1,12 @@
 package br.net.luana.sistema.domain.cores;
 
 import br.net.luana.sistema.domain.Composicao;
-import br.net.luana.sistema.domain.materias.Tecido;
+import br.net.luana.sistema.domain.materiasprimas.Tecido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 @Entity
 public class CorTecido extends Cor {
@@ -16,6 +16,7 @@ public class CorTecido extends Cor {
     @JoinColumn(name = "composicao_id")
     private Composicao composicao;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "tecido_id")
     private Tecido tecido;
@@ -27,9 +28,10 @@ public class CorTecido extends Cor {
                      String referenciaNaFabrica,
                      String nome,
                      String observacoes,
+                     Double quantidadeEstoque,
                      Composicao composicao,
                      Tecido tecido) {
-        super(id, referenciaNaFabrica, nome, observacoes);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
         this.composicao = composicao;
         this.tecido = tecido;
     }

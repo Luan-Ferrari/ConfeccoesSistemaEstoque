@@ -19,6 +19,7 @@ public abstract class Cor implements CorInterface, Serializable {
     private String referenciaNaFabrica;
     private String nome;
     private String observacoes;
+    private Double quantidadeEstoque;
 
     @OneToMany(mappedBy = "cor")
     private List<CorEntradas> entradas = new ArrayList<>();
@@ -29,11 +30,13 @@ public abstract class Cor implements CorInterface, Serializable {
     public Cor(Integer id,
                String referenciaNaFabrica,
                String nome,
-               String observacoes) {
+               String observacoes,
+               Double quantidadeEstoque) {
         this.id = id;
         this.referenciaNaFabrica = referenciaNaFabrica;
         this.nome = nome;
         this.observacoes = observacoes;
+        this.quantidadeEstoque = quantidadeEstoque;
     }
 
     public Integer getId() {
@@ -74,6 +77,19 @@ public abstract class Cor implements CorInterface, Serializable {
 
     public void setEntradas(List<CorEntradas> entradas) {
         this.entradas = entradas;
+    }
+
+    public Double getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(Double quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    @Override
+    public void acrescentarQuantidade(Double quantidadeEntrada) {
+        this.quantidadeEstoque += quantidadeEntrada;
     }
 
     @Override

@@ -1,15 +1,19 @@
 package br.net.luana.sistema.domain.tipos;
 
-import br.net.luana.sistema.domain.materias.Tecido;
+import br.net.luana.sistema.domain.materiasprimas.Tecido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class TipoTecido extends Tipo {
+public class TipoTecido extends Tipo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tipoTecido")
     private List<Tecido> tecidos = new ArrayList<>();
 

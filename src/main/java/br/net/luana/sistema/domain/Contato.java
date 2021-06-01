@@ -19,10 +19,7 @@ public class Contato implements Serializable {
     private String email;
     private Integer funcaoContato;
 
-    @ManyToMany
-    @JoinTable(name = "contato_fornecedor",
-    joinColumns = @JoinColumn(name = "contato_id"),
-    inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
+    @ManyToMany(mappedBy = "contatos")
     private List<Fornecedor> fornecedores = new ArrayList<>();
 
     @OneToMany(mappedBy = "contato")

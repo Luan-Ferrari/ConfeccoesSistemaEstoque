@@ -1,4 +1,6 @@
-package br.net.luana.sistema.domain.materias;
+package br.net.luana.sistema.domain.materiasprimas;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +17,7 @@ public class TecidoClasse implements Serializable {
     private Integer id;
     private String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "classe")
     private List<Tecido> tecidos = new ArrayList<>();
 
@@ -40,6 +43,14 @@ public class TecidoClasse implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Tecido> getTecidos() {
+        return tecidos;
+    }
+
+    public void setTecidos(List<Tecido> tecidos) {
+        this.tecidos = tecidos;
     }
 
     @Override

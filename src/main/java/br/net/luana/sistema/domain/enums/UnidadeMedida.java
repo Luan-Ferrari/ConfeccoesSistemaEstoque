@@ -1,7 +1,7 @@
 package br.net.luana.sistema.domain.enums;
 
 public enum UnidadeMedida {
-    QUIILOS(1, "Quilos"),
+    QUILOS(1, "Quilos"),
     METROS(2, "Metros"),
     PARES(3, "Pares"),
     UNIDADES(4, "Unidades"),

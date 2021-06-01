@@ -1,4 +1,4 @@
-package br.net.luana.sistema.domain.materias;
+package br.net.luana.sistema.domain.materiasprimas;
 
 import br.net.luana.sistema.domain.Colecao;
 import br.net.luana.sistema.domain.Fornecedor;
@@ -6,10 +6,7 @@ import br.net.luana.sistema.domain.cores.CorTecido;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +33,37 @@ public class Tecido extends MateriaPrima {
                   String observacoes,
                   Boolean desuso,
                   UnidadeMedida unidadeMedida,
-                  Fornecedor fornecedor) {
+                  Fornecedor fornecedor,
+                  TipoTecido tipoTecido,
+                  TecidoClasse classe) {
         super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, fornecedor);
+        this.tipoTecido = tipoTecido;
+        this.classe = classe;
     }
 
+    public TipoTecido getTipoTecido() {
+        return tipoTecido;
+    }
+
+    public void setTipoTecido(TipoTecido tipoTecido) {
+        this.tipoTecido = tipoTecido;
+    }
+
+    public List<CorTecido> getCores() {
+        return cores;
+    }
+
+    public void setCores(List<CorTecido> cores) {
+        this.cores = cores;
+    }
+
+    public TecidoClasse getClasse() {
+        return classe;
+    }
+
+    public void setClasse(TecidoClasse classe) {
+        this.classe = classe;
+    }
 
     @Override
     public void gerarRelatorios() {

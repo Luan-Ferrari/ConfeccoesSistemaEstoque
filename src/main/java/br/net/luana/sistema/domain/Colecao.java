@@ -1,6 +1,6 @@
 package br.net.luana.sistema.domain;
 
-import br.net.luana.sistema.domain.materias.MateriaPrima;
+import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 
 import javax.persistence.*;
 import java.io.Serializable;
