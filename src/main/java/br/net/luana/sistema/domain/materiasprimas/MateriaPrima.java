@@ -20,8 +20,8 @@ public abstract class MateriaPrima implements MateriaPrimaInterface, Serializabl
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String referenciaNaFabrica;
-    private String observacoes;
-    private Boolean desuso;
+    private String observacoes = null;
+    private Boolean desuso = false;
     private Integer unidadeMedida;
 
     @ManyToOne

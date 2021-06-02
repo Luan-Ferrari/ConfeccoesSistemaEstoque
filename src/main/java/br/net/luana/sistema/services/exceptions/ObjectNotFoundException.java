@@ -20,16 +20,4 @@ public class ObjectNotFoundException extends RuntimeException{
     public ObjectNotFoundException(Integer id, String className, Throwable cause) {
         super("Objeto não Encontrado! Parametro: " + id + ", Nome da Classe: " + className, cause);
     }
-
-    public ObjectNotFoundException(String referencia, Fornecedor fornecedor, String className) {
-        super("Objeto não Encontrado! Parametros: " + referencia + " " + fornecedor.getNome() + ", Nome da Classe: "
-                + className);
-    }
-
-    public ObjectNotFoundException(String referencia, Fornecedor fornecedor, String className, Throwable cause) {
-        super("Objeto não Encontrado! Parametros: " + referencia + " " + fornecedor.getNome() + ", Nome da Classe: "
-                + className);
-    }
-
-
 }

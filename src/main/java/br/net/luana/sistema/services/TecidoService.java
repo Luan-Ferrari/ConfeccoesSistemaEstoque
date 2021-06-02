@@ -3,7 +3,9 @@ package br.net.luana.sistema.services;
 
 import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.cores.CorTecido;
+import br.net.luana.sistema.domain.materiasprimas.Colchete;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
+import br.net.luana.sistema.repositories.MateriaPrimaRepository;
 import br.net.luana.sistema.repositories.TecidoRepository;
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
@@ -14,8 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +24,10 @@ public class TecidoService {
 
     @Autowired
     private TecidoRepository repository;
-    private Tecido updateObj;
+    @Autowired
+    private MateriaPrimaRepository materiaPrimaRepository;
 
-    public List<Tecido> findAll() { return repository.findAll(); }
+    public <T> List<T> findAll() { return materiaPrimaRepository.findAll(); }
 
     public Page<Tecido> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
@@ -36,12 +37,6 @@ public class TecidoService {
     public Tecido findById(Integer id) {
         Optional<Tecido> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(id, Tecido.class.getName()));
-    }
-
-    public Tecido findByReferenciaNaFabricaAndFornecedor(String referenciaNaFabrica, Fornecedor fornecedor) {
-        Optional<Tecido> obj = repository.findByReferenciaNaFabricaAndFornecedor(referenciaNaFabrica, fornecedor);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(
-                referenciaNaFabrica, fornecedor, Tecido.class.getName()));
     }
 
     public Tecido insert(Tecido obj) {

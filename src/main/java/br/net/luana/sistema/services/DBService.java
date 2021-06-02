@@ -6,10 +6,12 @@ import br.net.luana.sistema.domain.cores.CorTecido;
 import br.net.luana.sistema.domain.enums.FuncaoContato;
 import br.net.luana.sistema.domain.enums.TipoTelefone;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
+import br.net.luana.sistema.domain.materiasprimas.Colchete;
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import br.net.luana.sistema.domain.materiasprimas.TecidoClasse;
 import br.net.luana.sistema.domain.tipos.Tipo;
+import br.net.luana.sistema.domain.tipos.TipoColchete;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
 import br.net.luana.sistema.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +124,8 @@ public class DBService {
         TipoTecido tipo7 = new TipoTecido(null, "Lycra");
         TipoTecido tipo8 = new TipoTecido(null, "Praia");
 
+        TipoColchete tipoColc1 = new TipoColchete(null, "Grande");
+
 
         //criando matéria-prima(tecido)
         Tecido tec1 = new Tecido(null, "ref1", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass2);
@@ -140,6 +144,8 @@ public class DBService {
         Tecido tec14 = new Tecido(null, "ref14", "é bonito", false, UnidadeMedida.QUILOS, fornec1, tipo3, tecClass3);
         Tecido tec15 = new Tecido(null, "ref15", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass1);
         Tecido tec16 = new Tecido(null, "ref16", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass1);
+
+        Colchete colc1 = new Colchete(null, "refcolc1", null, false, UnidadeMedida.PEÇAS, fornec2, tipoColc1);
 
         //criando composiçoes
         Composicao comp1 = new Composicao(null);
@@ -255,14 +261,14 @@ public class DBService {
         //persistindo classe de tecido
         tecidoClasseRepository.saveAll(Arrays.asList(tecClass1, tecClass2, tecClass3, tecClass4));
         //persistindo tipo tecido
-        tipoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8));
+        tipoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8, tipoColc1));
 
         //persistindo composicao
         composicaoRepository.saveAll(Arrays.asList(comp1, comp2, comp3));
 
         //persistindo materias primas (Tecidos)
         materiaPrimaRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
-                tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16));
+                tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16, colc1));
 
         //persistindo cores
         corRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,
