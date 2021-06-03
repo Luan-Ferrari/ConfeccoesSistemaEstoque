@@ -1,9 +1,12 @@
 package br.net.luana.sistema.repositories;
 
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
-import org.springframework.data.jpa.repository.JpaRepository;
+import br.net.luana.sistema.domain.materiasprimas.Tecido;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ColcheteRepository extends JpaRepository<Colchete, Integer> {
+
+@Repository("colchete")
+public interface ColcheteRepository extends MateriaPrimaRepository<Colchete, Integer> {
+
 }

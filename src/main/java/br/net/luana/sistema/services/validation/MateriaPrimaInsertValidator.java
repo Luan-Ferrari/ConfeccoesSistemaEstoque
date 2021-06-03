@@ -3,5 +3,5 @@ package br.net.luana.sistema.services.validation;
 
 import javax.validation.ConstraintValidator;
 
-public class MateriaPrimaInsertValidator implements ConstraintValidator<MateriaPrimaInsert,> {
+public class MateriaPrimaInsertValidator  {
 }

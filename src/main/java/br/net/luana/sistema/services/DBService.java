@@ -7,14 +7,12 @@ import br.net.luana.sistema.domain.enums.FuncaoContato;
 import br.net.luana.sistema.domain.enums.TipoTelefone;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
-import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import br.net.luana.sistema.domain.materiasprimas.TecidoClasse;
-import br.net.luana.sistema.domain.tipos.Tipo;
-import br.net.luana.sistema.domain.tipos.TipoColchete;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
 import br.net.luana.sistema.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -43,6 +41,13 @@ public class DBService {
     private ComposicaoRepository composicaoRepository;
     @Autowired
     private CorEntradasRepository corEntradasRepository;
+    @Autowired
+    @Qualifier(value = "tecido")
+    private TecidoRepository tecidoRepository;
+    @Autowired
+    @Qualifier(value = "colchete")
+    private ColcheteRepository colcheteRepository;
+
 
     public void intanciateTestDatabase() throws ParseException {
 
@@ -124,9 +129,6 @@ public class DBService {
         TipoTecido tipo7 = new TipoTecido(null, "Lycra");
         TipoTecido tipo8 = new TipoTecido(null, "Praia");
 
-        TipoColchete tipoColc1 = new TipoColchete(null, "Grande");
-
-
         //criando matéria-prima(tecido)
         Tecido tec1 = new Tecido(null, "ref1", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass2);
         Tecido tec2 = new Tecido(null, "ref2", null, false, UnidadeMedida.QUILOS, fornec3, tipo2, tecClass2);
@@ -145,7 +147,9 @@ public class DBService {
         Tecido tec15 = new Tecido(null, "ref15", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass1);
         Tecido tec16 = new Tecido(null, "ref16", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass1);
 
-        Colchete colc1 = new Colchete(null, "refcolc1", null, false, UnidadeMedida.PEÇAS, fornec2, tipoColc1);
+        Colchete colc1 = new Colchete(null, "refColc1", null, false, UnidadeMedida.UNIDADES, fornec2);
+        Colchete colc2 = new Colchete(null, "refColc2", null, false, UnidadeMedida.UNIDADES, fornec3);
+        Colchete colc3 = new Colchete(null, "refColc3", null, false, UnidadeMedida.UNIDADES, fornec1);
 
         //criando composiçoes
         Composicao comp1 = new Composicao(null);
@@ -261,14 +265,16 @@ public class DBService {
         //persistindo classe de tecido
         tecidoClasseRepository.saveAll(Arrays.asList(tecClass1, tecClass2, tecClass3, tecClass4));
         //persistindo tipo tecido
-        tipoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8, tipoColc1));
+        tipoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8));
 
         //persistindo composicao
         composicaoRepository.saveAll(Arrays.asList(comp1, comp2, comp3));
 
         //persistindo materias primas (Tecidos)
-        materiaPrimaRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
-                tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16, colc1));
+        tecidoRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
+                tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16));
+
+        colcheteRepository.saveAll(Arrays.asList(colc1, colc2, colc3));
 
         //persistindo cores
         corRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,

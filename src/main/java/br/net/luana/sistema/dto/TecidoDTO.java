@@ -1,7 +1,6 @@
 package br.net.luana.sistema.dto;
 
-import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
-import br.net.luana.sistema.domain.tipos.TipoTecido;
+import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class TecidoDTO extends MateriaPrimaDTO{
@@ -17,10 +16,11 @@ public class TecidoDTO extends MateriaPrimaDTO{
     public TecidoDTO() {
     }
 
-    public TecidoDTO(MateriaPrima obj, Integer tipoTecidoId, String tipoTecido, Integer tecidoClasseId, String tecidoClasse) {
+    public TecidoDTO(Tecido obj) {
         super(obj);
-        this.tipoTecido = tipoTecido;
-        this.tecidoClasseId = tecidoClasseId;
-        this.tecidoClasse = tecidoClasse;
+        this.tipoTecidoId = obj.getTipoTecido().getId();
+        this.tipoTecido = obj.getTipoTecido().getTipo();
+        this.tecidoClasseId = obj.getClasse().getId();
+        this.tecidoClasse = obj.getClasse().getNome();
     }
 }
