@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("colchete")
+@Repository("colcheteRepository")
 public interface ColcheteRepository extends MateriaPrimaRepository<Colchete, Integer> {
 
 }

@@ -14,7 +14,4 @@ import java.util.Optional;
 @NoRepositoryBean
 public interface MateriaPrimaRepository<T extends MateriaPrima, ID extends Serializable>
         extends JpaRepository<T, ID> {
-
-    @Transactional(readOnly = true)
-    Optional<MateriaPrima> findByReferenciaNaFabricaAndFornecedor(String referenciaNaFabrica, Fornecedor fornecedor);
 }

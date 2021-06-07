@@ -42,10 +42,10 @@ public class DBService {
     @Autowired
     private CorEntradasRepository corEntradasRepository;
     @Autowired
-    @Qualifier(value = "tecido")
+    @Qualifier(value = "tecidoRepository")
     private TecidoRepository tecidoRepository;
     @Autowired
-    @Qualifier(value = "colchete")
+    @Qualifier(value = "colcheteRepository")
     private ColcheteRepository colcheteRepository;
 
 
@@ -271,10 +271,10 @@ public class DBService {
         composicaoRepository.saveAll(Arrays.asList(comp1, comp2, comp3));
 
         //persistindo materias primas (Tecidos)
-        tecidoRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
+        materiaPrimaRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
                 tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16));
 
-        colcheteRepository.saveAll(Arrays.asList(colc1, colc2, colc3));
+        materiaPrimaRepository.saveAll(Arrays.asList(colc1, colc2, colc3));
 
         //persistindo cores
         corRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,
