@@ -1,18 +1,21 @@
 package br.net.luana.sistema.resources;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
-import br.net.luana.sistema.resources.MateriaPrimaResource;
 import br.net.luana.sistema.services.MateriaPrimaService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.hibernate.type.EntityType;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.reactive.ClientHttpResponseDecorator;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-public class MateriaPrimaResourceImpl<T extends MateriaPrima, ID extends Serializable>
+public class MateriaPrimaResourceImpl<T extends MateriaPrima, ID extends Integer>
         implements MateriaPrimaResource<T, ID> {
 
     private MateriaPrimaService materiaPrimaService;
@@ -28,8 +31,14 @@ public class MateriaPrimaResourceImpl<T extends MateriaPrima, ID extends Seriali
     }
 
     @Override
-    public ResponseEntity<Optional<T>> findById(ID entityId) {
-        Optional<T> entity = materiaPrimaService.findById(entityId);
+    public ResponseEntity<Page<T>> findPage (Integer page, Integer linesPerPage, String direction, String orderBy ) {
+        Page<T> list = materiaPrimaService.findPage(page, linesPerPage, direction, orderBy);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @Override
+    public ResponseEntity<T> findById(ID entityId) {
+        T entity = (T) materiaPrimaService.findById(entityId);
         return ResponseEntity.ok().body(entity);
     }
 
@@ -40,4 +49,18 @@ public class MateriaPrimaResourceImpl<T extends MateriaPrima, ID extends Seriali
                 .path("/{id}").buildAndExpand(entity.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @Override
+    public ResponseEntity<Void> update(T entity, ID entityId) {
+        entity = (T)materiaPrimaService.updateById(entity, entityId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> delete(ID entityId) {
+        materiaPrimaService.deleteById(entityId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

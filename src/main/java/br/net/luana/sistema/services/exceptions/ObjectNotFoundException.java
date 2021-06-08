@@ -2,6 +2,8 @@ package br.net.luana.sistema.services.exceptions;
 
 import br.net.luana.sistema.domain.Fornecedor;
 
+import java.io.Serializable;
+
 public class ObjectNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
@@ -13,11 +15,11 @@ public class ObjectNotFoundException extends RuntimeException{
         super(msg, cause);
     }
 
-    public ObjectNotFoundException(Integer id, String className) {
-        super("Objeto não Encontrado! Parametro: " + id + ", Nome da Classe: " + className);
+    public ObjectNotFoundException(Integer id) {
+        super("Objeto não Encontrado! Parametro: " + id);
     }
 
-    public ObjectNotFoundException(Integer id, String className, Throwable cause) {
-        super("Objeto não Encontrado! Parametro: " + id + ", Nome da Classe: " + className, cause);
+    public ObjectNotFoundException(Integer id, Throwable cause) {
+        super("Objeto não Encontrado! Parametro: " + id, cause);
     }
 }

@@ -1,12 +1,11 @@
 package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
-import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
-public class MateriaPrimaDTO implements Serializable {
+public abstract class MateriaPrimaDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore

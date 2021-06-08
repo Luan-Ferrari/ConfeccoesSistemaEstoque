@@ -3,7 +3,6 @@ package br.net.luana.sistema.domain.materiasprimas;
 import br.net.luana.sistema.domain.Colecao;
 import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
-import br.net.luana.sistema.domain.interfaces.MateriaPrimaInterface;
 
 import javax.persistence.*;
 import java.io.Serializable;

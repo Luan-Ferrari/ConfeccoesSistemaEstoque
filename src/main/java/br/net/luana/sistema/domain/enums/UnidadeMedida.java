@@ -34,7 +34,6 @@ public enum UnidadeMedida {
                 return um;
             }
         }
-
         throw new IllegalArgumentException("ID inválido: " + codigo);
     }
 }

@@ -1,4 +1,4 @@
-package br.net.luana.sistema.dto.news;
+package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.tipos.Tipo;

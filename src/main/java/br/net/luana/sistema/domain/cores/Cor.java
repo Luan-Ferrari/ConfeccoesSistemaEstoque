@@ -1,7 +1,5 @@
 package br.net.luana.sistema.domain.cores;
 
-import br.net.luana.sistema.domain.interfaces.CorInterface;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;

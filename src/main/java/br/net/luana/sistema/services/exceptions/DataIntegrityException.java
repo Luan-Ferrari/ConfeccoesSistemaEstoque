@@ -13,13 +13,11 @@ public class DataIntegrityException extends NonTransientDataAccessException {
         super(msg, cause);
     }
 
-    public DataIntegrityException(Integer id, String className, String associatedClassName) {
-        super("Impossível excluir recurso ID: " + id + " da classe " + className + " por possuir recursos da classe "
-                + associatedClassName + " associados");
+    public DataIntegrityException(Integer id) {
+        super("Impossível excluir recurso ID " + id + " por possuir recursos associados");
     }
 
-    public DataIntegrityException(Integer id, String className, String associatedClassName, Throwable cause) {
-        super("Impossível excluir recurso ID: " + id + " da classe " + className + " por possuir recursos da classe "
-                + associatedClassName + " associados", cause);
+    public DataIntegrityException(Integer id, Throwable cause) {
+        super("Impossível excluir recurso ID " + id + " por possuir recursos associados", cause);
     }
 }

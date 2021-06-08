@@ -1,4 +1,4 @@
-package br.net.luana.sistema.domain.interfaces;
+package br.net.luana.sistema.domain.cores;
 
 public interface CorInterface {
 

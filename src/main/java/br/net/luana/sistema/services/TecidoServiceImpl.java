@@ -15,4 +15,11 @@ public class TecidoServiceImpl extends MateriaPrimaServiceImpl<Tecido, Integer>
     public TecidoServiceImpl(TecidoRepository tecidoRepository) {
         super(tecidoRepository);
     }
+
+    @Override
+    protected void updateData(Tecido updateEntity, Tecido entity) {
+        super.updateData(updateEntity, entity);
+        updateEntity.setTipoTecido(entity.getTipoTecido());
+        updateEntity.setClasse(entity.getClasse());
+    }
 }
