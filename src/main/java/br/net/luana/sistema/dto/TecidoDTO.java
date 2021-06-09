@@ -2,8 +2,10 @@ package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.stereotype.Component;
 
-public class TecidoDTO extends MateriaPrimaDTO{
+@Component
+public class TecidoDTO extends MateriaPrimaDTO {
 
     @JsonIgnore
     private Integer tipoTecidoId;
@@ -16,11 +18,36 @@ public class TecidoDTO extends MateriaPrimaDTO{
     public TecidoDTO() {
     }
 
-    public TecidoDTO(Tecido obj) {
-        super(obj);
-        this.tipoTecidoId = obj.getTipoTecido().getId();
-        this.tipoTecido = obj.getTipoTecido().getTipo();
-        this.tecidoClasseId = obj.getClasse().getId();
-        this.tecidoClasse = obj.getClasse().getNome();
+
+    public Integer getTipoTecidoId() {
+        return tipoTecidoId;
+    }
+
+    public void setTipoTecidoId(Integer tipoTecidoId) {
+        this.tipoTecidoId = tipoTecidoId;
+    }
+
+    public String getTipoTecido() {
+        return tipoTecido;
+    }
+
+    public void setTipoTecido(String tipoTecido) {
+        this.tipoTecido = tipoTecido;
+    }
+
+    public Integer getTecidoClasseId() {
+        return tecidoClasseId;
+    }
+
+    public void setTecidoClasseId(Integer tecidoClasseId) {
+        this.tecidoClasseId = tecidoClasseId;
+    }
+
+    public String getTecidoClasse() {
+        return tecidoClasse;
+    }
+
+    public void setTecidoClasse(String tecidoClasse) {
+        this.tecidoClasse = tecidoClasse;
     }
 }

@@ -1,9 +1,11 @@
 package br.net.luana.sistema.services;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.dto.MateriaPrimaDTO;
 import br.net.luana.sistema.repositories.MateriaPrimaRepository;
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +18,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, ID extends Integer>
-        implements MateriaPrimaService<T, ID>{
+public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer>
+        implements MateriaPrimaService<T, D, ID>{
 
+    @Autowired
+    private D materiaPrimaDTO;
     private MateriaPrimaRepository materiaPrimaRepository;
 
     public MateriaPrimaServiceImpl(MateriaPrimaRepository materiaPrimaRepository) {
@@ -68,12 +72,22 @@ public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, ID extends
         }
     }
 
-        protected void updateData(T updateEntity, T entity) {
-            updateEntity.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
-            updateEntity.setObservacoes(entity.getObservacoes());
-            updateEntity.setDesuso(entity.getDesuso());
-            updateEntity.setUnidadeMedida(entity.getUnidadeMedida());
-            updateEntity.setFornecedor(entity.getFornecedor());
+    protected void updateData(T updateEntity, T entity) {
+        updateEntity.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
+        updateEntity.setObservacoes(entity.getObservacoes());
+        updateEntity.setDesuso(entity.getDesuso());
+        updateEntity.setUnidadeMedida(entity.getUnidadeMedida());
+        updateEntity.setFornecedor(entity.getFornecedor());
     }
 
+    @Override
+    public D toDto(T entity) {
+        materiaPrimaDTO.setId(entity.getId());
+        materiaPrimaDTO.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
+        materiaPrimaDTO.setObservacoes(entity.getObservacoes());
+        materiaPrimaDTO.setDesuso(entity.getDesuso());
+        materiaPrimaDTO.setFornecedorId(entity.getFornecedor().getId());
+        materiaPrimaDTO.setFornecedor(entity.getFornecedor().getNome());
+        return (D)materiaPrimaDTO;
+    }
 }

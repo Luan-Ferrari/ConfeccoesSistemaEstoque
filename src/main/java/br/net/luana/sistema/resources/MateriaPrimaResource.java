@@ -2,16 +2,17 @@ package br.net.luana.sistema.resources;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 
+import br.net.luana.sistema.dto.MateriaPrimaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public interface MateriaPrimaResource<T extends MateriaPrima, ID extends Integer> {
+public interface MateriaPrimaResource<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer> {
 
     @GetMapping
-    public abstract ResponseEntity<List<T>> findAll();
+    public abstract ResponseEntity<List<D>> findAll();
 
     @GetMapping("/page")
     public abstract ResponseEntity<Page<T>> findPage(
@@ -31,7 +32,4 @@ public interface MateriaPrimaResource<T extends MateriaPrima, ID extends Integer
 
     @DeleteMapping("/{entityId}")
     public abstract ResponseEntity<Void> delete(@PathVariable ID entityId);
-
-
-
 }

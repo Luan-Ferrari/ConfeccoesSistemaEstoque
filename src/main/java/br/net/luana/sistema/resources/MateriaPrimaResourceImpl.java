@@ -1,22 +1,20 @@
 package br.net.luana.sistema.resources;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.dto.MateriaPrimaDTO;
 import br.net.luana.sistema.services.MateriaPrimaService;
 
-import org.hibernate.type.EntityType;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.reactive.ClientHttpResponseDecorator;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
-import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class MateriaPrimaResourceImpl<T extends MateriaPrima, ID extends Integer>
-        implements MateriaPrimaResource<T, ID> {
+public class MateriaPrimaResourceImpl<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer>
+        implements MateriaPrimaResource<T, D, ID> {
 
     private MateriaPrimaService materiaPrimaService;
 
@@ -25,9 +23,10 @@ public class MateriaPrimaResourceImpl<T extends MateriaPrima, ID extends Integer
     }
 
     @Override
-    public ResponseEntity<List<T>> findAll() {
+    public ResponseEntity<List<D>> findAll() {
         List<T> list = materiaPrimaService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<D> listDto = list.stream().map(obj -> (D)materiaPrimaService.toDto(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @Override

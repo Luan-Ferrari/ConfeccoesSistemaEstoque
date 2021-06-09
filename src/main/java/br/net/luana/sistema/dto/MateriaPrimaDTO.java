@@ -2,11 +2,10 @@ package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-
-public abstract class MateriaPrimaDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Component
+public class MateriaPrimaDTO {
 
     @JsonIgnore
     private Integer id;
@@ -18,15 +17,6 @@ public abstract class MateriaPrimaDTO implements Serializable {
     private String fornecedor;
 
     public MateriaPrimaDTO() {
-    }
-
-    public MateriaPrimaDTO(MateriaPrima obj) {
-        this.id = obj.getId();
-        this.referenciaNaFabrica = obj.getReferenciaNaFabrica();
-        this.observacoes = obj.getObservacoes();
-        this.desuso = obj.getDesuso();
-        this.fornecedorId = obj.getFornecedor().getId();
-        this.fornecedor = obj.getFornecedor().getNome();
     }
 
     public Integer getId() {
@@ -77,3 +67,5 @@ public abstract class MateriaPrimaDTO implements Serializable {
         this.fornecedor = fornecedor;
     }
 }
+    
+    

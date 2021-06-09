@@ -1,21 +1,23 @@
 package br.net.luana.sistema.services;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.dto.MateriaPrimaDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface MateriaPrimaService<T extends MateriaPrima, ID extends Integer> {
+public interface MateriaPrimaService<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer> {
 
 
-    public abstract List<T> findAll();
-    public abstract Page<T> findPage(Integer Page, Integer linesPerPage, String direction, String orderBy);
-    public abstract T findById(ID entityId);
+    List<T> findAll();
+    Page<T> findPage(Integer Page, Integer linesPerPage, String direction, String orderBy);
+    T findById(ID entityId);
 
-    public abstract T save (T entity);
+    T save (T entity);
 
-    public abstract T updateById(T entity, ID entityId);
+    T updateById(T entity, ID entityId);
 
-    public abstract void deleteById(ID entityId);
+    void deleteById(ID entityId);
+
+    D toDto(T entity);
 }
