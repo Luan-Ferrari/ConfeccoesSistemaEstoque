@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MateriaPrimaDTO {
+public class MateriaPrimaDTO<T extends MateriaPrima> {
 
     @JsonIgnore
     private Integer id;
@@ -17,6 +17,16 @@ public class MateriaPrimaDTO {
     private String fornecedor;
 
     public MateriaPrimaDTO() {
+    }
+
+    public MateriaPrimaDTO makeDTO(T entity) {
+        this.setId(entity.getId());
+        this.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
+        this.setObservacoes(entity.getObservacoes());
+        this.setDesuso(entity.getDesuso());
+        this.setFornecedorId(entity.getFornecedor().getId());
+        this.setFornecedor(entity.getFornecedor().getNome());
+        return this;
     }
 
     public Integer getId() {

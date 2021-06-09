@@ -9,11 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("colcheteService")
 @Transactional
-public class ColcheteServiceImpl extends MateriaPrimaServiceImpl<Colchete, ColcheteDTO, Integer>
+public class ColcheteServiceImpl extends MateriaPrimaServiceImpl<Colchete, Integer>
         implements ColcheteService {
 
-    @Autowired
-    private ColcheteDTO colcheteDTO;
     private ColcheteRepository colcheteRepository;
 
     public ColcheteServiceImpl(ColcheteRepository colcheteRepository) {

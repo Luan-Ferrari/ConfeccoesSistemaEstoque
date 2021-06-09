@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public interface MateriaPrimaService<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer> {
+public interface MateriaPrimaService<T extends MateriaPrima, ID extends Integer> {
 
 
     List<T> findAll();
@@ -18,6 +18,4 @@ public interface MateriaPrimaService<T extends MateriaPrima, D extends MateriaPr
     T updateById(T entity, ID entityId);
 
     void deleteById(ID entityId);
-
-    D toDto(T entity);
 }

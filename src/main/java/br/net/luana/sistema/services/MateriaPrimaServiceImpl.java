@@ -18,11 +18,9 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer>
-        implements MateriaPrimaService<T, D, ID>{
+public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, ID extends Integer>
+        implements MateriaPrimaService<T, ID>{
 
-    @Autowired
-    private D materiaPrimaDTO;
     private MateriaPrimaRepository materiaPrimaRepository;
 
     public MateriaPrimaServiceImpl(MateriaPrimaRepository materiaPrimaRepository) {
@@ -78,16 +76,5 @@ public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, D extends 
         updateEntity.setDesuso(entity.getDesuso());
         updateEntity.setUnidadeMedida(entity.getUnidadeMedida());
         updateEntity.setFornecedor(entity.getFornecedor());
-    }
-
-    @Override
-    public D toDto(T entity) {
-        materiaPrimaDTO.setId(entity.getId());
-        materiaPrimaDTO.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
-        materiaPrimaDTO.setObservacoes(entity.getObservacoes());
-        materiaPrimaDTO.setDesuso(entity.getDesuso());
-        materiaPrimaDTO.setFornecedorId(entity.getFornecedor().getId());
-        materiaPrimaDTO.setFornecedor(entity.getFornecedor().getNome());
-        return (D)materiaPrimaDTO;
     }
 }
