@@ -2,7 +2,7 @@ package br.net.luana.sistema.resources;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.dto.MateriaPrimaDTO;
-import br.net.luana.sistema.services.MateriaPrimaService;
+import br.net.luana.sistema.services.materiaPrimaService.MateriaPrimaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

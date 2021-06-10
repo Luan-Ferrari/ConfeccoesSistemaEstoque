@@ -1,4 +1,4 @@
-package br.net.luana.sistema.repositories;
+package br.net.luana.sistema.repositories.materiasPrimasRepositories;
 
 import br.net.luana.sistema.domain.materiasprimas.TecidoClasse;
 import org.springframework.data.jpa.repository.JpaRepository;

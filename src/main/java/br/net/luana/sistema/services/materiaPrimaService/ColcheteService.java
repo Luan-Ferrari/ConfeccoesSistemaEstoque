@@ -1,7 +1,6 @@
-package br.net.luana.sistema.services;
+package br.net.luana.sistema.services.materiaPrimaService;
 
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
-import br.net.luana.sistema.dto.ColcheteDTO;
 
 public interface ColcheteService extends MateriaPrimaService<Colchete, Integer>{
 }

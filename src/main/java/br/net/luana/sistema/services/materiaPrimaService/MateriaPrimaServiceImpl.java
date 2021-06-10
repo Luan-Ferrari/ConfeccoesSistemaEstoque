@@ -1,11 +1,9 @@
-package br.net.luana.sistema.services;
+package br.net.luana.sistema.services.materiaPrimaService;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
-import br.net.luana.sistema.dto.MateriaPrimaDTO;
-import br.net.luana.sistema.repositories.MateriaPrimaRepository;
+import br.net.luana.sistema.repositories.materiasPrimasRepositories.MateriaPrimaRepository;
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

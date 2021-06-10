@@ -2,7 +2,7 @@ package br.net.luana.sistema.resources;
 
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import br.net.luana.sistema.dto.TecidoDTO;
-import br.net.luana.sistema.services.TecidoService;
+import br.net.luana.sistema.services.materiaPrimaService.TecidoService;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,6 @@ public class TecidoResourceImpl extends MateriaPrimaResourceImpl<Tecido, TecidoD
         implements TecidoResource {
 
     private TecidoService tecidoService;
-
 
     public TecidoResourceImpl(TecidoService tecidoService) {
         super(tecidoService);

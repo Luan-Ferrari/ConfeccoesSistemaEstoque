@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Cor implements CorInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -69,6 +69,14 @@ public abstract class Cor implements CorInterface, Serializable {
         this.observacoes = observacoes;
     }
 
+    public Double getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(Double quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
     public List<CorEntradas> getEntradas() {
         return entradas;
     }
@@ -77,13 +85,6 @@ public abstract class Cor implements CorInterface, Serializable {
         this.entradas = entradas;
     }
 
-    public Double getQuantidadeEstoque() {
-        return quantidadeEstoque;
-    }
-
-    public void setQuantidadeEstoque(Double quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
-    }
 
     @Override
     public void acrescentarQuantidade(Double quantidadeEntrada) {

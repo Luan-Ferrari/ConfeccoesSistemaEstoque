@@ -2,7 +2,7 @@ package br.net.luana.sistema.resources;
 
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
 import br.net.luana.sistema.dto.ColcheteDTO;
-import br.net.luana.sistema.services.ColcheteService;
+import br.net.luana.sistema.services.materiaPrimaService.ColcheteService;
 
 import org.springframework.web.bind.annotation.*;
 

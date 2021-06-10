@@ -1,7 +1,6 @@
-package br.net.luana.sistema.services;
+package br.net.luana.sistema.services.materiaPrimaService;
 
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
-import br.net.luana.sistema.dto.TecidoDTO;
 
 public interface TecidoService extends MateriaPrimaService<Tecido, Integer>{
 }

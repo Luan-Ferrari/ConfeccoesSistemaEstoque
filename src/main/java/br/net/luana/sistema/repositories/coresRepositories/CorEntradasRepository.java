@@ -1,4 +1,4 @@
-package br.net.luana.sistema.repositories;
+package br.net.luana.sistema.repositories.coresRepositories;
 
 import br.net.luana.sistema.domain.cores.CorEntradas;
 import org.springframework.data.jpa.repository.JpaRepository;

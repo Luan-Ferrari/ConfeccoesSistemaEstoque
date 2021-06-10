@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+//@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class MateriaPrima implements MateriaPrimaInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
