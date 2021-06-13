@@ -4,30 +4,48 @@ import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
-@Component
-public class MateriaPrimaDTO<T extends MateriaPrima> {
+import java.io.Serializable;
+import java.util.List;
 
-    @JsonIgnore
+@Component
+public class MateriaPrimaDTO<T extends MateriaPrima, D extends MasterDTOImpl, ID extends Integer>
+        extends MasterDTOImpl<T, D, ID>
+        implements MasterDTO<T, D, ID>, Serializable {
+    private static final long serialVersionUID = 1L;
+
+    //@JsonIgnore
     private Integer id;
     private String referenciaNaFabrica;
     private String observacoes;
     private Boolean desuso;
-    @JsonIgnore
+    //@JsonIgnore
     private Integer fornecedorId;
     private String fornecedor;
 
     public MateriaPrimaDTO() {
     }
 
-    public MateriaPrimaDTO makeDTO(T entity) {
-        this.setId(entity.getId());
-        this.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
-        this.setObservacoes(entity.getObservacoes());
-        this.setDesuso(entity.getDesuso());
-        this.setFornecedorId(entity.getFornecedor().getId());
-        this.setFornecedor(entity.getFornecedor().getNome());
-        return this;
+    public MateriaPrimaDTO(T entity) {
+        this.id = entity.getId();
+        this.referenciaNaFabrica = entity.getReferenciaNaFabrica();
+        this.observacoes = entity.getObservacoes();
+        this.desuso = entity.getDesuso();
+        this.fornecedorId = entity.getFornecedor().getId();
+        this.fornecedor = entity.getFornecedor().getNome();
     }
+
+    @Override
+    public D makeDTO(T entity) {
+        return (D)new MateriaPrimaDTO<T, D, ID>(entity);
+    }
+
+//    @Override
+//    public List<D> makeListDTO(List<T> list) {
+//        for(T entity : list) {
+//
+//        }
+//        return super.makeListDTO(list);
+//    }
 
     public Integer getId() {
         return id;

@@ -4,5 +4,6 @@ import br.net.luana.sistema.domain.materiasprimas.Colchete;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ColcheteDTO extends MateriaPrimaDTO<Colchete> {
+public class ColcheteDTO extends MateriaPrimaDTO<Colchete, ColcheteDTO, Integer> {
+    private static final long serialVersionUID = 1L;
 }

@@ -2,6 +2,7 @@ package br.net.luana.sistema.services.materiaPrimaService;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.repositories.materiasPrimasRepositories.MateriaPrimaRepository;
+import br.net.luana.sistema.services.MasterServiceImpl;
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,57 +18,58 @@ import java.util.Optional;
 @Service
 @Transactional
 public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, ID extends Integer>
+        extends MasterServiceImpl<T, ID>
         implements MateriaPrimaService<T, ID>{
 
     private MateriaPrimaRepository materiaPrimaRepository;
 
     public MateriaPrimaServiceImpl(MateriaPrimaRepository materiaPrimaRepository) {
-        this.materiaPrimaRepository = materiaPrimaRepository;
+        super(materiaPrimaRepository);
     }
-
-    @Override
-    public List<T> findAll() {
-        return materiaPrimaRepository.findAll();
-    }
-
-    @Override
-    public Page<T> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        return materiaPrimaRepository.findAll(pageRequest);
-    }
-
-    @Override
-    public T findById(ID entityId) {
-        Optional<T> obj = materiaPrimaRepository.findById(entityId);
-        return obj.orElseThrow(
-                () -> new ObjectNotFoundException(entityId)
-        );
-    }
-
-    @Override
-    public T save(T entity) {
-        entity.setId(null);
-        return (T) materiaPrimaRepository.save(entity);
-    }
-
-    @Override
-    public T updateById(T entity, ID entityId) {
-        T updateEntity = findById(entityId);
-        updateData(updateEntity, entity);
-        return (T) materiaPrimaRepository.save(updateEntity);
-
-    }
-
-    @Override
-    public void deleteById(ID entityId) {
-        findById(entityId);
-        try {
-            materiaPrimaRepository.deleteById(entityId);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException(entityId);
-        }
-    }
-
+//
+//    @Override
+//    public List<T> findAll() {
+//        return materiaPrimaRepository.findAll();
+//    }
+//
+//    @Override
+//    public Page<T> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
+//        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+//        return materiaPrimaRepository.findAll(pageRequest);
+//    }
+//
+//    @Override
+//    public T findById(ID entityId) {
+//        Optional<T> obj = materiaPrimaRepository.findById(entityId);
+//        return obj.orElseThrow(
+//                () -> new ObjectNotFoundException(entityId)
+//        );
+//    }
+//
+//    @Override
+//    public T save(T entity) {
+//        entity.setId(null);
+//        return (T) materiaPrimaRepository.save(entity);
+//    }
+//
+//    @Override
+//    public T updateById(T entity, ID entityId) {
+//        T updateEntity = findById(entityId);
+//        updateData(updateEntity, entity);
+//        return (T) materiaPrimaRepository.save(updateEntity);
+//
+//    }
+//
+//    @Override
+//    public void deleteById(ID entityId) {
+//        findById(entityId);
+//        try {
+//            materiaPrimaRepository.deleteById(entityId);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DataIntegrityException(entityId);
+//        }
+//    }
+//
     protected void updateData(T updateEntity, T entity) {
         updateEntity.setReferenciaNaFabrica(entity.getReferenciaNaFabrica());
         updateEntity.setObservacoes(entity.getObservacoes());
