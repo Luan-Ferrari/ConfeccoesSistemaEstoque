@@ -24,6 +24,9 @@ public class Colchete extends MateriaPrima {
     @JoinColumn(name = "tipo_id")
     private TipoColchete tipoColchete;
 
+    @OneToMany(mappedBy = "colchete")
+    private List<CorColchete> cores = new ArrayList<>();
+
     public Colchete() {
     }
 
@@ -46,6 +49,13 @@ public class Colchete extends MateriaPrima {
         this.tipoColchete = tipoColchete;
     }
 
+    public List<CorColchete> getCores() {
+        return cores;
+    }
+
+    public void setCores(List<CorColchete> cores) {
+        this.cores = cores;
+    }
 
     @Override
     public void gerarRelatorios() {

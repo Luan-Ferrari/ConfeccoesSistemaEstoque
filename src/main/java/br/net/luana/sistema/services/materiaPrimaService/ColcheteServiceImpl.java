@@ -5,7 +5,7 @@ import br.net.luana.sistema.repositories.materiaPrimaRepositories.ColcheteReposi
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("colcheteService")
+@Service
 @Transactional
 public class ColcheteServiceImpl extends MateriaPrimaServiceImpl<Colchete, Integer>
         implements ColcheteService {

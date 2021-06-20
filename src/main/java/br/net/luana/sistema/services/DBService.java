@@ -1,7 +1,8 @@
 package br.net.luana.sistema.services;
 
 import br.net.luana.sistema.domain.*;
-import br.net.luana.sistema.domain.cores.CorEntradas;
+import br.net.luana.sistema.domain.CorEntradas;
+import br.net.luana.sistema.domain.cores.CorColchete;
 import br.net.luana.sistema.domain.cores.CorTecido;
 import br.net.luana.sistema.domain.enums.FuncaoContato;
 import br.net.luana.sistema.domain.enums.TipoTelefone;
@@ -13,16 +14,15 @@ import br.net.luana.sistema.domain.tipos.TipoColchete;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
 import br.net.luana.sistema.repositories.*;
 import br.net.luana.sistema.repositories.CorEntradasRepository;
+import br.net.luana.sistema.repositories.corRepositories.CorColcheteRepository;
 import br.net.luana.sistema.repositories.corRepositories.CorRepository;
+import br.net.luana.sistema.repositories.corRepositories.CorTecidoRepository;
 import br.net.luana.sistema.repositories.materiaPrimaRepositories.ColcheteRepository;
-import br.net.luana.sistema.repositories.materiaPrimaRepositories.MateriaPrimaRepository;
 import br.net.luana.sistema.repositories.TecidoClasseRepository;
 import br.net.luana.sistema.repositories.materiaPrimaRepositories.TecidoRepository;
 import br.net.luana.sistema.repositories.tipoRepositories.TipoColcheteRepository;
-import br.net.luana.sistema.repositories.tipoRepositories.TipoRepository;
 import br.net.luana.sistema.repositories.tipoRepositories.TipoTecidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -42,7 +42,9 @@ public class DBService {
     @Autowired
     private TecidoClasseRepository tecidoClasseRepository;
     @Autowired
-    private CorRepository corRepository;
+    private CorTecidoRepository corTecidoRepository;
+    @Autowired
+    private CorColcheteRepository corColcheteRepository;
     @Autowired
     private ComposicaoRepository composicaoRepository;
     @Autowired
@@ -168,7 +170,7 @@ public class DBService {
         Composicao comp2 = new Composicao(null);
         Composicao comp3 = new Composicao(null);
 
-        //criando cor tecido
+        //criando cores
         CorTecido corTec1 = new CorTecido(null, "ref01", "corA", null, 50.00, comp1, tec1);
         CorTecido corTec2 = new CorTecido(null, "ref02", "corB", null, 50.00, comp2, tec2);
         CorTecido corTec3 = new CorTecido(null, "ref03", "corC", null, 50.00, comp3, tec3);
@@ -200,6 +202,14 @@ public class DBService {
         CorTecido corTec29 = new CorTecido(null, "ref029", "corAD", null, 50.00, comp1, tec14);
         CorTecido corTec30 = new CorTecido(null, "ref030", "corAE", null, 50.00, comp3, tec15);
 
+        CorColchete corColc1 = new CorColchete(null, "ref101", "corColcA", null, 50.00, colc1);
+        CorColchete corColc2 = new CorColchete(null, "ref102", "corColcB", null, 50.00, colc1);
+        CorColchete corColc3 = new CorColchete(null, "ref103", "corColcC", null, 50.00, colc1);
+        CorColchete corColc4 = new CorColchete(null, "ref104", "corColcD", null, 50.00, colc2);
+        CorColchete corColc5 = new CorColchete(null, "ref105", "corColcE", null, 50.00, colc2);
+        CorColchete corColc6 = new CorColchete(null, "ref106", "corColcF", null, 50.00, colc2);
+
+
         //instanciado cor entrada
         CorEntradas corEnt1 = new CorEntradas(null, "15/08/2020", 50.00, 20.00, corTec1);
         CorEntradas corEnt2 = new CorEntradas(null, "15/05/2019", 60.00, 30.00, corTec1);
@@ -214,6 +224,15 @@ public class DBService {
         CorEntradas corEnt11 = new CorEntradas(null, "15/07/2020", 18.00, 80.00, corTec8);
         CorEntradas corEnt12 = new CorEntradas(null, "15/03/2021", 10.00, 70.00, corTec8);
         CorEntradas corEnt13 = new CorEntradas(null, "15/02/2021", 5.00, 60.00, corTec5);
+
+        CorEntradas corEnt14 = new CorEntradas(null, "25/02/2021", 10.00, 50.00, corColc1);
+        CorEntradas corEnt15 = new CorEntradas(null, "25/01/2021", 11.00, 51.00, corColc2);
+        CorEntradas corEnt16 = new CorEntradas(null, "25/12/2020", 12.00, 52.00, corColc3);
+        CorEntradas corEnt17 = new CorEntradas(null, "25/11/2020", 13.00, 53.00, corColc4);
+        CorEntradas corEnt18 = new CorEntradas(null, "25/10/2020", 14.00, 54.00, corColc5);
+        CorEntradas corEnt19 = new CorEntradas(null, "25/09/2020", 15.00, 55.00, corColc6);
+        CorEntradas corEnt20 = new CorEntradas(null, "25/08/2020", 16.00, 56.00, corColc1);
+        CorEntradas corEnt21 = new CorEntradas(null, "25/07/2020", 17.00, 57.00, corColc2);
 
         //associando fornecedor a materia prima
         fornec1.getMateriasPrimas().addAll(Arrays.asList(tec3, tec10, tec12, tec13, tec14));
@@ -236,12 +255,12 @@ public class DBService {
 
 
         //associando os tecidos as suas classes
-        tecClass1.getTecidos().addAll(Arrays.asList(tec1, tec2, tec5, tec10, tec11, tec12, tec13, tec16));
-        tecClass2.getTecidos().addAll(Arrays.asList(tec4, tec15));
+        tecClass1.getTecidos().addAll(Arrays.asList(tec4, tec15, tec16));
+        tecClass2.getTecidos().addAll(Arrays.asList(tec1, tec2, tec5, tec10, tec11, tec12, tec13));
         tecClass3.getTecidos().addAll(Arrays.asList(tec3, tec7, tec14));
         tecClass4.getTecidos().addAll(Arrays.asList(tec6, tec8, tec9));
 
-        //associando os tecidos a suas cores
+        //associando as materiasprimas as suas cores
         tec1.getCores().addAll(Arrays.asList(corTec1, corTec16));
         tec2.getCores().addAll(Arrays.asList(corTec2, corTec17));
         tec3.getCores().addAll(Arrays.asList(corTec3, corTec18));
@@ -258,6 +277,9 @@ public class DBService {
         tec14.getCores().addAll(Arrays.asList(corTec14, corTec29));
         tec15.getCores().addAll(Arrays.asList(corTec15, corTec30));
 
+        colc1.getCores().addAll(Arrays.asList(corColc1, corColc2, corColc3));
+        colc2.getCores().addAll(Arrays.asList(corColc4, corColc5, corColc6));
+
         //associando as cores de tecido as suas entradas
         corTec1.getEntradas().addAll(Arrays.asList(corEnt1, corEnt2, corEnt7));
         corTec2.getEntradas().addAll(Arrays.asList(corEnt3));
@@ -267,6 +289,13 @@ public class DBService {
         corTec6.getEntradas().addAll(Arrays.asList(corEnt9));
         corTec7.getEntradas().addAll(Arrays.asList(corEnt10));
         corTec8.getEntradas().addAll(Arrays.asList(corEnt11, corEnt12));
+
+        corColc1.getEntradas().addAll(Arrays.asList(corEnt14, corEnt20));
+        corColc2.getEntradas().addAll(Arrays.asList(corEnt15, corEnt21));
+        corColc3.getEntradas().addAll(Arrays.asList(corEnt16));
+        corColc4.getEntradas().addAll(Arrays.asList(corEnt17));
+        corColc5.getEntradas().addAll(Arrays.asList(corEnt18));
+        corColc6.getEntradas().addAll(Arrays.asList(corEnt19));
 
         //persistindo dados de Contato
         contatoRepository.saveAll(Arrays.asList(cont1, cont2, cont3, cont4, cont5, cont6));
@@ -294,21 +323,15 @@ public class DBService {
         colcheteRepository.saveAll(Arrays.asList(colc1, colc2, colc3));
 
         //persistindo cores
-        corRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,
+        corTecidoRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,
                 corTec7, corTec8, corTec9, corTec10, corTec11, corTec12, corTec13, corTec14,
                 corTec15, corTec16, corTec17, corTec18, corTec19, corTec20, corTec21, corTec22,
                 corTec23, corTec24, corTec25, corTec26, corTec27, corTec28, corTec29, corTec30));
 
+        corColcheteRepository.saveAll(Arrays.asList(corColc1, corColc2, corColc3, corColc4, corColc5, corColc6));
+
         corEntradasRepository.saveAll(Arrays.asList(corEnt1, corEnt2, corEnt3, corEnt4, corEnt5,
-                corEnt6, corEnt7, corEnt8, corEnt9, corEnt10, corEnt11, corEnt12, corEnt13));
-
-
-
-
-
-
-
-
-
+                corEnt6, corEnt7, corEnt8, corEnt9, corEnt10, corEnt11, corEnt12, corEnt13,
+                corEnt14, corEnt15, corEnt16, corEnt17, corEnt18, corEnt19, corEnt20, corEnt21));
     }
 }

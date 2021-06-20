@@ -5,7 +5,7 @@ import br.net.luana.sistema.repositories.materiaPrimaRepositories.TecidoReposito
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("tecidoService")
+@Service
 @Transactional
 public class TecidoServiceImpl extends MateriaPrimaServiceImpl<Tecido, Integer>
         implements TecidoService {

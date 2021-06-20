@@ -16,9 +16,8 @@ public class CorTecido extends Cor {
     @JoinColumn(name = "composicao_id")
     private Composicao composicao;
 
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "tecido_id")
+    @JoinColumn(name = "materia_prima_id")
     private Tecido tecido;
 
     public CorTecido() {

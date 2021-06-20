@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class TecidoClasse implements Serializable {
+public class TecidoClasse implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -18,7 +18,6 @@ public class TecidoClasse implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "classe")
     private List<Tecido> tecidos = new ArrayList<>();
 

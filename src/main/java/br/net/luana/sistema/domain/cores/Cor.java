@@ -1,5 +1,8 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.CorEntradas;
+import br.net.luana.sistema.domain.MasterDomain;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Cor implements CorInterface, Serializable {
+public abstract class Cor implements MasterDomain, CorInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

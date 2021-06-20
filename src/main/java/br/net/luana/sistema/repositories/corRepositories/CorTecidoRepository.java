@@ -4,7 +4,6 @@ import br.net.luana.sistema.domain.cores.CorTecido;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-@Primary
-@Repository("corTecidoRepository")
+@Repository
 public interface CorTecidoRepository extends CorRepository<CorTecido, Integer> {
 }

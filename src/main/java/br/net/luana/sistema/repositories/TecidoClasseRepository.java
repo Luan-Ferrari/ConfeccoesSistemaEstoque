@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TecidoClasseRepository extends JpaRepository<TecidoClasse, Integer> {
+public interface TecidoClasseRepository extends MasterRepository<TecidoClasse, Integer> {
 }
