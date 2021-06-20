@@ -1,12 +1,15 @@
 package br.net.luana.sistema.domain.tipos;
 
+import br.net.luana.sistema.domain.MasterDomain;
+import br.net.luana.sistema.dto.MasterDTOImpl;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Tipo implements Serializable {
+//@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Tipo implements MasterDomain,Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

@@ -65,7 +65,5 @@ public abstract class MasterServiceImpl<T extends MasterDomain, ID extends Integ
         }
     }
 
-    protected void updateData(T updateEntity, T entity) {
-
-    }
+    protected abstract void updateData(T updateEntity, T entity);
 }

@@ -8,15 +8,19 @@ import br.net.luana.sistema.domain.enums.TipoTelefone;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
-import br.net.luana.sistema.domain.materiasprimas.TecidoClasse;
+import br.net.luana.sistema.domain.TecidoClasse;
+import br.net.luana.sistema.domain.tipos.TipoColchete;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
 import br.net.luana.sistema.repositories.*;
-import br.net.luana.sistema.repositories.coresRepositories.CorEntradasRepository;
-import br.net.luana.sistema.repositories.coresRepositories.CorRepository;
-import br.net.luana.sistema.repositories.materiasPrimasRepositories.ColcheteRepository;
-import br.net.luana.sistema.repositories.materiasPrimasRepositories.MateriaPrimaRepository;
-import br.net.luana.sistema.repositories.materiasPrimasRepositories.TecidoClasseRepository;
-import br.net.luana.sistema.repositories.materiasPrimasRepositories.TecidoRepository;
+import br.net.luana.sistema.repositories.CorEntradasRepository;
+import br.net.luana.sistema.repositories.corRepositories.CorRepository;
+import br.net.luana.sistema.repositories.materiaPrimaRepositories.ColcheteRepository;
+import br.net.luana.sistema.repositories.materiaPrimaRepositories.MateriaPrimaRepository;
+import br.net.luana.sistema.repositories.TecidoClasseRepository;
+import br.net.luana.sistema.repositories.materiaPrimaRepositories.TecidoRepository;
+import br.net.luana.sistema.repositories.tipoRepositories.TipoColcheteRepository;
+import br.net.luana.sistema.repositories.tipoRepositories.TipoRepository;
+import br.net.luana.sistema.repositories.tipoRepositories.TipoTecidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -38,20 +42,18 @@ public class DBService {
     @Autowired
     private TecidoClasseRepository tecidoClasseRepository;
     @Autowired
-    private MateriaPrimaRepository materiaPrimaRepository;
-    @Autowired
-    private TipoRepository tipoRepository;
-    @Autowired
     private CorRepository corRepository;
     @Autowired
     private ComposicaoRepository composicaoRepository;
     @Autowired
     private CorEntradasRepository corEntradasRepository;
     @Autowired
-    @Qualifier(value = "tecidoRepository")
+    private TipoTecidoRepository tipoTecidoRepository;
+    @Autowired
+    private TipoColcheteRepository tipoColcheteRepository;
+    @Autowired
     private TecidoRepository tecidoRepository;
     @Autowired
-    @Qualifier(value = "colcheteRepository")
     private ColcheteRepository colcheteRepository;
 
 
@@ -125,7 +127,7 @@ public class DBService {
         TecidoClasse tecClass3 = new TecidoClasse(null, "Algodão");
         TecidoClasse tecClass4 = new TecidoClasse(null, "Praia");
 
-        //criando tipo tecido
+        //criando tipos
         TipoTecido tipo1 = new TipoTecido(null, "Plush");
         TipoTecido tipo2 = new TipoTecido(null, "Soft");
         TipoTecido tipo3 = new TipoTecido(null, "Cotton");
@@ -134,6 +136,10 @@ public class DBService {
         TipoTecido tipo6 = new TipoTecido(null, "Viscose");
         TipoTecido tipo7 = new TipoTecido(null, "Lycra");
         TipoTecido tipo8 = new TipoTecido(null, "Praia");
+
+        TipoColchete tipColc1 = new TipoColchete(null, "Largo");
+        TipoColchete tipColc2 = new TipoColchete(null, "Fino");
+        TipoColchete tipColc3 = new TipoColchete(null, "Plástico");
 
         //criando matéria-prima(tecido)
         Tecido tec1 = new Tecido(null, "ref1", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass2);
@@ -153,9 +159,9 @@ public class DBService {
         Tecido tec15 = new Tecido(null, "ref15", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass1);
         Tecido tec16 = new Tecido(null, "ref16", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass1);
 
-        Colchete colc1 = new Colchete(null, "refColc1", null, false, UnidadeMedida.UNIDADES, fornec2);
-        Colchete colc2 = new Colchete(null, "refColc2", null, false, UnidadeMedida.UNIDADES, fornec3);
-        Colchete colc3 = new Colchete(null, "refColc3", null, false, UnidadeMedida.UNIDADES, fornec1);
+        Colchete colc1 = new Colchete(null, "refColc1", null, false, UnidadeMedida.UNIDADES, fornec2, tipColc1);
+        Colchete colc2 = new Colchete(null, "refColc2", null, false, UnidadeMedida.UNIDADES, fornec3, tipColc2);
+        Colchete colc3 = new Colchete(null, "refColc3", null, false, UnidadeMedida.UNIDADES, fornec1, tipColc2);
 
         //criando composiçoes
         Composicao comp1 = new Composicao(null);
@@ -215,7 +221,7 @@ public class DBService {
         fornec3.getMateriasPrimas().addAll(Arrays.asList(tec2, tec7, tec8));
         fornec4.getMateriasPrimas().addAll(Arrays.asList(tec5, tec6, tec11));
 
-        //associando os tecidos aos seus tipos
+        //associando os materias primas aos seus tipos
         tipo1.getTecidos().addAll(Arrays.asList(tec1, tec10, tec12, tec15, tec16));
         tipo2.getTecidos().addAll(Arrays.asList(tec2, tec11, tec13));
         tipo3.getTecidos().addAll(Arrays.asList(tec3, tec7, tec14));
@@ -224,6 +230,10 @@ public class DBService {
         tipo6.getTecidos().addAll(Arrays.asList(tec6));
         tipo7.getTecidos().addAll(Arrays.asList(tec7));
         tipo8.getTecidos().addAll(Arrays.asList(tec8));
+
+        tipColc1.getColchetes().addAll(Arrays.asList(colc1));
+        tipColc2.getColchetes().addAll(Arrays.asList(colc2, colc3));
+
 
         //associando os tecidos as suas classes
         tecClass1.getTecidos().addAll(Arrays.asList(tec1, tec2, tec5, tec10, tec11, tec12, tec13, tec16));
@@ -270,17 +280,18 @@ public class DBService {
 
         //persistindo classe de tecido
         tecidoClasseRepository.saveAll(Arrays.asList(tecClass1, tecClass2, tecClass3, tecClass4));
-        //persistindo tipo tecido
-        tipoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8));
+        //persistindo tipos tecido
+        tipoTecidoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8));
+        tipoColcheteRepository.saveAll(Arrays.asList(tipColc1, tipColc2, tipColc3));
 
         //persistindo composicao
         composicaoRepository.saveAll(Arrays.asList(comp1, comp2, comp3));
 
         //persistindo materias primas (Tecidos)
-        materiaPrimaRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
+        tecidoRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
                 tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16));
 
-        materiaPrimaRepository.saveAll(Arrays.asList(colc1, colc2, colc3));
+        colcheteRepository.saveAll(Arrays.asList(colc1, colc2, colc3));
 
         //persistindo cores
         corRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,

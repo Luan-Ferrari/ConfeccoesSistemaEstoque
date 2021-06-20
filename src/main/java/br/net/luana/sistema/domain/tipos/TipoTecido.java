@@ -13,7 +13,6 @@ import java.util.List;
 public class TipoTecido extends Tipo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "tipoTecido")
     private List<Tecido> tecidos = new ArrayList<>();
 

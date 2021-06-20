@@ -14,14 +14,14 @@ public interface MasterResource<T extends MasterDomain, D extends MasterDTO, ID 
     public abstract ResponseEntity<List<D>> findAll();
 
     @GetMapping("/page")
-    public abstract ResponseEntity<Page<T>> findPage(
+    public abstract ResponseEntity<Page<D>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "orderBy", defaultValue = "referenciaNaFabrica") String orderBy);
 
     @GetMapping("/{entityId}")
-    public abstract ResponseEntity<T> findById(@PathVariable ID entityId);
+    public abstract ResponseEntity<D> findById(@PathVariable ID entityId);
 
     @PostMapping
     public abstract ResponseEntity<Void> insert(@RequestBody T entity);

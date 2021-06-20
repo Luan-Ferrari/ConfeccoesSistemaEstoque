@@ -1,7 +1,7 @@
 package br.net.luana.sistema.services.materiaPrimaService;
 
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
-import br.net.luana.sistema.repositories.materiasPrimasRepositories.TecidoRepository;
+import br.net.luana.sistema.repositories.materiaPrimaRepositories.TecidoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,7 +1,7 @@
 package br.net.luana.sistema.services.materiaPrimaService;
 
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
-import br.net.luana.sistema.repositories.materiasPrimasRepositories.ColcheteRepository;
+import br.net.luana.sistema.repositories.materiaPrimaRepositories.ColcheteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

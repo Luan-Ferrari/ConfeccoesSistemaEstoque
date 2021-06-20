@@ -1,8 +1,7 @@
 package br.net.luana.sistema.dto;
 
-import br.net.luana.sistema.domain.materiasprimas.TecidoClasse;
+import br.net.luana.sistema.domain.TecidoClasse;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
-import br.net.luana.sistema.dto.MateriaPrimaNewDTO;
 
 import javax.validation.constraints.NotEmpty;
 

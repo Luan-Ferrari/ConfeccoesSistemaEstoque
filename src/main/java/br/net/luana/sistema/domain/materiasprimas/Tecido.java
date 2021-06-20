@@ -2,6 +2,7 @@ package br.net.luana.sistema.domain.materiasprimas;
 
 import br.net.luana.sistema.domain.Colecao;
 import br.net.luana.sistema.domain.Fornecedor;
+import br.net.luana.sistema.domain.TecidoClasse;
 import br.net.luana.sistema.domain.cores.CorTecido;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
