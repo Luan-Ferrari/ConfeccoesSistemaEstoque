@@ -119,4 +119,14 @@ public abstract class MateriaPrima implements MasterDomain, MateriaPrimaInterfac
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public void gerarRelatorios() {
+
+    }
+
+    @Override
+    public Colecao gerarColecao(List<MateriaPrima> materiasPrima, int ano) {
+        return null;
+    }
 }

@@ -28,4 +28,5 @@ public abstract class MateriaPrimaServiceImpl<T extends MateriaPrima, ID extends
         updateEntity.setUnidadeMedida(entity.getUnidadeMedida());
         updateEntity.setFornecedor(entity.getFornecedor());
     }
+
 }

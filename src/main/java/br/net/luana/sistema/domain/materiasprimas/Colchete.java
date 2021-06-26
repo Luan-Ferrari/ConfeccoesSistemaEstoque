@@ -56,14 +56,4 @@ public class Colchete extends MateriaPrima {
     public void setCores(List<CorColchete> cores) {
         this.cores = cores;
     }
-
-    @Override
-    public void gerarRelatorios() {
-
-    }
-
-    @Override
-    public Colecao gerarColecao(List<MateriaPrima> materiasPrima, int ano) {
-        return null;
-    }
 }

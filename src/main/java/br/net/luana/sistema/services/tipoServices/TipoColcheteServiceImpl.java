@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class TipoColcheteImpl extends TipoServiceImpl<TipoColchete, Integer> implements TipoColcheteService{
+public class TipoColcheteServiceImpl extends TipoServiceImpl<TipoColchete, Integer> implements TipoColcheteService{
 
-    public TipoColcheteImpl(TipoColcheteRepository tipoColcheteRepository) {
+    public TipoColcheteServiceImpl(TipoColcheteRepository tipoColcheteRepository) {
         super(tipoColcheteRepository);
     }
 }

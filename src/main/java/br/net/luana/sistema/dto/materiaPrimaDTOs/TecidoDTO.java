@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 public class TecidoDTO extends MateriaPrimaDTO<Tecido, TecidoDTO, Integer> {
     private static final long serialVersionUID = 1L;
 
-    //@JsonIgnore
     private Integer tipoTecidoId;
     private String tipoTecido;
 
-    //@JsonIgnore
     private Integer tecidoClasseId;
     private String tecidoClasse;
 

@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class TipoTecidoImpl extends TipoServiceImpl<TipoTecido, Integer> implements TipoTecidoService{
+public class TipoTecidoServiceImpl extends TipoServiceImpl<TipoTecido, Integer> implements TipoTecidoService{
 
-    public TipoTecidoImpl(TipoTecidoRepository tipoTecidoRepository) {
+    public TipoTecidoServiceImpl(TipoTecidoRepository tipoTecidoRepository) {
         super(tipoTecidoRepository);
     }
 }

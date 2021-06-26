@@ -66,13 +66,4 @@ public class Tecido extends MateriaPrima {
         this.classe = classe;
     }
 
-    @Override
-    public void gerarRelatorios() {
-
-    }
-
-    @Override
-    public Colecao gerarColecao(List<MateriaPrima> materiasPrima, int ano) {
-        return null;
-    }
 }
