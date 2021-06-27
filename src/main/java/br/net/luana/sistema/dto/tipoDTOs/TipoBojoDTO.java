@@ -32,4 +32,12 @@ public class TipoBojoDTO extends TipoDTO<TipoBojo, TipoBojoDTO, Integer> {
     public void setTamanho(String tamanho) {
         this.tamanho = tamanho;
     }
+
+    public Integer getComposicaoId() {
+        return composicaoId;
+    }
+
+    public void setComposicaoId(Integer composicaoId) {
+        this.composicaoId = composicaoId;
+    }
 }
