@@ -18,8 +18,8 @@ public class CaixaBojo implements MasterDomain, Serializable {
 
     @ManyToMany
     @JoinTable(name = "caixa_cor_bojo",
-    joinColumns = @JoinColumn(name = "caixa_bojo_id"),
-    inverseJoinColumns = @JoinColumn(name = "cor_bojo_id"))
+        joinColumns = @JoinColumn(name = "caixa_bojo_id"),
+        inverseJoinColumns = @JoinColumn(name = "cor_bojo_id"))
     private List<CorBojo> coresArmazenadas = new ArrayList<>();
 
     public CaixaBojo() {

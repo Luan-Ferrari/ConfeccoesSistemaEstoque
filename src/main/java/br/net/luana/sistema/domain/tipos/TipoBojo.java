@@ -1,11 +1,12 @@
 package br.net.luana.sistema.domain.tipos;
 
-import br.net.luana.sistema.domain.Composicao;
+import br.net.luana.sistema.domain.composicoes.Composicao;
 import br.net.luana.sistema.domain.enums.Tamanho;
 import br.net.luana.sistema.domain.materiasprimas.Bojo;
-import br.net.luana.sistema.domain.materiasprimas.Colchete;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,12 +16,14 @@ import java.util.List;
 public class TipoBojo extends Tipo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(mappedBy = "tipoBojo")
-    private List<Bojo> bojos = new ArrayList<>();
-
     private Integer tamanho;
 
+    @ManyToOne
+    @JoinColumn(name = "composicao_id")
     private Composicao composicao;
+
+    @OneToMany(mappedBy = "tipoBojo")
+    private List<Bojo> bojos = new ArrayList<>();
 
     public TipoBojo() {
     }
@@ -30,12 +33,6 @@ public class TipoBojo extends Tipo implements Serializable {
         this.tamanho = tamanho.getCodigo();
         this.composicao = composicao;
     }
-
-    public List<Bojo> getBojos() {
-        return bojos;
-    }
-
-    public void setBojos(List<Bojo> bojos) { this.bojos = bojos; }
 
     public Tamanho getTamanho() {
         return Tamanho.toEnum(tamanho);
@@ -52,4 +49,10 @@ public class TipoBojo extends Tipo implements Serializable {
     public void setComposicao(Composicao composicao) {
         this.composicao = composicao;
     }
+
+    public List<Bojo> getBojos() {
+        return bojos;
+    }
+
+    public void setBojos(List<Bojo> bojos) { this.bojos = bojos; }
 }

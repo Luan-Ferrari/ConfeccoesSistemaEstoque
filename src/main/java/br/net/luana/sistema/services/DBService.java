@@ -1,29 +1,23 @@
 package br.net.luana.sistema.services;
 
 import br.net.luana.sistema.domain.*;
-import br.net.luana.sistema.domain.cores.CorBojo;
-import br.net.luana.sistema.domain.cores.CorColchete;
-import br.net.luana.sistema.domain.cores.CorTecido;
+import br.net.luana.sistema.domain.composicoes.Composicao;
+import br.net.luana.sistema.domain.composicoes.ComposicaoFio;
+import br.net.luana.sistema.domain.composicoes.Fio;
+import br.net.luana.sistema.domain.cores.*;
 import br.net.luana.sistema.domain.enums.FuncaoContato;
 import br.net.luana.sistema.domain.enums.Tamanho;
 import br.net.luana.sistema.domain.enums.TipoTelefone;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
-import br.net.luana.sistema.domain.materiasprimas.Bojo;
-import br.net.luana.sistema.domain.materiasprimas.Colchete;
-import br.net.luana.sistema.domain.materiasprimas.Tecido;
-import br.net.luana.sistema.domain.tipos.TipoBojo;
-import br.net.luana.sistema.domain.tipos.TipoColchete;
-import br.net.luana.sistema.domain.tipos.TipoTecido;
+import br.net.luana.sistema.domain.materiasprimas.*;
+import br.net.luana.sistema.domain.tipos.*;
 import br.net.luana.sistema.repositories.*;
-import br.net.luana.sistema.repositories.corRepositories.CorBojoRepository;
-import br.net.luana.sistema.repositories.corRepositories.CorColcheteRepository;
-import br.net.luana.sistema.repositories.corRepositories.CorTecidoRepository;
-import br.net.luana.sistema.repositories.materiaPrimaRepositories.BojoRepository;
-import br.net.luana.sistema.repositories.materiaPrimaRepositories.ColcheteRepository;
-import br.net.luana.sistema.repositories.materiaPrimaRepositories.TecidoRepository;
-import br.net.luana.sistema.repositories.tipoRepositories.TipoBojoRepository;
-import br.net.luana.sistema.repositories.tipoRepositories.TipoColcheteRepository;
-import br.net.luana.sistema.repositories.tipoRepositories.TipoTecidoRepository;
+import br.net.luana.sistema.repositories.composicoes.ComposicaoFioRepository;
+import br.net.luana.sistema.repositories.composicoes.ComposicaoRepository;
+import br.net.luana.sistema.repositories.composicoes.FioRepository;
+import br.net.luana.sistema.repositories.corRepositories.*;
+import br.net.luana.sistema.repositories.materiaPrimaRepositories.*;
+import br.net.luana.sistema.repositories.tipoRepositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +46,10 @@ public class DBService {
     @Autowired
     private ComposicaoRepository composicaoRepository;
     @Autowired
+    private FioRepository fioRepository;
+    @Autowired
+    private ComposicaoFioRepository composicaoFioRepository;
+    @Autowired
     private CorEntradasRepository corEntradasRepository;
     @Autowired
     private TipoTecidoRepository tipoTecidoRepository;
@@ -69,6 +67,30 @@ public class DBService {
     private TipoBojoRepository tipoBojoRepository;
     @Autowired
     private CaixaBojoRepository caixaBojoRepository;
+    @Autowired
+    private AlcaRepository alcaRepository;
+    @Autowired
+    private RendaRepository rendaRepository;
+    @Autowired
+    private ElasticoRepository elasticoRepository;
+    @Autowired
+    private LinhaRepository linhaRepository;
+    @Autowired
+    private CorAlcaRepository corAlcaRepository;
+    @Autowired
+    private CorRendaRepository corRendaRepository;
+    @Autowired
+    private CorElasticoRepository corElasticoRepository;
+    @Autowired
+    private CorLinhaRepository corLinhaRepository;
+    @Autowired
+    private TipoAlcaRepository tipoAlcaRepository;
+    @Autowired
+    private TipoRendaRepository tipoRendaRepository;
+    @Autowired
+    private TipoElasticoRepository tipoElasticoRepository;
+    @Autowired
+    private TipoLinhaRepository tipoLinhaRepository;
 
 
     public void intanciateTestDatabase() throws ParseException {
@@ -136,9 +158,35 @@ public class DBService {
         cont6.getFornecedores().addAll(Arrays.asList(fornec4));
 
         //criando composiçoes
-        Composicao comp1 = new Composicao(null);
-        Composicao comp2 = new Composicao(null);
-        Composicao comp3 = new Composicao(null);
+        Composicao comp1 = new Composicao(null, 10);
+        Composicao comp2 = new Composicao(null, 20);
+        Composicao comp3 = new Composicao(null,30);
+
+        //criando fios
+        Fio fio1 = new Fio(null, "Algodao");
+        Fio fio2 = new Fio(null, "Poliester");
+        Fio fio3 = new Fio(null, "Poliamida");
+        Fio fio4 = new Fio(null, "Elastano");
+        Fio fio5 = new Fio(null, "Viscose");
+
+        //criando composicao_fio
+        ComposicaoFio composicaoFio1 = new ComposicaoFio(comp1, fio1, 100);
+        ComposicaoFio composicaoFio2 = new ComposicaoFio(comp2, fio2, 50);
+        ComposicaoFio composicaoFio3 = new ComposicaoFio(comp2, fio3, 50);
+        ComposicaoFio composicaoFio4 = new ComposicaoFio(comp3, fio1, 50);
+        ComposicaoFio composicaoFio5 = new ComposicaoFio(comp3, fio4, 25);
+        ComposicaoFio composicaoFio6 = new ComposicaoFio(comp3, fio5, 25);
+
+        //associando composicao e fio a composicao_fio
+        comp1.getItens().addAll(Arrays.asList(composicaoFio1));
+        comp2.getItens().addAll(Arrays.asList(composicaoFio2, composicaoFio3));
+        comp3.getItens().addAll(Arrays.asList(composicaoFio4, composicaoFio5, composicaoFio6));
+
+        fio1.getItens().addAll(Arrays.asList(composicaoFio1, composicaoFio4));
+        fio2.getItens().addAll(Arrays.asList(composicaoFio2));
+        fio3.getItens().addAll(Arrays.asList(composicaoFio3));
+        fio4.getItens().addAll(Arrays.asList(composicaoFio5));
+        fio5.getItens().addAll(Arrays.asList(composicaoFio6));
 
         //criando classe tecido
         TecidoClasse tecClass1 = new TecidoClasse(null, "Apeluciado");
@@ -178,6 +226,19 @@ public class DBService {
         TipoBojo tipBoj16 = new TipoBojo(null, "Reto", Tamanho.M, comp1);
         TipoBojo tipBoj17 = new TipoBojo(null, "Reto", Tamanho.G, comp1);
         TipoBojo tipBoj18 = new TipoBojo(null, "Reto", Tamanho.GG, comp1);
+
+        TipoAlca tipoAlca1 = new TipoAlca(null, "Larga");
+        TipoAlca tipoAlca2 = new TipoAlca(null, "Fina");
+
+        TipoRenda tipoRenda1 = new TipoRenda(null, "Furada", comp1);
+        TipoRenda tipoRenda2 = new TipoRenda(null, "Não Furada", comp2);
+
+        TipoElastico tipoElastico1 = new TipoElastico(null, "Forte");
+        TipoElastico tipoElastico2 = new TipoElastico(null, "Fraco");
+
+        TipoLinha tipoLinha1 = new TipoLinha(null, "Overlock");
+        TipoLinha tipoLinha2 = new TipoLinha(null, "Reta");
+
 
         //criando matéria-prima(tecido)
         Tecido tec1 = new Tecido(null, "ref1", null, false, UnidadeMedida.QUILOS, fornec2, tipo1, tecClass2);
@@ -255,6 +316,38 @@ public class DBService {
         Bojo boj52 = new Bojo(null, "refB52", null, false, UnidadeMedida.PARES, fornec1, tipBoj18);
         Bojo boj53 = new Bojo(null, "refB53", null, false, UnidadeMedida.PARES, fornec2, tipBoj18);
         Bojo boj54 = new Bojo(null, "refB54", null, false, UnidadeMedida.PARES, fornec3, tipBoj18);
+
+        Alca alca1 = new Alca(null, "refAlca1", null, false, UnidadeMedida.PARES, fornec1, tipoAlca1);
+        Alca alca2 = new Alca(null, "refAlca2", "fragil", false, UnidadeMedida.PARES, fornec2, tipoAlca2);
+        Alca alca3 = new Alca(null, "refAlca3", null, false, UnidadeMedida.PARES, fornec3, tipoAlca1);
+        Alca alca4 = new Alca(null, "refAlca4", null, false, UnidadeMedida.PARES, fornec1, tipoAlca2);
+        Alca alca5 = new Alca(null, "refAlca5", null, true, UnidadeMedida.PARES, fornec2, tipoAlca1);
+        Alca alca6 = new Alca(null, "refAlca6", "esgaca", false, UnidadeMedida.PARES, fornec1, tipoAlca2);
+        Alca alca7 = new Alca(null, "refAlca7", null, false, UnidadeMedida.PARES, fornec1, tipoAlca1);
+
+        Elastico elastico1 = new Elastico(null, "refElastico1", null, false, UnidadeMedida.METROS, fornec1, tipoElastico1);
+        Elastico elastico2 = new Elastico(null, "refElastico2", null, true, UnidadeMedida.METROS, fornec1, tipoElastico2);
+        Elastico elastico3 = new Elastico(null, "refElastico3", null, false, UnidadeMedida.METROS, fornec1, tipoElastico1);
+        Elastico elastico4 = new Elastico(null, "refElastico4", null, false, UnidadeMedida.METROS, fornec1, tipoElastico2);
+        Elastico elastico5 = new Elastico(null, "refElastico5", null, true, UnidadeMedida.METROS, fornec1, tipoElastico1);
+        Elastico elastico6 = new Elastico(null, "refElastico6", "muito fraco", false, UnidadeMedida.METROS, fornec1, tipoElastico2);
+        Elastico elastico7 = new Elastico(null, "refElastico7", null, false, UnidadeMedida.METROS, fornec1, tipoElastico1);
+
+        Linha linha1 = new Linha(null, "refLinha1", null, false, UnidadeMedida.PEÇAS, fornec1, tipoLinha1);
+        Linha linha2 = new Linha(null, "refLinha1", null, false, UnidadeMedida.PEÇAS, fornec1, tipoLinha2);
+        Linha linha3 = new Linha(null, "refLinha1", null, true, UnidadeMedida.PEÇAS, fornec1, tipoLinha1);
+        Linha linha4 = new Linha(null, "refLinha1", "desfia", false, UnidadeMedida.PEÇAS, fornec1, tipoLinha2);
+        Linha linha5 = new Linha(null, "refLinha1", null, false, UnidadeMedida.PEÇAS, fornec1, tipoLinha1);
+        Linha linha6 = new Linha(null, "refLinha1", "ninguem quer", true, UnidadeMedida.PEÇAS, fornec1, tipoLinha2);
+        Linha linha7 = new Linha(null, "refLinha1", null, false, UnidadeMedida.PEÇAS, fornec1, tipoLinha1);
+
+        Renda renda1 = new Renda(null, "refRenda1", null, false, UnidadeMedida.METROS, fornec1, tipoRenda1);
+        Renda renda2 = new Renda(null, "refRenda2", null, false, UnidadeMedida.METROS, fornec1, tipoRenda2);
+        Renda renda3 = new Renda(null, "refRenda3", null, false, UnidadeMedida.METROS, fornec1, tipoRenda1);
+        Renda renda4 = new Renda(null, "refRenda4", null, false, UnidadeMedida.METROS, fornec1, tipoRenda2);
+        Renda renda5 = new Renda(null, "refRenda5", null, false, UnidadeMedida.METROS, fornec1, tipoRenda1);
+        Renda renda6 = new Renda(null, "refRenda6", null, false, UnidadeMedida.METROS, fornec1, tipoRenda2);
+        Renda renda7 = new Renda(null, "refRenda7", null, false, UnidadeMedida.METROS, fornec1, tipoRenda1);
 
 
 
@@ -514,6 +607,25 @@ public class DBService {
         CorBojo corBojo216 = new CorBojo(null, "corBojo216", "Branco", null, 100.00, boj54);
         CorBojo corBojo217 = new CorBojo(null, "corBojo217", "Amarelo", null, 100.00, boj54);
 
+        CorAlca corAlca1 = new CorAlca(null, "corAlca1", "Vermelha", null, 100.00, alca1);
+        CorAlca corAlca2 = new CorAlca(null, "corAlca2", "Amarela", null, 100.00, alca1);
+        CorAlca corAlca3 = new CorAlca(null, "corAlca3", "Vermelha", null, 100.00, alca2);
+        CorAlca corAlca4 = new CorAlca(null, "corAlca4", "Amarela", null, 100.00, alca2);
+
+        CorElastico corElastico1 = new CorElastico(null, "corElastico1", "Preto", null, 100.00, elastico1);
+        CorElastico corElastico2 = new CorElastico(null, "corElastico2", "Branco", null, 100.00, elastico1);
+        CorElastico corElastico3 = new CorElastico(null, "corElastico3", "Preto", null, 100.00, elastico2);
+        CorElastico corElastico4 = new CorElastico(null, "corElastico4", "Branco", null, 100.00, elastico2);
+
+        CorRenda corRenda1 = new CorRenda(null, "corRenda1", "Mescla Vermelha", null, 100.00, renda1);
+        CorRenda corRenda2 = new CorRenda(null, "corRenda2", "Mescla Amarela", null, 100.00, renda1);
+        CorRenda corRenda3 = new CorRenda(null, "corRenda3", "Mescla Preta", null, 100.00, renda2);
+        CorRenda corRenda4 = new CorRenda(null, "corRenda4", "Mescla Verde", null, 100.00, renda2);
+
+        CorLinha corLinha1 = new CorLinha(null, "corLinha1", "Azul", null, 100.00, linha1);
+        CorLinha corLinha2 = new CorLinha(null, "corLinha2", "Azul-agua", null, 100.00, linha1);
+        CorLinha corLinha3 = new CorLinha(null, "corLinha3", "Azul", null, 100.00, linha2);
+        CorLinha corLinha4 = new CorLinha(null, "corLinha4", "Azul-agua", null, 100.00, linha2);
 
 
         //instanciado cor entrada
@@ -592,6 +704,18 @@ public class DBService {
         tipBoj16.getBojos().addAll(Arrays.asList(boj46, boj47, boj48));
         tipBoj17.getBojos().addAll(Arrays.asList(boj49, boj50, boj51));
         tipBoj18.getBojos().addAll(Arrays.asList(boj52, boj53, boj54));
+
+        tipoLinha1.getLinhas().addAll(Arrays.asList(linha1, linha3, linha5, linha7));
+        tipoLinha2.getLinhas().addAll(Arrays.asList(linha2, linha4, linha6));
+
+        tipoRenda1.getRendas().addAll(Arrays.asList(renda1, renda3, renda5, renda7));
+        tipoRenda2.getRendas().addAll(Arrays.asList(renda2, renda4, renda6));
+
+        tipoElastico1.getElasticos().addAll(Arrays.asList(elastico1, elastico3, elastico5, elastico7));
+        tipoElastico2.getElasticos().addAll(Arrays.asList(elastico2, elastico4, elastico6));
+
+        tipoAlca1.getAlcas().addAll(Arrays.asList(alca1, alca3, alca5, alca7));
+        tipoAlca2.getAlcas().addAll(Arrays.asList(alca2, alca4, alca6));
 
 
 
@@ -675,6 +799,18 @@ public class DBService {
         boj52.getCores().addAll(Arrays.asList(corBojo206, corBojo207, corBojo208, corBojo209));
         boj53.getCores().addAll(Arrays.asList(corBojo210, corBojo211, corBojo212, corBojo213));
         boj54.getCores().addAll(Arrays.asList(corBojo214, corBojo215, corBojo216, corBojo217));
+
+        renda1.getCores().addAll(Arrays.asList(corRenda1, corRenda2));
+        renda2.getCores().addAll(Arrays.asList(corRenda3, corRenda4));
+
+        elastico1.getCores().addAll(Arrays.asList(corElastico1, corElastico2));
+        elastico2.getCores().addAll(Arrays.asList(corElastico3, corElastico4));
+
+        linha1.getCores().addAll(Arrays.asList(corLinha1, corLinha2));
+        linha2.getCores().addAll(Arrays.asList(corLinha3, corLinha4));
+
+        alca1.getCores().addAll(Arrays.asList(corAlca1, corAlca2));
+        alca2.getCores().addAll(Arrays.asList(corAlca3, corAlca4));
 
         //associando as cores de tecido as suas entradas
         corTec1.getEntradas().addAll(Arrays.asList(corEnt1, corEnt2, corEnt7));
@@ -967,17 +1103,26 @@ public class DBService {
         //persistindo classe de tecido
         tecidoClasseRepository.saveAll(Arrays.asList(tecClass1, tecClass2, tecClass3, tecClass4));
 
-        //persistindo tipos tecido
+        //persistindo tipos
         tipoTecidoRepository.saveAll(Arrays.asList(tipo1, tipo2, tipo3, tipo4, tipo5, tipo6, tipo7, tipo8));
         tipoColcheteRepository.saveAll(Arrays.asList(tipColc1, tipColc2, tipColc3));
         tipoBojoRepository.saveAll(Arrays.asList(tipBoj1, tipBoj2, tipBoj3, tipBoj4, tipBoj5, tipBoj6, tipBoj7,
                 tipBoj8, tipBoj9, tipBoj10, tipBoj11, tipBoj12, tipBoj13, tipBoj14, tipBoj15, tipBoj16, tipBoj17,
                 tipBoj18));
+        tipoAlcaRepository.saveAll(Arrays.asList(tipoAlca1, tipoAlca2));
+        tipoRendaRepository.saveAll(Arrays.asList(tipoRenda1, tipoRenda2));
+        tipoElasticoRepository.saveAll(Arrays.asList(tipoElastico1, tipoElastico2));
+        tipoLinhaRepository.saveAll(Arrays.asList(tipoLinha1, tipoLinha2));
 
         //persistindo composicao
         composicaoRepository.saveAll(Arrays.asList(comp1, comp2, comp3));
 
-        //persistindo materias primas (Tecidos)
+        fioRepository.saveAll(Arrays.asList(fio1, fio2, fio3, fio4, fio5));
+
+        composicaoFioRepository.saveAll(Arrays.asList(composicaoFio1, composicaoFio2, composicaoFio3, composicaoFio4,
+                composicaoFio5, composicaoFio6));
+
+        //persistindo materias primas
         tecidoRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,
                 tec9, tec10, tec11, tec12, tec13, tec14, tec15, tec16));
 
@@ -987,6 +1132,15 @@ public class DBService {
                 boj13, boj14, boj15, boj16, boj17, boj18, boj19, boj20, boj21, boj22, boj23, boj24, boj25, boj26, boj27,
                 boj28, boj29, boj30, boj31, boj32, boj33, boj34, boj35, boj36, boj37, boj38, boj39, boj40, boj41, boj42,
                 boj43, boj44, boj45, boj46, boj47, boj48, boj49, boj50, boj51, boj52, boj53, boj54));
+
+        alcaRepository.saveAll(Arrays.asList(alca1, alca2, alca3, alca4, alca5, alca6, alca7));
+
+        elasticoRepository.saveAll(Arrays.asList(elastico1, elastico2, elastico3, elastico4, elastico5, elastico6,
+                elastico7));
+
+        linhaRepository.saveAll(Arrays.asList(linha1, linha2, linha3, linha4, linha5, linha6, linha7));
+
+        rendaRepository.saveAll(Arrays.asList(renda1, renda2, renda3, renda4, renda5, renda6, renda7));
 
         //persistindo cores
         corTecidoRepository.saveAll(Arrays.asList(corTec1, corTec2, corTec3, corTec4, corTec5, corTec6,
@@ -1022,6 +1176,14 @@ public class DBService {
                 corBojo195, corBojo196, corBojo197, corBojo198, corBojo199, corBojo200, corBojo201, corBojo202,
                 corBojo203, corBojo204, corBojo205, corBojo206, corBojo207, corBojo208, corBojo209, corBojo210,
                 corBojo211, corBojo212, corBojo213, corBojo214, corBojo215, corBojo216, corBojo217));
+
+        corAlcaRepository.saveAll(Arrays.asList(corAlca1, corAlca2, corAlca3, corAlca4));
+
+        corElasticoRepository.saveAll(Arrays.asList(corElastico1, corElastico2, corElastico3, corElastico4));
+
+        corLinhaRepository.saveAll(Arrays.asList(corLinha1, corLinha2, corLinha3, corLinha4));
+
+        corRendaRepository.saveAll(Arrays.asList(corRenda1, corRenda2, corRenda3, corRenda4));
 
         corEntradasRepository.saveAll(Arrays.asList(corEnt1, corEnt2, corEnt3, corEnt4, corEnt5,
                 corEnt6, corEnt7, corEnt8, corEnt9, corEnt10, corEnt11, corEnt12, corEnt13,

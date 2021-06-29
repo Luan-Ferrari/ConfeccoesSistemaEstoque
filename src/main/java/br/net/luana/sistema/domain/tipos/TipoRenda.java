@@ -1,9 +1,11 @@
 package br.net.luana.sistema.domain.tipos;
 
-import br.net.luana.sistema.domain.Composicao;
+import br.net.luana.sistema.domain.composicoes.Composicao;
 import br.net.luana.sistema.domain.materiasprimas.Renda;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.List;
 public class TipoRenda extends Tipo implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @ManyToOne
+    @JoinColumn(name = "composicao_id")
     private Composicao composicao;
 
     @OneToMany(mappedBy = "tipoRenda")

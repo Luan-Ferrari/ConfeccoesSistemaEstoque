@@ -1,8 +1,7 @@
 package br.net.luana.sistema.domain.cores;
 
-import br.net.luana.sistema.domain.Composicao;
+import br.net.luana.sistema.domain.composicoes.Composicao;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

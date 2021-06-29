@@ -20,7 +20,7 @@ public class Linha extends MateriaPrima {
     @JoinColumn(name = "tipo_id")
     private TipoLinha tipoLinha;
 
-    @OneToMany(mappedBy = "LINHA")
+    @OneToMany(mappedBy = "linha")
     private List<CorLinha> cores = new ArrayList<>();
 
     public Linha() {

@@ -1,15 +1,16 @@
 package br.net.luana.sistema.services.tipoServices;
 
 import br.net.luana.sistema.domain.tipos.TipoAlca;
-import br.net.luana.sistema.repositories.tipoRepositories.TipoAlcaRepository;
+import br.net.luana.sistema.domain.tipos.TipoElastico;
+import br.net.luana.sistema.repositories.tipoRepositories.TipoElasticoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class TipoElasticoServiceImpl extends TipoServiceImpl<TipoAlca, Integer> implements TipoAlcaService{
+public class TipoElasticoServiceImpl extends TipoServiceImpl<TipoElastico, Integer> implements TipoElasticoService{
 
-    public TipoElasticoServiceImpl(TipoAlcaRepository tipoAlcaRepository) {
-        super(tipoAlcaRepository);
+    public TipoElasticoServiceImpl(TipoElasticoRepository tipoElasticoRepository) {
+        super(tipoElasticoRepository);
     }
 }
