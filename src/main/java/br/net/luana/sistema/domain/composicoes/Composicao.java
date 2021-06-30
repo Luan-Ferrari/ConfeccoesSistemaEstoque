@@ -59,6 +59,14 @@ public class Composicao implements MasterDomain, Serializable {
         return lista;
     }
 
+    public List<Integer> getPorcentagens() {
+        List<Integer> lista = new ArrayList<>();
+        for(ComposicaoFio x : itens) {
+            lista.add(x.getPorcentagem());
+        }
+        return lista;
+    }
+
     public boolean verificaTotalComposicao() {
         Integer soma = 0;
         for (ComposicaoFio composicaoFio : itens) {
