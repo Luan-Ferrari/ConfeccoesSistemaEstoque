@@ -17,7 +17,11 @@ public class Composicao implements MasterDomain, Serializable {
     private Integer numero;
 
     @OneToMany(mappedBy = "id.composicao")
-    private Set<ComposicaoFio> itens = new HashSet<>();
+    private Set<ComposicaoFio> itensFios = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name = "modo_lavar")
+    private Set<ModoLavar> itensModoLavar = new HashSet<>();
 
     public Composicao() {
     }
@@ -43,17 +47,25 @@ public class Composicao implements MasterDomain, Serializable {
         this.numero = numero;
     }
 
-    public Set<ComposicaoFio> getItens() {
-        return itens;
+    public Set<ComposicaoFio> getItensFios() {
+        return itensFios;
     }
 
-    public void setItens(Set<ComposicaoFio> itens) {
-        this.itens = itens;
+    public void setItensFios(Set<ComposicaoFio> itens) {
+        this.itensFios = itens;
+    }
+
+    public Set<ModoLavar> getItensModoLavar() {
+        return itensModoLavar;
+    }
+
+    public void setItensModoLavar(Set<ModoLavar> itensModoLavar) {
+        this.itensModoLavar = itensModoLavar;
     }
 
     public List<Fio> getFios() {
         List<Fio> lista = new ArrayList<>();
-        for(ComposicaoFio x : itens) {
+        for(ComposicaoFio x : itensFios) {
             lista.add(x.getFio());
         }
         return lista;
@@ -61,15 +73,23 @@ public class Composicao implements MasterDomain, Serializable {
 
     public List<Integer> getPorcentagens() {
         List<Integer> lista = new ArrayList<>();
-        for(ComposicaoFio x : itens) {
+        for(ComposicaoFio x : itensFios) {
             lista.add(x.getPorcentagem());
+        }
+        return lista;
+    }
+
+    public List<ModoLavar> getModoLavar() {
+        List<ModoLavar> lista = new ArrayList<>();
+        for(ModoLavar x : itensModoLavar) {
+            lista.add(x);
         }
         return lista;
     }
 
     public boolean verificaTotalComposicao() {
         Integer soma = 0;
-        for (ComposicaoFio composicaoFio : itens) {
+        for (ComposicaoFio composicaoFio : itensFios) {
             soma += composicaoFio.getPorcentagem();
         }
         if(soma != 100) {

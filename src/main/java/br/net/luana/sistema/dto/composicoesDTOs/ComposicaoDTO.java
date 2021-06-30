@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.composicoesDTOs;
 
 import br.net.luana.sistema.domain.composicoes.Composicao;
+import br.net.luana.sistema.domain.composicoes.ModoLavar;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
     private Integer numero;
     private List<FioDTO> fios = new ArrayList<>();
     private List<Integer> porcentagens = new ArrayList<>();
+    private List<ModoLavar> modoLavar = new ArrayList<>();
 
     public ComposicaoDTO() {
     }
@@ -26,6 +28,7 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
         this.numero = entity.getNumero();
         this.fios = fioDTO.makeListDTO(entity.getFios());
         this.porcentagens = entity.getPorcentagens();
+        this.modoLavar = entity.getModoLavar();
     }
 
     @Override
@@ -63,5 +66,13 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
 
     public void setPorcentagens(List<Integer> porcentagens) {
         this.porcentagens = porcentagens;
+    }
+
+    public List<ModoLavar> getModoLavar() {
+        return modoLavar;
+    }
+
+    public void setModoLavar(List<ModoLavar> modoLavar) {
+        this.modoLavar = modoLavar;
     }
 }

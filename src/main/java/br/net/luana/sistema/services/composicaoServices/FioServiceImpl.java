@@ -19,6 +19,6 @@ public class FioServiceImpl extends MasterServiceImpl<Fio, Integer>
     protected void updateData(Fio updateEntity, Fio entity) {
         updateEntity.setId(entity.getId());
         updateEntity.setNome(entity.getNome());
-        updateEntity.setItens(entity.getItens());
+        updateEntity.setItensFios(entity.getItensFios());
     }
 }

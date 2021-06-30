@@ -19,6 +19,6 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
     protected void updateData(Composicao updateEntity, Composicao entity) {
         updateEntity.setId(entity.getId());
         updateEntity.setNumero(entity.getNumero());
-        updateEntity.setItens(entity.getItens());
+        updateEntity.setItensFios(entity.getItensFios());
     }
 }

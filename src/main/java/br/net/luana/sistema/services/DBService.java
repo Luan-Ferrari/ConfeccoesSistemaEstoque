@@ -4,17 +4,16 @@ import br.net.luana.sistema.domain.*;
 import br.net.luana.sistema.domain.composicoes.Composicao;
 import br.net.luana.sistema.domain.composicoes.ComposicaoFio;
 import br.net.luana.sistema.domain.composicoes.Fio;
+import br.net.luana.sistema.domain.composicoes.ModoLavar;
 import br.net.luana.sistema.domain.cores.*;
-import br.net.luana.sistema.domain.enums.FuncaoContato;
-import br.net.luana.sistema.domain.enums.Tamanho;
-import br.net.luana.sistema.domain.enums.TipoTelefone;
-import br.net.luana.sistema.domain.enums.UnidadeMedida;
+import br.net.luana.sistema.domain.enums.*;
 import br.net.luana.sistema.domain.materiasprimas.*;
 import br.net.luana.sistema.domain.tipos.*;
 import br.net.luana.sistema.repositories.*;
 import br.net.luana.sistema.repositories.composicoes.ComposicaoFioRepository;
 import br.net.luana.sistema.repositories.composicoes.ComposicaoRepository;
 import br.net.luana.sistema.repositories.composicoes.FioRepository;
+import br.net.luana.sistema.repositories.composicoes.ModoLavarRepository;
 import br.net.luana.sistema.repositories.corRepositories.*;
 import br.net.luana.sistema.repositories.materiaPrimaRepositories.*;
 import br.net.luana.sistema.repositories.tipoRepositories.*;
@@ -49,6 +48,8 @@ public class DBService {
     private FioRepository fioRepository;
     @Autowired
     private ComposicaoFioRepository composicaoFioRepository;
+    @Autowired
+    private ModoLavarRepository modoLavarRepository;
     @Autowired
     private CorEntradasRepository corEntradasRepository;
     @Autowired
@@ -178,15 +179,25 @@ public class DBService {
         ComposicaoFio composicaoFio6 = new ComposicaoFio(comp3, fio5, 25);
 
         //associando composicao e fio a composicao_fio
-        comp1.getItens().addAll(Arrays.asList(composicaoFio1));
-        comp2.getItens().addAll(Arrays.asList(composicaoFio2, composicaoFio3));
-        comp3.getItens().addAll(Arrays.asList(composicaoFio4, composicaoFio5, composicaoFio6));
+        comp1.getItensFios().addAll(Arrays.asList(composicaoFio1));
+        comp2.getItensFios().addAll(Arrays.asList(composicaoFio2, composicaoFio3));
+        comp3.getItensFios().addAll(Arrays.asList(composicaoFio4, composicaoFio5, composicaoFio6));
 
-        fio1.getItens().addAll(Arrays.asList(composicaoFio1, composicaoFio4));
-        fio2.getItens().addAll(Arrays.asList(composicaoFio2));
-        fio3.getItens().addAll(Arrays.asList(composicaoFio3));
-        fio4.getItens().addAll(Arrays.asList(composicaoFio5));
-        fio5.getItens().addAll(Arrays.asList(composicaoFio6));
+        fio1.getItensFios().addAll(Arrays.asList(composicaoFio1, composicaoFio4));
+        fio2.getItensFios().addAll(Arrays.asList(composicaoFio2));
+        fio3.getItensFios().addAll(Arrays.asList(composicaoFio3));
+        fio4.getItensFios().addAll(Arrays.asList(composicaoFio5));
+        fio5.getItensFios().addAll(Arrays.asList(composicaoFio6));
+
+        //criando modo_lavar
+        ModoLavar modoLavar1 = new ModoLavar(null, CategoriaModoLavar.LAVAGEM, "Lavar a mão", "Um balde com agua");
+        ModoLavar modoLavar2 = new ModoLavar(null, CategoriaModoLavar.ALVEJAMENTO, "Não alvejar", "Triangulo com um X");
+        ModoLavar modoLavar3 = new ModoLavar(null, CategoriaModoLavar.SECAGEM_NATURAL, "Secar pendurado", "Parece um envelope");
+        ModoLavar modoLavar4 = new ModoLavar(null, CategoriaModoLavar.PASSADORIA, "Não Passar", "Um ferro de passar com um X");
+        ModoLavar modoLavar5 = new ModoLavar(null, CategoriaModoLavar.LIMPEZA_SECO_PROFISSIONAL, "Não lavar a seco", "Um círculo com um X");
+
+        //associando composicao e modo_lavar
+        comp1.getItensModoLavar().addAll(Arrays.asList(modoLavar1, modoLavar2, modoLavar3, modoLavar4, modoLavar5));
 
         //criando classe tecido
         TecidoClasse tecClass1 = new TecidoClasse(null, "Apeluciado");
@@ -1121,6 +1132,8 @@ public class DBService {
 
         composicaoFioRepository.saveAll(Arrays.asList(composicaoFio1, composicaoFio2, composicaoFio3, composicaoFio4,
                 composicaoFio5, composicaoFio6));
+
+        modoLavarRepository.saveAll(Arrays.asList(modoLavar1, modoLavar2, modoLavar3, modoLavar4, modoLavar5));
 
         //persistindo materias primas
         tecidoRepository.saveAll(Arrays.asList(tec1, tec2, tec3, tec4, tec5, tec6, tec7, tec8,

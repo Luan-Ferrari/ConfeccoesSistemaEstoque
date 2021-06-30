@@ -19,7 +19,7 @@ public class Fio implements MasterDomain, Serializable {
     private String nome;
 
     @OneToMany(mappedBy = "id.fio")
-    private Set<ComposicaoFio> itens = new HashSet<>();
+    private Set<ComposicaoFio> itensFios = new HashSet<>();
 
     public Fio() {
     }
@@ -46,17 +46,17 @@ public class Fio implements MasterDomain, Serializable {
         this.nome = nome;
     }
 
-    public Set<ComposicaoFio> getItens() {
-        return itens;
+    public Set<ComposicaoFio> getItensFios() {
+        return itensFios;
     }
 
-    public void setItens(Set<ComposicaoFio> itens) {
-        this.itens = itens;
+    public void setItensFios(Set<ComposicaoFio> itensFios) {
+        this.itensFios = itensFios;
     }
 
     public List<Composicao> getComposicoes() {
         List<Composicao> lista = new ArrayList<>();
-        for(ComposicaoFio x : itens) {
+        for(ComposicaoFio x : itensFios) {
             lista.add(x.getComposicao());
         }
         return lista;
