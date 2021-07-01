@@ -1,11 +1,8 @@
 package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.CorEntradas;
-import br.net.luana.sistema.domain.MasterDomain;
-import br.net.luana.sistema.domain.cores.Cor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -39,6 +36,11 @@ public class CorEntradasDTO extends MasterDTOImpl<CorEntradas, CorEntradasDTO, I
     @Override
     public CorEntradasDTO makeDTO(CorEntradas entity) {
         return new CorEntradasDTO(entity);
+    }
+
+    @Override
+    public CorEntradas makeEntityfromDTO(CorEntradasDTO dto) {
+        return null;
     }
 
     public Integer getId() {

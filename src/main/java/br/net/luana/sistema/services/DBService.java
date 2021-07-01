@@ -198,6 +198,7 @@ public class DBService {
 
         //associando composicao e modo_lavar
         comp1.getItensModoLavar().addAll(Arrays.asList(modoLavar1, modoLavar2, modoLavar3, modoLavar4, modoLavar5));
+        comp2.getItensModoLavar().addAll(Arrays.asList(modoLavar1, modoLavar2, modoLavar3, modoLavar4, modoLavar5));
 
         //criando classe tecido
         TecidoClasse tecClass1 = new TecidoClasse(null, "Apeluciado");

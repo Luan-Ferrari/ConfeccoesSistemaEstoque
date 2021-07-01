@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public interface MasterResource<T extends MasterDomain, D extends MasterDTO, ID extends Integer> {
@@ -24,7 +25,7 @@ public interface MasterResource<T extends MasterDomain, D extends MasterDTO, ID 
     public abstract ResponseEntity<D> findById(@PathVariable ID entityId);
 
     @PostMapping
-    public abstract ResponseEntity<Void> insert(@RequestBody T entity);
+    public abstract ResponseEntity<Void> insert(@Valid @RequestBody D dto);
 
     @PutMapping("/{entityId}")
     public abstract ResponseEntity<Void> update(@RequestBody T entity, @PathVariable ID entityId);

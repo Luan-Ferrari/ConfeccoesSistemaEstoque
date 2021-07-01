@@ -28,6 +28,11 @@ public class TipoDTO<T extends Tipo, D extends TipoDTO, ID extends Integer>
         return (D) new TipoDTO<T, D, ID>(entity);
     }
 
+    @Override
+    public T makeEntityfromDTO(D dto) {
+        return null;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -4,7 +4,6 @@ import br.net.luana.sistema.domain.MasterDomain;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public interface MasterDTO<T extends MasterDomain, D extends MasterDTOImpl, ID extends Integer> {
 
@@ -13,5 +12,7 @@ public interface MasterDTO<T extends MasterDomain, D extends MasterDTOImpl, ID e
     List<D> makeListDTO(List<T> list);
 
     Page<D> makePageDTO(Page<T> list);
+
+    T makeEntityfromDTO(D dto);
 
 }

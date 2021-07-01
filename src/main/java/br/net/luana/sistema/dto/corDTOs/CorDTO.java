@@ -34,6 +34,11 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         return (D) new CorDTO<T, D, ID>(entity);
     }
 
+    @Override
+    public T makeEntityfromDTO(D dto) {
+        return null;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,7 +1,6 @@
 package br.net.luana.sistema.dto.composicoesDTOs;
 
 import br.net.luana.sistema.domain.composicoes.Composicao;
-import br.net.luana.sistema.domain.composicoes.ModoLavar;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +12,12 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
     private static final long serialVerisonUID = 1L;
 
     private FioDTO fioDTO = new FioDTO();
-
+    private ModoLavarDTO modoLavarDTO = new ModoLavarDTO();
     private Integer id;
     private Integer numero;
     private List<FioDTO> fios = new ArrayList<>();
     private List<Integer> porcentagens = new ArrayList<>();
-    private List<ModoLavar> modoLavar = new ArrayList<>();
+    private List<ModoLavarDTO> modoLavar = new ArrayList<>();
 
     public ComposicaoDTO() {
     }
@@ -28,12 +27,17 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
         this.numero = entity.getNumero();
         this.fios = fioDTO.makeListDTO(entity.getFios());
         this.porcentagens = entity.getPorcentagens();
-        this.modoLavar = entity.getModoLavar();
+        this.modoLavar = modoLavarDTO.makeListDTO(entity.getModoLavar());
     }
 
     @Override
     public ComposicaoDTO makeDTO(Composicao entity) {
         return new ComposicaoDTO(entity);
+    }
+
+    @Override
+    public Composicao makeEntityfromDTO(ComposicaoDTO dto) {
+        return null;
     }
 
     public Integer getId() {
@@ -68,11 +72,11 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
         this.porcentagens = porcentagens;
     }
 
-    public List<ModoLavar> getModoLavar() {
+    public List<ModoLavarDTO> getModoLavar() {
         return modoLavar;
     }
 
-    public void setModoLavar(List<ModoLavar> modoLavar) {
+    public void setModoLavar(List<ModoLavarDTO> modoLavar) {
         this.modoLavar = modoLavar;
     }
 }

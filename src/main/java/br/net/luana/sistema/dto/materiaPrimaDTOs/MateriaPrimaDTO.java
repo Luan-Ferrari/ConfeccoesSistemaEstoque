@@ -38,6 +38,11 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         return (D)new MateriaPrimaDTO<T, D, ID>(entity);
     }
 
+    @Override
+    public T makeEntityfromDTO(D dto) {
+        return null;
+    }
+
     public Integer getId() {
         return id;
     }

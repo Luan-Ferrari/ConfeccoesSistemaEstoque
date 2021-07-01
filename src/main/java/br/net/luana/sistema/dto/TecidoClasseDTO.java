@@ -1,12 +1,10 @@
 package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.TecidoClasse;
-import br.net.luana.sistema.domain.materiasprimas.Tecido;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.TecidoDTO;
-import br.net.luana.sistema.repositories.TecidoClasseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,10 @@ public class TecidoClasseDTO extends MasterDTOImpl<TecidoClasse, TecidoClasseDTO
     private TecidoDTO tecidoDTO = new TecidoDTO();
 
     private Integer id;
+
+    @NotEmpty(message = ValidationsValues.NOT_EMPTY_MESSAGE)
     private String nome;
+
 
     private List<TecidoDTO> tecidos = new ArrayList<>();
 
@@ -35,6 +36,11 @@ public class TecidoClasseDTO extends MasterDTOImpl<TecidoClasse, TecidoClasseDTO
     @Override
     public TecidoClasseDTO makeDTO(TecidoClasse entity) {
         return new TecidoClasseDTO(entity);
+    }
+
+    @Override
+    public TecidoClasse makeEntityfromDTO(TecidoClasseDTO dto) {
+        return new TecidoClasse(dto.getId(), dto.getNome());
     }
 
     public Integer getId() {

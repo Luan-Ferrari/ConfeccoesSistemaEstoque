@@ -24,6 +24,11 @@ public class FioDTO extends MasterDTOImpl<Fio, FioDTO, Integer> {
         return new FioDTO(entity);
     }
 
+    @Override
+    public Fio makeEntityfromDTO(FioDTO dto) {
+        return null;
+    }
+
     public Integer getId() {
         return id;
     }

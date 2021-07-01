@@ -32,6 +32,11 @@ public class CaixaBojoDTO extends MasterDTOImpl<CaixaBojo, CaixaBojoDTO, Integer
     @Override
     public CaixaBojoDTO makeDTO(CaixaBojo entity) { return new CaixaBojoDTO(entity); }
 
+    @Override
+    public CaixaBojo makeEntityfromDTO(CaixaBojoDTO dto) {
+        return null;
+    }
+
     public Integer getId() {
         return id;
     }

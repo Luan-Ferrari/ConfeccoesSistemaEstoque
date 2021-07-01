@@ -19,9 +19,11 @@ public class Composicao implements MasterDomain, Serializable {
     @OneToMany(mappedBy = "id.composicao")
     private Set<ComposicaoFio> itensFios = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "modo_lavar")
-    private Set<ModoLavar> itensModoLavar = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "composicao_modo_lavar",
+            joinColumns = @JoinColumn(name = "composicao_id"),
+            inverseJoinColumns = @JoinColumn(name = "modo_lavar_id"))
+    private List<ModoLavar> itensModoLavar = new ArrayList<>();
 
     public Composicao() {
     }
@@ -55,11 +57,11 @@ public class Composicao implements MasterDomain, Serializable {
         this.itensFios = itens;
     }
 
-    public Set<ModoLavar> getItensModoLavar() {
+    public List<ModoLavar> getItensModoLavar() {
         return itensModoLavar;
     }
 
-    public void setItensModoLavar(Set<ModoLavar> itensModoLavar) {
+    public void setItensModoLavar(List<ModoLavar> itensModoLavar) {
         this.itensModoLavar = itensModoLavar;
     }
 

@@ -5,9 +5,6 @@ import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public abstract class MasterDTOImpl<T extends MasterDomain, D extends MasterDTOImpl, ID extends Integer>
         implements MasterDTO<T, D, ID>{
@@ -31,4 +28,7 @@ public abstract class MasterDTOImpl<T extends MasterDomain, D extends MasterDTOI
         Page<D> pageDto = page.map(entity -> makeDTO(entity));
         return pageDto;
     }
+
+    @Override
+    public abstract T makeEntityfromDTO(D dto);
 }
