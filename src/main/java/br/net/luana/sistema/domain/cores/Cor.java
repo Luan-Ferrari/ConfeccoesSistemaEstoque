@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Cor implements MasterDomain, CorInterface, Serializable {
+public class Cor implements MasterDomain, CorInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -88,6 +88,11 @@ public abstract class Cor implements MasterDomain, CorInterface, Serializable {
         this.entradas = entradas;
     }
 
+
+    @Override
+    public void diminuirQuantidade(Double quantidadeSaida) {
+
+    }
 
     @Override
     public void acrescentarQuantidade(Double quantidadeEntrada) {

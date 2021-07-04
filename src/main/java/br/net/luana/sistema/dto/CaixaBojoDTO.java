@@ -2,8 +2,10 @@ package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.CaixaBojo;
 import br.net.luana.sistema.dto.corDTOs.CorBojoDTO;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,9 @@ public class CaixaBojoDTO extends MasterDTOImpl<CaixaBojo, CaixaBojoDTO, Integer
     private CorBojoDTO corBojoDTO = new CorBojoDTO();
 
     private Integer id;
+
+    @NotBlank(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @Length(min = ValidationsValues.MIN, max = ValidationsValues.MAX_1, message = ValidationsValues.LENGTH)
     private String nomeCaixa;
 
     private List<CorBojoDTO> coresArmazenadas = new ArrayList<>();
@@ -34,7 +39,7 @@ public class CaixaBojoDTO extends MasterDTOImpl<CaixaBojo, CaixaBojoDTO, Integer
 
     @Override
     public CaixaBojo makeEntityfromDTO(CaixaBojoDTO dto) {
-        return null;
+        return new CaixaBojo(dto.getId(), dto.getNomeCaixa());
     }
 
     public Integer getId() {

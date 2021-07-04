@@ -641,28 +641,28 @@ public class DBService {
 
 
         //instanciado cor entrada
-        CorEntradas corEnt1 = new CorEntradas(null, "15/08/2020", 50.00, 20.00, corTec1);
-        CorEntradas corEnt2 = new CorEntradas(null, "15/05/2019", 60.00, 30.00, corTec1);
-        CorEntradas corEnt3 = new CorEntradas(null, "15/03/2018", 70.00, 40.00, corTec2);
-        CorEntradas corEnt4 = new CorEntradas(null, "15/02/2020", 80.00, 50.00, corTec3);
-        CorEntradas corEnt5 = new CorEntradas(null, "15/01/2020", 90.00, 60.00, corTec4);
-        CorEntradas corEnt6 = new CorEntradas(null, "15/02/2019", 100.00, 70.00, corTec4);
-        CorEntradas corEnt7 = new CorEntradas(null, "15/03/2020", 40.00, 80.00, corTec1);
-        CorEntradas corEnt8 = new CorEntradas(null, "15/04/2018", 30.00, 90.00, corTec5);
-        CorEntradas corEnt9 = new CorEntradas(null, "15/05/2017", 20.00, 100.00, corTec6);
-        CorEntradas corEnt10 = new CorEntradas(null, "15/06/2016", 15.00, 90.00, corTec7);
-        CorEntradas corEnt11 = new CorEntradas(null, "15/07/2020", 18.00, 80.00, corTec8);
-        CorEntradas corEnt12 = new CorEntradas(null, "15/03/2021", 10.00, 70.00, corTec8);
-        CorEntradas corEnt13 = new CorEntradas(null, "15/02/2021", 5.00, 60.00, corTec5);
-
-        CorEntradas corEnt14 = new CorEntradas(null, "25/02/2021", 10.00, 50.00, corColc1);
-        CorEntradas corEnt15 = new CorEntradas(null, "25/01/2021", 11.00, 51.00, corColc2);
-        CorEntradas corEnt16 = new CorEntradas(null, "25/12/2020", 12.00, 52.00, corColc3);
-        CorEntradas corEnt17 = new CorEntradas(null, "25/11/2020", 13.00, 53.00, corColc4);
-        CorEntradas corEnt18 = new CorEntradas(null, "25/10/2020", 14.00, 54.00, corColc5);
-        CorEntradas corEnt19 = new CorEntradas(null, "25/09/2020", 15.00, 55.00, corColc6);
-        CorEntradas corEnt20 = new CorEntradas(null, "25/08/2020", 16.00, 56.00, corColc1);
-        CorEntradas corEnt21 = new CorEntradas(null, "25/07/2020", 17.00, 57.00, corColc2);
+//        CorEntradas corEnt1 = new CorEntradas(null, "15/08/2020", 50.00, 20.00, corTec1);
+//        CorEntradas corEnt2 = new CorEntradas(null, "15/05/2019", 60.00, 30.00, corTec1);
+//        CorEntradas corEnt3 = new CorEntradas(null, "15/03/2018", 70.00, 40.00, corTec2);
+//        CorEntradas corEnt4 = new CorEntradas(null, "15/02/2020", 80.00, 50.00, corTec3);
+//        CorEntradas corEnt5 = new CorEntradas(null, "15/01/2020", 90.00, 60.00, corTec4);
+//        CorEntradas corEnt6 = new CorEntradas(null, "15/02/2019", 100.00, 70.00, corTec4);
+//        CorEntradas corEnt7 = new CorEntradas(null, "15/03/2020", 40.00, 80.00, corTec1);
+//        CorEntradas corEnt8 = new CorEntradas(null, "15/04/2018", 30.00, 90.00, corTec5);
+//        CorEntradas corEnt9 = new CorEntradas(null, "15/05/2017", 20.00, 100.00, corTec6);
+//        CorEntradas corEnt10 = new CorEntradas(null, "15/06/2016", 15.00, 90.00, corTec7);
+//        CorEntradas corEnt11 = new CorEntradas(null, "15/07/2020", 18.00, 80.00, corTec8);
+//        CorEntradas corEnt12 = new CorEntradas(null, "15/03/2021", 10.00, 70.00, corTec8);
+//        CorEntradas corEnt13 = new CorEntradas(null, "15/02/2021", 5.00, 60.00, corTec5);
+//
+//        CorEntradas corEnt14 = new CorEntradas(null, "25/02/2021", 10.00, 50.00, corColc1);
+//        CorEntradas corEnt15 = new CorEntradas(null, "25/01/2021", 11.00, 51.00, corColc2);
+//        CorEntradas corEnt16 = new CorEntradas(null, "25/12/2020", 12.00, 52.00, corColc3);
+//        CorEntradas corEnt17 = new CorEntradas(null, "25/11/2020", 13.00, 53.00, corColc4);
+//        CorEntradas corEnt18 = new CorEntradas(null, "25/10/2020", 14.00, 54.00, corColc5);
+//        CorEntradas corEnt19 = new CorEntradas(null, "25/09/2020", 15.00, 55.00, corColc6);
+//        CorEntradas corEnt20 = new CorEntradas(null, "25/08/2020", 16.00, 56.00, corColc1);
+//        CorEntradas corEnt21 = new CorEntradas(null, "25/07/2020", 17.00, 57.00, corColc2);
 
         //criando caixas de cor bojo
 
@@ -825,21 +825,21 @@ public class DBService {
         alca2.getCores().addAll(Arrays.asList(corAlca3, corAlca4));
 
         //associando as cores de tecido as suas entradas
-        corTec1.getEntradas().addAll(Arrays.asList(corEnt1, corEnt2, corEnt7));
-        corTec2.getEntradas().addAll(Arrays.asList(corEnt3));
-        corTec3.getEntradas().addAll(Arrays.asList(corEnt4));
-        corTec4.getEntradas().addAll(Arrays.asList(corEnt5, corEnt6));
-        corTec5.getEntradas().addAll(Arrays.asList(corEnt8, corEnt13));
-        corTec6.getEntradas().addAll(Arrays.asList(corEnt9));
-        corTec7.getEntradas().addAll(Arrays.asList(corEnt10));
-        corTec8.getEntradas().addAll(Arrays.asList(corEnt11, corEnt12));
-
-        corColc1.getEntradas().addAll(Arrays.asList(corEnt14, corEnt20));
-        corColc2.getEntradas().addAll(Arrays.asList(corEnt15, corEnt21));
-        corColc3.getEntradas().addAll(Arrays.asList(corEnt16));
-        corColc4.getEntradas().addAll(Arrays.asList(corEnt17));
-        corColc5.getEntradas().addAll(Arrays.asList(corEnt18));
-        corColc6.getEntradas().addAll(Arrays.asList(corEnt19));
+//        corTec1.getEntradas().addAll(Arrays.asList(corEnt1, corEnt2, corEnt7));
+//        corTec2.getEntradas().addAll(Arrays.asList(corEnt3));
+//        corTec3.getEntradas().addAll(Arrays.asList(corEnt4));
+//        corTec4.getEntradas().addAll(Arrays.asList(corEnt5, corEnt6));
+//        corTec5.getEntradas().addAll(Arrays.asList(corEnt8, corEnt13));
+//        corTec6.getEntradas().addAll(Arrays.asList(corEnt9));
+//        corTec7.getEntradas().addAll(Arrays.asList(corEnt10));
+//        corTec8.getEntradas().addAll(Arrays.asList(corEnt11, corEnt12));
+//
+//        corColc1.getEntradas().addAll(Arrays.asList(corEnt14, corEnt20));
+//        corColc2.getEntradas().addAll(Arrays.asList(corEnt15, corEnt21));
+//        corColc3.getEntradas().addAll(Arrays.asList(corEnt16));
+//        corColc4.getEntradas().addAll(Arrays.asList(corEnt17));
+//        corColc5.getEntradas().addAll(Arrays.asList(corEnt18));
+//        corColc6.getEntradas().addAll(Arrays.asList(corEnt19));
 
         //associando as caixas de bojos a suas cores
         caixa1.getCoresArmazenadas().addAll(Arrays.asList(corBojo2, corBojo3, corBojo4, corBojo5, corBojo6, corBojo7,
@@ -1199,9 +1199,9 @@ public class DBService {
 
         corRendaRepository.saveAll(Arrays.asList(corRenda1, corRenda2, corRenda3, corRenda4));
 
-        corEntradasRepository.saveAll(Arrays.asList(corEnt1, corEnt2, corEnt3, corEnt4, corEnt5,
-                corEnt6, corEnt7, corEnt8, corEnt9, corEnt10, corEnt11, corEnt12, corEnt13,
-                corEnt14, corEnt15, corEnt16, corEnt17, corEnt18, corEnt19, corEnt20, corEnt21));
+//        corEntradasRepository.saveAll(Arrays.asList(corEnt1, corEnt2, corEnt3, corEnt4, corEnt5,
+//                corEnt6, corEnt7, corEnt8, corEnt9, corEnt10, corEnt11, corEnt12, corEnt13,
+//                corEnt14, corEnt15, corEnt16, corEnt17, corEnt18, corEnt19, corEnt20, corEnt21));
 
         caixaBojoRepository.saveAll(Arrays.asList(caixa1, caixa2, caixa3, caixa4, caixa5, caixa6, caixa7, caixa8,
                 caixa9, caixa10, caixa11, caixa12));

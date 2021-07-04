@@ -2,9 +2,10 @@ package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.TecidoClasse;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.TecidoDTO;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,9 @@ public class TecidoClasseDTO extends MasterDTOImpl<TecidoClasse, TecidoClasseDTO
 
     private Integer id;
 
-    @NotEmpty(message = ValidationsValues.NOT_EMPTY_MESSAGE)
+    @NotBlank(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @Length(min = ValidationsValues.MIN, max = ValidationsValues.MAX_1,
+            message = ValidationsValues.LENGTH)
     private String nome;
 
 

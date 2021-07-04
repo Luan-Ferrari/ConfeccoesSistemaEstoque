@@ -1,8 +1,6 @@
 package br.net.luana.sistema.domain;
 
 import br.net.luana.sistema.domain.cores.Cor;
-import br.net.luana.sistema.resources.utils.Conversors;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,17 +27,18 @@ public class CorEntradas implements MasterDomain, Serializable {
     }
 
     public CorEntradas(Integer id,
-                       String dataEntrada,
+                       LocalDate dataEntrada,
                        Double preco,
                        Double quantidade,
-                       Cor cor) {
+                       Cor cor)
+    {
         this.id = id;
-        this.dataEntrada = Conversors.stringToLocalDateSemHorario(dataEntrada);
+        this.dataEntrada = dataEntrada;//Conversors.stringToLocalDateSemHorario(dataEntrada);
         this.preco = preco;
         this.quantidade = quantidade;
         this.cor = cor;
 
-        cor.acrescentarQuantidade(quantidade);
+        //this.cor.acrescentarQuantidade(quantidade);
     }
 
     public Integer getId() {

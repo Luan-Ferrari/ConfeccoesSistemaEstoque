@@ -2,6 +2,8 @@ package br.net.luana.sistema.resources.exceptions;
 
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.hibernate.TransientPropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.format.DateTimeParseException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -36,5 +40,39 @@ public class ResourceExceptionHandler {
             err.addError(x.getField(), x.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+    }
+
+    //não possui classe para tratamento personalizado da mensagem de erro
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<StandardError> dateTimeParseException(DateTimeParseException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Erro no preenchimento da data", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+    }
+
+    //não possui classe para tratamento personalizado da mensagem de erro
+    @ExceptionHandler(InvalidFormatException.class)
+    public ResponseEntity<StandardError> invalidFormatException(InvalidFormatException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Erro de tipo no preenchimento dos dados", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    //não possui classe para tratamento personalizado da mensagem de erro
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<StandardError> SQLIntegrityConstraintViolationException (SQLIntegrityConstraintViolationException e,
+                                                                                   HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Objeto associado não localizado no banco de dados", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    //não possui classe para tratamento personalizado da mensagem de erro
+    @ExceptionHandler(TransientPropertyValueException.class)
+    public ResponseEntity<StandardError> transientPropertyValueException (TransientPropertyValueException e,
+                                                                          HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Objeto associado a entidade não foi informado", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 }
