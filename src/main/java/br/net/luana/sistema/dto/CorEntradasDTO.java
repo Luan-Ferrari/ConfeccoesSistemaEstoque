@@ -50,19 +50,15 @@ public class CorEntradasDTO extends MasterDTOImpl<CorEntradas, CorEntradasDTO, I
         this.preco = entity.getPreco();
         this.quantidade = entity.getQuantidade();
         this.cor = cor.makeDTO(entity.getCor());
-        System.out.println(1);
     }
 
     @Override
     public CorEntradasDTO makeDTO(CorEntradas entity) {
-
-        System.out.println(2);
         return new CorEntradasDTO(entity);
     }
 
     @Override
     public CorEntradas makeEntityfromDTO(CorEntradasDTO dto) {
-        System.out.println(3);
         return new CorEntradas(dto.getId(), dto.getDataEntrada(), dto.getPreco(),
                 dto.getQuantidade(), cor.makeEntityfromDTO(dto.getCor()));
     }

@@ -30,7 +30,7 @@ public class TipoDTO<T extends Tipo, D extends TipoDTO, ID extends Integer>
 
     @Override
     public T makeEntityfromDTO(D dto) {
-        return null;
+        return (T) new Tipo(dto.getId(), dto.getTipo());
     }
 
     public Integer getId() {

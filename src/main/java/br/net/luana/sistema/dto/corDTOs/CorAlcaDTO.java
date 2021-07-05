@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorAlca;
+import br.net.luana.sistema.dto.materiaPrimaDTOs.AlcaDTO;
 import org.springframework.stereotype.Component;
 
 
@@ -8,14 +9,14 @@ import org.springframework.stereotype.Component;
 public class CorAlcaDTO extends CorDTO<CorAlca, CorAlcaDTO, Integer> {
     private static final long serialVerialUID = 1L;
 
-    private Integer alcaId;
+    private AlcaDTO alca = new AlcaDTO();
 
     public CorAlcaDTO() {
     }
 
     public CorAlcaDTO(CorAlca entity) {
         super(entity);
-        this.alcaId = entity.getAlca().getId();
+        this.alca = alca.makeDTO(entity.getAlca());
     }
 
     @Override
@@ -23,11 +24,17 @@ public class CorAlcaDTO extends CorDTO<CorAlca, CorAlcaDTO, Integer> {
         return new CorAlcaDTO(entity);
     }
 
-    public Integer getAlcaId() {
-        return alcaId;
+    @Override
+    public CorAlca makeEntityfromDTO(CorAlcaDTO dto) {
+        return new CorAlca(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
+                dto.getQuantidadeEstoque(), alca.makeEntityfromDTO(dto.getAlca()));
     }
 
-    public void setAlcaId(Integer alcaId) {
-        this.alcaId = alcaId;
+    public AlcaDTO getAlca() {
+        return alca;
+    }
+
+    public void setAlca(AlcaDTO alca) {
+        this.alca = alca;
     }
 }

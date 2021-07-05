@@ -1,5 +1,7 @@
 package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
+import br.net.luana.sistema.domain.Fornecedor;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import org.springframework.stereotype.Component;
@@ -12,14 +14,12 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    //@JsonIgnore
     private Integer id;
     private String referenciaNaFabrica;
     private String observacoes;
     private Boolean desuso;
-    //@JsonIgnore
-    private Integer fornecedorId;
-    private String fornecedor;
+    private UnidadeMedida unidadeMedida;
+    private Fornecedor fornecedor;
 
     public MateriaPrimaDTO() {
     }
@@ -29,8 +29,8 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         this.referenciaNaFabrica = entity.getReferenciaNaFabrica();
         this.observacoes = entity.getObservacoes();
         this.desuso = entity.getDesuso();
-        this.fornecedorId = entity.getFornecedor().getId();
-        this.fornecedor = entity.getFornecedor().getNome();
+        this.unidadeMedida = entity.getUnidadeMedida();
+        this.fornecedor = entity.getFornecedor();
     }
 
     @Override
@@ -75,19 +75,19 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         this.desuso = desuso;
     }
 
-    public Integer getFornecedorId() {
-        return fornecedorId;
+    public UnidadeMedida getUnidadeMedida() {
+        return unidadeMedida;
     }
 
-    public void setFornecedorId(Integer fornecedorId) {
-        this.fornecedorId = fornecedorId;
+    public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
     }
 
-    public String getFornecedor() {
+    public Fornecedor getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(String fornecedor) {
+    public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
 }

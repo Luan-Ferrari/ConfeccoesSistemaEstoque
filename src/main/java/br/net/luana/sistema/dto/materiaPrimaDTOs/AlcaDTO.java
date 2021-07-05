@@ -1,22 +1,21 @@
 package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
 import br.net.luana.sistema.domain.materiasprimas.Alca;
+import br.net.luana.sistema.dto.tipoDTOs.TipoAlcaDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AlcaDTO extends MateriaPrimaDTO<Alca, AlcaDTO, Integer> {
     private static final long serialVersionUID = 1L;
 
-    private Integer tipoAlcaId;
-    private String tipoAlca;
+    private TipoAlcaDTO tipoAlca = new TipoAlcaDTO();
 
     public AlcaDTO() {
     }
 
     public AlcaDTO(Alca entity) {
         super(entity);
-        this.tipoAlcaId = entity.getTipoAlca().getId();
-        this.tipoAlca = entity.getTipoAlca().getTipo();
+        this.tipoAlca = tipoAlca.makeDTO(entity.getTipoAlca());
     }
 
     @Override
@@ -24,19 +23,17 @@ public class AlcaDTO extends MateriaPrimaDTO<Alca, AlcaDTO, Integer> {
         return new AlcaDTO(entity);
     }
 
-    public Integer getTipoAlcaId() {
-        return tipoAlcaId;
+    @Override
+    public Alca makeEntityfromDTO(AlcaDTO dto) {
+        return new Alca(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
+                dto.getUnidadeMedida(), dto.getFornecedor(), tipoAlca.makeEntityfromDTO(dto.tipoAlca));
     }
 
-    public void setTipoAlcaId(Integer tipoAlcaId) {
-        this.tipoAlcaId = tipoAlcaId;
-    }
-
-    public String getTipoAlca() {
+    public TipoAlcaDTO getTipoAlca() {
         return tipoAlca;
     }
 
-    public void setTipoAlca(String tipoAlca) {
+    public void setTipoAlca(TipoAlcaDTO tipoAlca) {
         this.tipoAlca = tipoAlca;
     }
 }
