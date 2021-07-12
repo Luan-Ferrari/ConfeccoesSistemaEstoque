@@ -21,19 +21,15 @@ public class CorDTOforCorEntradaDTO extends CorDTO<Cor, CorDTOforCorEntradaDTO, 
         this.id = entity.getId();
         this.referenciaNaFabrica = entity.getReferenciaNaFabrica();
         this.nome = entity.getNome();
-        System.out.println(4);
     }
 
     @Override
     public CorDTOforCorEntradaDTO makeDTO(Cor entity) {
-
-        System.out.println(5);
         return new CorDTOforCorEntradaDTO(entity);
     }
 
     @Override
     public Cor makeEntityfromDTO(CorDTOforCorEntradaDTO dto) {
-        System.out.println(1);
         return new Cor(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(),
                 dto.getObservacoes(), getQuantidadeEstoque());
     }

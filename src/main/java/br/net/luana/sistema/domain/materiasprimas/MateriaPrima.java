@@ -1,8 +1,8 @@
 package br.net.luana.sistema.domain.materiasprimas;
 
 import br.net.luana.sistema.domain.Colecao;
-import br.net.luana.sistema.domain.MasterDomain;
 import br.net.luana.sistema.domain.Fornecedor;
+import br.net.luana.sistema.domain.MasterDomain;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 
 import javax.persistence.*;
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

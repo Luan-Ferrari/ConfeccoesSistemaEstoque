@@ -45,8 +45,6 @@ public abstract class MasterResourceImpl <T extends MasterDomain, D extends Mast
 
     @Override
     public ResponseEntity<Void> insert(D dto) {
-//        T entity = (T)dto.makeEntityfromDTO(dto);
-//        entity = (T)masterService.save(entity);
         T entity = (T)masterService.save((T)dto.makeEntityfromDTO(dto));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(entity.getId()).toUri();

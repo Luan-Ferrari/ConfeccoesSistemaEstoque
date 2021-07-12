@@ -16,8 +16,10 @@ public abstract class MasterServiceImpl<T extends MasterDomain, ID extends Integ
         implements MasterService<T, ID>  {
 
 
+
     private MasterRepository masterRepository;
 
+    public MasterServiceImpl(){}
     public MasterServiceImpl(MasterRepository masterRepository) {
         this.masterRepository = masterRepository;
     }

@@ -12,6 +12,7 @@ public abstract class TipoServiceImpl <T extends Tipo, ID extends Integer>
         extends MasterServiceImpl<T, ID>
         implements TipoService<T, ID> {
 
+
     public TipoServiceImpl(TipoRepository tipoRepository) {
         super(tipoRepository);
     }

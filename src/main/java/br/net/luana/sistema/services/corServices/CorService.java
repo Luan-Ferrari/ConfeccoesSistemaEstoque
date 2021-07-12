@@ -5,4 +5,5 @@ import br.net.luana.sistema.services.MasterService;
 
 public interface CorService<T extends Cor, ID extends Integer>
         extends MasterService<T, ID> {
+
 }

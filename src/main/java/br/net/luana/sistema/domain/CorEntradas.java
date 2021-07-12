@@ -37,8 +37,6 @@ public class CorEntradas implements MasterDomain, Serializable {
         this.preco = preco;
         this.quantidade = quantidade;
         this.cor = cor;
-
-        //this.cor.acrescentarQuantidade(quantidade);
     }
 
     public Integer getId() {

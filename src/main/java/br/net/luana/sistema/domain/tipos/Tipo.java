@@ -2,15 +2,12 @@ package br.net.luana.sistema.domain.tipos;
 
 import br.net.luana.sistema.domain.MasterDomain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Tipo implements MasterDomain,Serializable {
     private static final long serialVersionUID = 1L;
 

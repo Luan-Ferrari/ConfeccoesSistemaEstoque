@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TipoAlcaServiceImpl extends TipoServiceImpl<TipoAlca, Integer> implements TipoAlcaService{
 
+
     public TipoAlcaServiceImpl(TipoAlcaRepository tipoAlcaRepository) {
         super(tipoAlcaRepository);
     }

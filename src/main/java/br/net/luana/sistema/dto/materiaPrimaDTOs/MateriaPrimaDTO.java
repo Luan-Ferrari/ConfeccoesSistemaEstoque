@@ -1,11 +1,14 @@
 package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
 import br.net.luana.sistema.domain.Fornecedor;
-import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.dto.MasterDTOImpl;
+import br.net.luana.sistema.dto.ValidationsValues;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Component
@@ -15,10 +18,19 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotBlank(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @Length(min = ValidationsValues.MIN, max = ValidationsValues.MAX_1,
+            message = ValidationsValues.LENGTH)
     private String referenciaNaFabrica;
+
     private String observacoes;
     private Boolean desuso;
-    private UnidadeMedida unidadeMedida;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private Integer unidadeMedida;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private Fornecedor fornecedor;
 
     public MateriaPrimaDTO() {
@@ -29,7 +41,7 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         this.referenciaNaFabrica = entity.getReferenciaNaFabrica();
         this.observacoes = entity.getObservacoes();
         this.desuso = entity.getDesuso();
-        this.unidadeMedida = entity.getUnidadeMedida();
+        this.unidadeMedida = (entity.getUnidadeMedida() == null) ? null : entity.getUnidadeMedida().getCodigo();
         this.fornecedor = entity.getFornecedor();
     }
 
@@ -75,11 +87,11 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         this.desuso = desuso;
     }
 
-    public UnidadeMedida getUnidadeMedida() {
+    public Integer getUnidadeMedida() {
         return unidadeMedida;
     }
 
-    public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+    public void setUnidadeMedida(Integer unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
     }
 

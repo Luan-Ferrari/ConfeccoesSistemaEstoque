@@ -1205,5 +1205,7 @@ public class DBService {
 
         caixaBojoRepository.saveAll(Arrays.asList(caixa1, caixa2, caixa3, caixa4, caixa5, caixa6, caixa7, caixa8,
                 caixa9, caixa10, caixa11, caixa12));
+
+        System.out.println(alcaRepository.findById(77));
     }
 }

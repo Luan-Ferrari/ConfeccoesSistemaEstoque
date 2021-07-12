@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.format.DateTimeParseException;
@@ -75,4 +76,14 @@ public class ResourceExceptionHandler {
                 "Objeto associado a entidade não foi informado", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
+
+    //não possui classe para tratamento personalizado da mensagem de erro
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<StandardError> entityNotFoundException (EntityNotFoundException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.CONFLICT.value(),
+                "Conflito nos relacionamentos no banco de dados", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+    }
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Component
@@ -33,7 +34,7 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
             message = ValidationsValues.LENGTH)
     private String observacoes;
 
-   // @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     @Digits(integer = ValidationsValues.DIGITS_INTEGER, fraction = ValidationsValues.DIGITS_FRACTION,
             message = ValidationsValues.DIGITS_MESSAGE)
     private Double quantidadeEstoque;
@@ -93,7 +94,7 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         this.observacoes = observacoes;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public Double getQuantidadeEstoque() {
         return quantidadeEstoque;
     }

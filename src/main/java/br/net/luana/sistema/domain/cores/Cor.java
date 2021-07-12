@@ -96,7 +96,7 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
 
     @Override
     public void acrescentarQuantidade(Double quantidadeEntrada) {
-        this.quantidadeEstoque += quantidadeEntrada;
+        setQuantidadeEstoque(quantidadeEstoque + quantidadeEntrada);
     }
 
     @Override
