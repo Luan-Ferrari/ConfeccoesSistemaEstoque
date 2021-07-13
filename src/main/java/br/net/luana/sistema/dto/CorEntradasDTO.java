@@ -19,7 +19,6 @@ public class CorEntradasDTO extends MasterDTOImpl<CorEntradas, CorEntradasDTO, I
 
     private Integer id;
 
-    //@NotBlank(message = ValidationsValues.NOT_BLANK_MESSAGE)
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     @PastOrPresent(message = ValidationsValues.PAST_OR_PRESENT_MESSAGE)
     private LocalDate dataEntrada;

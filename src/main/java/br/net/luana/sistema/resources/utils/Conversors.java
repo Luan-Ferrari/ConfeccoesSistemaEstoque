@@ -16,4 +16,12 @@ public class Conversors {
         return LocalDate.parse(data, dataComHorario);
     }
 
+    public static String localDateSemHorarioToString(LocalDate data) {
+        return data.format(dataSemHorario);
+    }
+
+    public static String localDateComHorarioToString(LocalDate data) {
+        return data.format(dataComHorario);
+    }
+
 }

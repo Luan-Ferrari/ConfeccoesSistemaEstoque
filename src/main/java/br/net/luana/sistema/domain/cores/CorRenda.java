@@ -34,9 +34,4 @@ public class CorRenda extends Cor {
     public void setRenda(Renda renda) {
         this.renda = renda;
     }
-
-    @Override
-    public void diminuirQuantidade(Double quantidade) {
-
-    }
 }

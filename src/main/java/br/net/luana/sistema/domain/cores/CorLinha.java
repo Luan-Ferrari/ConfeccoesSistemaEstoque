@@ -34,9 +34,4 @@ public class CorLinha extends Cor {
     public void setLinha(Linha linha) {
         this.linha = linha;
     }
-
-    @Override
-    public void diminuirQuantidade(Double quantidade) {
-
-    }
 }

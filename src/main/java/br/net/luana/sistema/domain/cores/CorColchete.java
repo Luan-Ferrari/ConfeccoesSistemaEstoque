@@ -36,8 +36,4 @@ public class CorColchete extends Cor {
         this.colchete = colchete;
     }
 
-    @Override
-    public void diminuirQuantidade(Double quantidadeSaida) {
-
-    }
 }

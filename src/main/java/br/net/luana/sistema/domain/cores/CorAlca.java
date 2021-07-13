@@ -34,9 +34,4 @@ public class CorAlca extends Cor {
     public void setAlca(Alca alca) {
         this.alca = alca;
     }
-
-    @Override
-    public void diminuirQuantidade(Double quantidade) {
-
-    }
 }

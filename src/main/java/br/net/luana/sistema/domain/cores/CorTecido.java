@@ -49,9 +49,4 @@ public class CorTecido extends Cor {
     public void setTecido(Tecido tecido) {
         this.tecido = tecido;
     }
-
-    @Override
-    public void diminuirQuantidade(Double quantidade) {
-
-    }
 }

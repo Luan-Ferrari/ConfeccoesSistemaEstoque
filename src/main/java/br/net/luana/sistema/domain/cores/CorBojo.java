@@ -49,9 +49,4 @@ public class CorBojo extends Cor {
     public void setCaixas(List<CaixaBojo> caixas) {
         this.caixas = caixas;
     }
-
-    @Override
-    public void diminuirQuantidade(Double quantidadeSaida) {
-
-    }
 }

@@ -34,9 +34,4 @@ public class CorElastico extends Cor {
     public void setElastico(Elastico elastico) {
         this.elastico = elastico;
     }
-
-    @Override
-    public void diminuirQuantidade(Double quantidade) {
-
-    }
 }

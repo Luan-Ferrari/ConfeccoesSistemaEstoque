@@ -33,7 +33,7 @@ public class CorEntradas implements MasterDomain, Serializable {
                        Cor cor)
     {
         this.id = id;
-        this.dataEntrada = dataEntrada;//Conversors.stringToLocalDateSemHorario(dataEntrada);
+        this.dataEntrada = dataEntrada;
         this.preco = preco;
         this.quantidade = quantidade;
         this.cor = cor;
