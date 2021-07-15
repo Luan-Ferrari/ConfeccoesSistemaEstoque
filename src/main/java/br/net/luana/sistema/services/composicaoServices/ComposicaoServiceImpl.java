@@ -5,11 +5,10 @@ import br.net.luana.sistema.domain.composicoes.ComposicaoFio;
 import br.net.luana.sistema.repositories.composicoes.ComposicaoFioRepository;
 import br.net.luana.sistema.repositories.composicoes.ComposicaoRepository;
 import br.net.luana.sistema.services.MasterServiceImpl;
+import br.net.luana.sistema.services.exceptions.PorcentagemComposicaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -20,6 +19,10 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
     private ComposicaoRepository composicaoRepository;
     @Autowired
     private ComposicaoFioRepository composicaoFioRepository;
+    @Autowired
+    private FioService fioService;
+    @Autowired
+    private ModoLavarService modoLavarService;
 
     public ComposicaoServiceImpl(ComposicaoRepository composicaoRepository) {
         super(composicaoRepository);
@@ -27,13 +30,19 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
 
     @Override
     public Composicao save(Composicao entity) {
-        for(ComposicaoFio cf : entity.getItensFios()) {
-            System.out.println(cf.getFio());
-            System.out.println(cf.getComposicao().getNumero());
-            System.out.println(cf.getPorcentagem());
+        if(entity.verificaTotalComposicao()) {
+            entity = composicaoRepository.save(entity);
+
+            for (ComposicaoFio cf : entity.getItensFios()) {
+                cf.setFio(fioService.findById(cf.getFio().getId()));
+                cf.setComposicao(entity);
+                composicaoFioRepository.save(cf);
+            }
+
+            return entity;
+        } else {
+            throw new PorcentagemComposicaoException();
         }
-        composicaoFioRepository.saveAll(new ArrayList<>(entity.getItensFios()));
-        return composicaoRepository.save(entity);
     }
 
     @Override

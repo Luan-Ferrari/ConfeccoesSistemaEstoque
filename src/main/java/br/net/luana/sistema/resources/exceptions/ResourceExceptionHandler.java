@@ -2,6 +2,7 @@ package br.net.luana.sistema.resources.exceptions;
 
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
+import br.net.luana.sistema.services.exceptions.PorcentagemComposicaoException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.hibernate.TransientPropertyValueException;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,13 @@ public class ResourceExceptionHandler {
             err.addError(x.getField(), x.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+    }
+
+    @ExceptionHandler(PorcentagemComposicaoException.class)
+    public ResponseEntity<StandardError> porcentagemComposicao(PorcentagemComposicaoException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Erro na composição", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
     //não possui classe para tratamento personalizado da mensagem de erro

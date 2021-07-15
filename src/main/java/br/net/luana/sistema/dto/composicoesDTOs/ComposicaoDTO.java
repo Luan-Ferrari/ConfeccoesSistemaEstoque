@@ -53,17 +53,13 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
         composicao.setId(dto.getId());
         composicao.setNumero(dto.getNumero());
         for (int i = 0; i < fios.size(); i++ ) {
-            System.out.println(getFios().get(i).getNome());
-            System.out.println(composicao.getNumero());
             ComposicaoFio composicaoFio = new ComposicaoFio(composicao,
                     fioDTO.makeEntityfromDTO(fios.get(i)),
                     porcentagens.get(i) );
             composicao.getItensFios().add(composicaoFio);
         }
-        for (ComposicaoFio cf : composicao.getItensFios()) {
-            System.out.println(cf.getFio());
-            System.out.println(cf.getComposicao().getNumero());
-            System.out.println(cf.getPorcentagem());
+        for (ModoLavarDTO modoLavar : dto.getModoLavar()) {
+            composicao.getItensModoLavar().add(modoLavarDTO.makeEntityfromDTO(modoLavar));
         }
         return composicao;
     }

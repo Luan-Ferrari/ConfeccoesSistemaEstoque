@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.composicoesDTOs;
 
 import br.net.luana.sistema.domain.composicoes.ModoLavar;
+import br.net.luana.sistema.domain.enums.CategoriaModoLavar;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
 
     private Integer id;
 
-    private String categoria;
+    private Integer categoria;
     private String descricao;
     private String descricaoImagem;
 
@@ -19,9 +20,20 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
 
     public ModoLavarDTO(ModoLavar entity) {
         this.id = entity.getId();
-        this.categoria = entity.getCategoria().getDescricao();
+        this.categoria = entity.getCategoria().getCodigo();
         this.descricao = entity.getDescricao();
         this.descricaoImagem = entity.getDescricaoImagem();
+    }
+
+    @Override
+    public ModoLavarDTO makeDTO(ModoLavar entity) {
+        return new ModoLavarDTO(entity);
+    }
+
+    @Override
+    public ModoLavar makeEntityfromDTO(ModoLavarDTO dto) {
+        return new ModoLavar(dto.getId(), CategoriaModoLavar.toEnum(dto.getCategoria()), dto.getDescricao(),
+                getDescricaoImagem());
     }
 
     public Integer getId() {
@@ -32,11 +44,11 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
         this.id = id;
     }
 
-    public String getCategoria() {
+    public Integer getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Integer categoria) {
         this.categoria = categoria;
     }
 
@@ -56,13 +68,5 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
         this.descricaoImagem = descricaoImagem;
     }
 
-    @Override
-    public ModoLavarDTO makeDTO(ModoLavar entity) {
-        return new ModoLavarDTO(entity);
-    }
 
-    @Override
-    public ModoLavar makeEntityfromDTO(ModoLavarDTO dto) {
-        return null;
-    }
 }

@@ -26,7 +26,7 @@ public class FioDTO extends MasterDTOImpl<Fio, FioDTO, Integer> {
 
     @Override
     public Fio makeEntityfromDTO(FioDTO dto) {
-        return null;
+        return new Fio(dto.getId(), dto.getNome());
     }
 
     public Integer getId() {

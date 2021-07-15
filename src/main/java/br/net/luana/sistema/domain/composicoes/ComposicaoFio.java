@@ -5,6 +5,7 @@ import br.net.luana.sistema.domain.MasterDomain;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class ComposicaoFio implements MasterDomain, Serializable {
@@ -42,6 +43,19 @@ public class ComposicaoFio implements MasterDomain, Serializable {
 
     @Override
     public Integer getId() {
-        return null;
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ComposicaoFio that = (ComposicaoFio) o;
+        return Objects.equals(id, that.id) && Objects.equals(porcentagem, that.porcentagem);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, porcentagem);
     }
 }

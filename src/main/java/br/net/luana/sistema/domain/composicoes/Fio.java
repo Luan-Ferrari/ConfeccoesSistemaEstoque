@@ -5,9 +5,7 @@ import br.net.luana.sistema.domain.MasterDomain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Fio implements MasterDomain, Serializable {
@@ -19,7 +17,7 @@ public class Fio implements MasterDomain, Serializable {
     private String nome;
 
     @OneToMany(mappedBy = "id.fio")
-    private Set<ComposicaoFio> itensFios = new HashSet<>();
+    private List<ComposicaoFio> itensFios = new ArrayList<>();
 
     public Fio() {
     }
@@ -46,11 +44,11 @@ public class Fio implements MasterDomain, Serializable {
         this.nome = nome;
     }
 
-    public Set<ComposicaoFio> getItensFios() {
+    public List<ComposicaoFio> getItensFios() {
         return itensFios;
     }
 
-    public void setItensFios(Set<ComposicaoFio> itensFios) {
+    public void setItensFios(List<ComposicaoFio> itensFios) {
         this.itensFios = itensFios;
     }
 
