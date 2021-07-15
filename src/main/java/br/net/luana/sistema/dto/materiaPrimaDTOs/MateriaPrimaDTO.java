@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Component
-public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer>
+public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer>
         extends MasterDTOImpl<T, D, ID>
         implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,15 +45,6 @@ public class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, 
         this.fornecedor = entity.getFornecedor();
     }
 
-    @Override
-    public D makeDTO(T entity) {
-        return (D)new MateriaPrimaDTO<T, D, ID>(entity);
-    }
-
-    @Override
-    public T makeEntityfromDTO(D dto) {
-        return null;
-    }
 
     public Integer getId() {
         return id;

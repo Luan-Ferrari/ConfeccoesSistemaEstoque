@@ -30,7 +30,7 @@ public class ComposicaoFio implements MasterDomain, Serializable {
 
     public Fio getFio() { return id.getFio(); };
 
-    public void serFio(Fio fio) { id.setFio(fio); }
+    public void setFio(Fio fio) { id.setFio(fio); }
 
     public Integer getPorcentagem() {
         return porcentagem;

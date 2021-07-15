@@ -1,14 +1,22 @@
 package br.net.luana.sistema.dto.tipoDTOs;
 
+import br.net.luana.sistema.domain.enums.Tamanho;
 import br.net.luana.sistema.domain.tipos.TipoBojo;
+import br.net.luana.sistema.dto.ValidationsValues;
+import br.net.luana.sistema.dto.composicoesDTOs.ComposicaoDTO;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
 
 @Component
 public class TipoBojoDTO extends TipoDTO<TipoBojo, TipoBojoDTO, Integer> {
     private static final long serialVersionUID = 1L;
 
-    private String tamanho;
-    private Integer composicaoId;
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private Integer tamanho;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private ComposicaoDTO composicao = new ComposicaoDTO();
 
     public TipoBojoDTO() {
 
@@ -16,8 +24,8 @@ public class TipoBojoDTO extends TipoDTO<TipoBojo, TipoBojoDTO, Integer> {
 
     public TipoBojoDTO(TipoBojo entity) {
         super(entity);
-        this.tamanho = entity.getTamanho().getDescricao();
-        this.composicaoId = entity.getComposicao().getId();
+        this.tamanho = (entity.getTamanho() == null) ? null : entity.getTamanho().getCodigo();
+        this.composicao = composicao.makeDTO(entity.getComposicao());
     }
 
     @Override
@@ -25,19 +33,25 @@ public class TipoBojoDTO extends TipoDTO<TipoBojo, TipoBojoDTO, Integer> {
         return new TipoBojoDTO(entity);
     }
 
-    public String getTamanho() {
+    @Override
+    public TipoBojo makeEntityfromDTO(TipoBojoDTO dto) {
+        return new TipoBojo(dto.getId(), dto.getTipo(), Tamanho.toEnum(dto.getTamanho()),
+                composicao.makeEntityfromDTO(dto.getComposicao()));
+    }
+
+    public Integer getTamanho() {
         return tamanho;
     }
 
-    public void setTamanho(String tamanho) {
+    public void setTamanho(Integer tamanho) {
         this.tamanho = tamanho;
     }
 
-    public Integer getComposicaoId() {
-        return composicaoId;
+    public ComposicaoDTO getComposicao() {
+        return composicao;
     }
 
-    public void setComposicaoId(Integer composicaoId) {
-        this.composicaoId = composicaoId;
+    public void setComposicao(ComposicaoDTO composicao) {
+        this.composicao = composicao;
     }
 }

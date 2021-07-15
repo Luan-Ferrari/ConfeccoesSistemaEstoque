@@ -1,7 +1,7 @@
 package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.CorEntradas;
-import br.net.luana.sistema.dto.corDTOs.CorDTOforCorEntradaDTO;
+import br.net.luana.sistema.dto.corDTOs.CorDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +37,7 @@ public class CorEntradasDTO extends MasterDTOImpl<CorEntradas, CorEntradasDTO, I
     private Double quantidade;
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
-    private CorDTOforCorEntradaDTO cor = new CorDTOforCorEntradaDTO();
+    private CorDTO cor = new CorDTO();
 
     public CorEntradasDTO() {
     }
@@ -102,11 +102,11 @@ public class CorEntradasDTO extends MasterDTOImpl<CorEntradas, CorEntradasDTO, I
         this.quantidade = quantidade;
     }
 
-    public CorDTOforCorEntradaDTO getCor() {
+    public CorDTO getCor() {
         return cor;
     }
 
-    public void setCor(CorDTOforCorEntradaDTO cor) {
+    public void setCor(CorDTO cor) {
         this.cor = cor;
     }
 

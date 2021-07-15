@@ -1,9 +1,12 @@
 package br.net.luana.sistema.dto.composicoesDTOs;
 
 import br.net.luana.sistema.domain.composicoes.Composicao;
+import br.net.luana.sistema.domain.composicoes.ComposicaoFio;
 import br.net.luana.sistema.dto.MasterDTOImpl;
+import br.net.luana.sistema.dto.ValidationsValues;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +16,19 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
 
     private FioDTO fioDTO = new FioDTO();
     private ModoLavarDTO modoLavarDTO = new ModoLavarDTO();
+
     private Integer id;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private Integer numero;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<FioDTO> fios = new ArrayList<>();
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<Integer> porcentagens = new ArrayList<>();
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<ModoLavarDTO> modoLavar = new ArrayList<>();
 
     public ComposicaoDTO() {
@@ -37,7 +49,23 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
 
     @Override
     public Composicao makeEntityfromDTO(ComposicaoDTO dto) {
-        return null;
+        Composicao composicao = new Composicao();
+        composicao.setId(dto.getId());
+        composicao.setNumero(dto.getNumero());
+        for (int i = 0; i < fios.size(); i++ ) {
+            System.out.println(getFios().get(i).getNome());
+            System.out.println(composicao.getNumero());
+            ComposicaoFio composicaoFio = new ComposicaoFio(composicao,
+                    fioDTO.makeEntityfromDTO(fios.get(i)),
+                    porcentagens.get(i) );
+            composicao.getItensFios().add(composicaoFio);
+        }
+        for (ComposicaoFio cf : composicao.getItensFios()) {
+            System.out.println(cf.getFio());
+            System.out.println(cf.getComposicao().getNumero());
+            System.out.println(cf.getPorcentagem());
+        }
+        return composicao;
     }
 
     public Integer getId() {
@@ -79,4 +107,6 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
     public void setModoLavar(List<ModoLavarDTO> modoLavar) {
         this.modoLavar = modoLavar;
     }
+
+
 }

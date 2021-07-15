@@ -1,21 +1,26 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorElastico;
+import br.net.luana.sistema.dto.ValidationsValues;
+import br.net.luana.sistema.dto.materiaPrimaDTOs.ElasticoDTO;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
 
 
 @Component
 public class CorElasticoDTO extends CorDTO<CorElastico, CorElasticoDTO, Integer> {
     private static final long serialVerialUID = 1L;
 
-    private Integer elasticoId;
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private ElasticoDTO elastico = new ElasticoDTO();
 
     public CorElasticoDTO() {
     }
 
     public CorElasticoDTO(CorElastico entity) {
         super(entity);
-        this.elasticoId = entity.getElastico().getId();
+        this.elastico = elastico.makeDTO(entity.getElastico());
     }
 
     @Override
@@ -23,11 +28,17 @@ public class CorElasticoDTO extends CorDTO<CorElastico, CorElasticoDTO, Integer>
         return new CorElasticoDTO(entity);
     }
 
-    public Integer getElasticoId() {
-        return elasticoId;
+    @Override
+    public CorElastico makeEntityfromDTO(CorElasticoDTO dto) {
+        return new CorElastico(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
+                dto.getQuantidadeEstoque(), elastico.makeEntityfromDTO(dto.getElastico()));
     }
 
-    public void setElasticoId(Integer elasticoId) {
-        this.elasticoId = elasticoId;
+    public ElasticoDTO getElastico() {
+        return elastico;
+    }
+
+    public void setElastico(ElasticoDTO elastico) {
+        this.elastico = elastico;
     }
 }

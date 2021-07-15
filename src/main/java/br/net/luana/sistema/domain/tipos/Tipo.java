@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Tipo implements MasterDomain,Serializable {
+public abstract class Tipo implements MasterDomain,Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

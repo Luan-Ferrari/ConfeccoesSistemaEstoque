@@ -1,22 +1,26 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorColchete;
-import br.net.luana.sistema.domain.cores.CorTecido;
+import br.net.luana.sistema.dto.ValidationsValues;
+import br.net.luana.sistema.dto.materiaPrimaDTOs.ColcheteDTO;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotNull;
 
 
 @Component
 public class CorColcheteDTO extends CorDTO<CorColchete, CorColcheteDTO, Integer> {
     private static final long serialVerialUID = 1L;
 
-    private Integer colcheteId;
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private ColcheteDTO colchete = new ColcheteDTO();
 
     public CorColcheteDTO() {
     }
 
     public CorColcheteDTO(CorColchete entity) {
         super(entity);
-        this.colcheteId = entity.getColchete().getId();
+        this.colchete = colchete.makeDTO(entity.getColchete());
     }
 
     @Override
@@ -24,11 +28,17 @@ public class CorColcheteDTO extends CorDTO<CorColchete, CorColcheteDTO, Integer>
         return new CorColcheteDTO(entity);
     }
 
-    public Integer getColcheteId() {
-        return colcheteId;
+    @Override
+    public CorColchete makeEntityfromDTO(CorColcheteDTO dto) {
+        return new CorColchete(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
+                dto.getQuantidadeEstoque(), colchete.makeEntityfromDTO(dto.getColchete()));
     }
 
-    public void setColcheteId(Integer colcheteId) {
-        this.colcheteId = colcheteId;
+    public ColcheteDTO getColchete() {
+        return colchete;
+    }
+
+    public void setColchete(ColcheteDTO colchete) {
+        this.colchete = colchete;
     }
 }

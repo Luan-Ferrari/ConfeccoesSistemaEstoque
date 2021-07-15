@@ -30,7 +30,7 @@ public class TipoBojo extends Tipo implements Serializable {
 
     public TipoBojo(Integer id, String tipo, Tamanho tamanho, Composicao composicao) {
         super(id, tipo);
-        this.tamanho = tamanho.getCodigo();
+        this.tamanho = (tamanho == null) ? null : tamanho.getCodigo();
         this.composicao = composicao;
     }
 

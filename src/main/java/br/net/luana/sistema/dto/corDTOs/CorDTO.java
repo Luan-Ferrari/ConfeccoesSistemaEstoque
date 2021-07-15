@@ -3,7 +3,6 @@ package br.net.luana.sistema.dto.corDTOs;
 import br.net.luana.sistema.domain.cores.Cor;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
@@ -85,7 +84,6 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         this.nome = nome;
     }
 
-    @JsonIgnore
     public String getObservacoes() {
         return observacoes;
     }
@@ -94,7 +92,6 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         this.observacoes = observacoes;
     }
 
-    //@JsonIgnore
     public Double getQuantidadeEstoque() {
         return quantidadeEstoque;
     }

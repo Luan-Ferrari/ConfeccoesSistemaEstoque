@@ -11,13 +11,14 @@ import javax.persistence.ManyToOne;
 public class CorTecido extends Cor {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JoinColumn(name = "composicao_id")
-    private Composicao composicao;
 
     @ManyToOne
     @JoinColumn(name = "materia_prima_id")
     private Tecido tecido;
+
+    @ManyToOne
+    @JoinColumn(name = "composicao_id")
+    private Composicao composicao;
 
     public CorTecido() {
     }
@@ -27,8 +28,8 @@ public class CorTecido extends Cor {
                      String nome,
                      String observacoes,
                      Double quantidadeEstoque,
-                     Composicao composicao,
-                     Tecido tecido) {
+                     Tecido tecido,
+                     Composicao composicao) {
         super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
         this.composicao = composicao;
         this.tecido = tecido;
