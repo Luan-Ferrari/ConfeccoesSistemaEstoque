@@ -39,7 +39,7 @@ public class RendaDTO extends MateriaPrimaDTO<Renda, RendaDTO, Integer> {
     @Override
     public Renda makeEntityfromDTO(RendaDTO dto) {
         return new Renda(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
                 tipoRenda.makeEntityfromDTO(dto.getTipoRenda()));
     }
 

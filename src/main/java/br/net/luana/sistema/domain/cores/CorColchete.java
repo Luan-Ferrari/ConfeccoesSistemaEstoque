@@ -1,7 +1,7 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Colchete;
-
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,10 +23,14 @@ public class CorColchete extends Cor {
                        String nome,
                        String observacoes,
                        Double quantidadeEstoque,
+                       Double quantidadeKanBan,
+                       UnidadeMedida unidadeMedida,
                        Colchete colchete) {
-        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque,
+                quantidadeKanBan, unidadeMedida);
         this.colchete = colchete;
     }
+
 
     public Colchete getColchete() {
         return colchete;

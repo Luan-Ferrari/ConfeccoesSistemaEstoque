@@ -5,8 +5,10 @@ public enum FuncaoContato {
     TRANSPORTE(2, "Transporte"),
     DESPACHO(3, "Despacho"),
     ESCRITORIO(4, "Escritório"),
-    ADMINISTRACAO(5, "Administração"),
-    RECEPCAO(6, "Recepção");
+    FINANCEIRO(5, "Financeiro"),
+    RECEPCAO(6, "Recepção"),
+    MANUTENCAO(7, "Manutenção"),
+    OUTROS(99, "Outros");
 
     private int codigo;
     private String descricao;

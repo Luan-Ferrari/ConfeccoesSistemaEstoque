@@ -18,8 +18,8 @@ public class Colecao implements Serializable {
     private String nome;
     private Integer ano;
 
-//    @ManyToMany(mappedBy = "colecoes")
-//    private List<MateriaPrima> materiasPrimas = new ArrayList<>();
+    @ManyToMany(mappedBy = "colecoes")
+    private List<MateriaPrima> materiasPrimas = new ArrayList<>();
 
     public Colecao() {
     }
@@ -54,13 +54,13 @@ public class Colecao implements Serializable {
         this.ano = ano;
     }
 
-//    public List<MateriaPrima> getMateriasPrimas() {
-//        return materiasPrimas;
-//    }
-//
-//    public void setMateriasPrimas(List<MateriaPrima> materiasPrimas) {
-//        this.materiasPrimas = materiasPrimas;
-//    }
+    public List<MateriaPrima> getMateriasPrimas() {
+        return materiasPrimas;
+    }
+
+    public void setMateriasPrimas(List<MateriaPrima> materiasPrimas) {
+        this.materiasPrimas = materiasPrimas;
+    }
 
     @Override
     public boolean equals(Object o) {

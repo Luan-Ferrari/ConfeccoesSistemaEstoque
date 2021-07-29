@@ -31,9 +31,10 @@ public class Elastico extends MateriaPrima {
                     String observacoes,
                     Boolean desuso,
                     UnidadeMedida unidadeMedida,
+                    Double quantidadeKanBan,
                     Fornecedor fornecedor,
                     TipoElastico tipoElastico) {
-        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, fornecedor);
+        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, quantidadeKanBan, fornecedor);
         this.tipoElastico = tipoElastico;
     }
 

@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorLinha;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.LinhaDTO;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,8 @@ public class CorLinhaDTO extends CorDTO<CorLinha, CorLinhaDTO, Integer> {
     @Override
     public CorLinha makeEntityfromDTO(CorLinhaDTO dto) {
         return new CorLinha(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
-                dto.getQuantidadeEstoque(), linha.makeEntityfromDTO(dto.getLinha()));
+                dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), linha.makeEntityfromDTO(dto.getLinha()));
     }
 
     public LinhaDTO getLinha() {

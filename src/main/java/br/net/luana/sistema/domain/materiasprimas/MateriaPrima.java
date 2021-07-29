@@ -23,6 +23,7 @@ public class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serial
     private String observacoes = null;
     private Boolean desuso = false;
     private Integer unidadeMedida;
+    private Double quantidadeKanBan;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
@@ -42,12 +43,14 @@ public class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serial
                         String observacoes,
                         Boolean desuso,
                         UnidadeMedida unidadeMedida,
+                        Double quantidadeKanBan,
                         Fornecedor fornecedor) {
         this.id = id;
         this.referenciaNaFabrica = referenciaNaFabrica;
         this.observacoes = observacoes;
         this.desuso = desuso;
         this.unidadeMedida = (unidadeMedida==null) ? null : unidadeMedida.getCodigo();
+        this.quantidadeKanBan = quantidadeKanBan;
         this.fornecedor = fornecedor;
     }
 
@@ -97,6 +100,14 @@ public class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serial
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    public Double getQuantidadeKanBan() {
+        return quantidadeKanBan;
+    }
+
+    public void setQuantidadeKanBan(Double quantidadeKanBan) {
+        this.quantidadeKanBan = quantidadeKanBan;
     }
 
     public List<Colecao> getColecoes() {

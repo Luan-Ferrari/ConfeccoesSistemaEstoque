@@ -39,7 +39,7 @@ public class AlcaDTO extends MateriaPrimaDTO<Alca, AlcaDTO, Integer> {
     @Override
     public Alca makeEntityfromDTO(AlcaDTO dto) {
         return new Alca(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(), dto.getFornecedor(),
                 tipoAlca.makeEntityfromDTO(dto.getTipoAlca()));
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class TipoFornecedor implements Serializable {
+public class TipoFornecedor implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

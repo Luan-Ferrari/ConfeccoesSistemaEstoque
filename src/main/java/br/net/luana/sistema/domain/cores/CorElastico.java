@@ -1,5 +1,6 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Elastico;
 
 import javax.persistence.Entity;
@@ -22,8 +23,11 @@ public class CorElastico extends Cor {
                        String nome,
                        String observacoes,
                        Double quantidadeEstoque,
+                       Double quantidadeKanBan,
+                       UnidadeMedida unidadeMedida,
                        Elastico elastico) {
-        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque,
+                quantidadeKanBan, unidadeMedida);
         this.elastico = elastico;
     }
 

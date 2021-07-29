@@ -1,6 +1,7 @@
 package br.net.luana.sistema.domain.cores;
 
 import br.net.luana.sistema.domain.CaixaBojo;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Bojo;
 
 import javax.persistence.Entity;
@@ -29,10 +30,14 @@ public class CorBojo extends Cor {
                    String nome,
                    String observacoes,
                    Double quantidadeEstoque,
+                   Double quantidadeKanBan,
+                   UnidadeMedida unidadeMedida,
                    Bojo bojo) {
-        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque,
+                quantidadeKanBan, unidadeMedida);
         this.bojo = bojo;
     }
+
 
     public Bojo getBojo() {
         return bojo;

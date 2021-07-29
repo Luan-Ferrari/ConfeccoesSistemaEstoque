@@ -31,9 +31,10 @@ public class Renda extends MateriaPrima {
                  String observacoes,
                  Boolean desuso,
                  UnidadeMedida unidadeMedida,
+                 Double quantidadeKanBan,
                  Fornecedor fornecedor,
                  TipoRenda tipoRenda) {
-        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, fornecedor);
+        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, quantidadeKanBan, fornecedor);
         this.tipoRenda = tipoRenda;
     }
 

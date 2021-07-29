@@ -2,6 +2,7 @@ package br.net.luana.sistema.domain.cores;
 
 import br.net.luana.sistema.domain.CorEntradas;
 import br.net.luana.sistema.domain.MasterDomain;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +22,8 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
     private String nome;
     private String observacoes;
     private Double quantidadeEstoque;
+    private Double quantidadeKanBan;
+    private Integer unidadeMedida;
 
     @OneToMany(mappedBy = "cor")
     private List<CorEntradas> entradas = new ArrayList<>();
@@ -32,12 +35,16 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
                String referenciaNaFabrica,
                String nome,
                String observacoes,
-               Double quantidadeEstoque) {
+               Double quantidadeEstoque,
+               Double quantidadeKanBan,
+               UnidadeMedida unidadeMedida) {
         this.id = id;
         this.referenciaNaFabrica = referenciaNaFabrica;
         this.nome = nome;
         this.observacoes = observacoes;
         this.quantidadeEstoque = quantidadeEstoque;
+        this.quantidadeKanBan = quantidadeKanBan;
+        this.unidadeMedida = (unidadeMedida==null) ? null : unidadeMedida.getCodigo();
     }
 
     public Integer getId() {
@@ -80,6 +87,22 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
+    public Double getQuantidadeKanBan() {
+        return quantidadeKanBan;
+    }
+
+    public void setQuantidadeKanBan(Double quantidadeKanBan) {
+        this.quantidadeKanBan = quantidadeKanBan;
+    }
+
+    public UnidadeMedida getUnidadeMedida() {
+        return UnidadeMedida.toEnum(unidadeMedida);
+    }
+
+    public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida.getCodigo();
+    }
+
     public List<CorEntradas> getEntradas() {
         return entradas;
     }
@@ -87,7 +110,6 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
     public void setEntradas(List<CorEntradas> entradas) {
         this.entradas = entradas;
     }
-
 
     @Override
     public void diminuirQuantidade(Double quantidadeSaida) {

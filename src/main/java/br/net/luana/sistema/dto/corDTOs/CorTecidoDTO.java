@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorTecido;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.composicoesDTOs.ComposicaoDTO;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.TecidoDTO;
@@ -36,7 +37,8 @@ public class CorTecidoDTO extends CorDTO<CorTecido, CorTecidoDTO, Integer> {
     @Override
     public CorTecido makeEntityfromDTO(CorTecidoDTO dto) {
         return new CorTecido(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
-                dto.getQuantidadeEstoque(), tecido.makeEntityfromDTO(dto.getTecido()),
+                dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), tecido.makeEntityfromDTO(dto.getTecido()),
                 composicao.makeEntityfromDTO(dto.getComposicao()));
     }
 

@@ -39,7 +39,7 @@ public class ElasticoDTO extends MateriaPrimaDTO<Elastico, ElasticoDTO, Integer>
     @Override
     public Elastico makeEntityfromDTO(ElasticoDTO dto) {
         return new Elastico(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(), dto.getFornecedor(),
                 tipoElastico.makeEntityfromDTO(dto.getTipoElastico()));
     }
 

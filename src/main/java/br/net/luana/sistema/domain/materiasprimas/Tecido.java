@@ -1,13 +1,15 @@
 package br.net.luana.sistema.domain.materiasprimas;
 
-import br.net.luana.sistema.domain.Colecao;
 import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.TecidoClasse;
 import br.net.luana.sistema.domain.cores.CorTecido;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.tipos.TipoTecido;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +36,11 @@ public class Tecido extends MateriaPrima {
                   String observacoes,
                   Boolean desuso,
                   UnidadeMedida unidadeMedida,
+                  Double quantidadeKanBan,
                   Fornecedor fornecedor,
                   TipoTecido tipoTecido,
                   TecidoClasse classe) {
-        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, fornecedor);
+        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, quantidadeKanBan, fornecedor);
         this.tipoTecido = tipoTecido;
         this.classe = classe;
     }

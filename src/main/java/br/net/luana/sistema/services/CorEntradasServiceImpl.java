@@ -20,6 +20,8 @@ public class CorEntradasServiceImpl extends MasterServiceImpl<CorEntradas, Integ
     private CorEntradasRepository corEntradasRepository;
     @Autowired
     private CorRepository corRepository;
+    @Autowired
+    private CartaoKanBanServiceImpl cartaoKanBanService;
 
     public CorEntradasServiceImpl(CorEntradasRepository corEntradasRepository) {
         super(corEntradasRepository);
@@ -43,7 +45,10 @@ public class CorEntradasServiceImpl extends MasterServiceImpl<CorEntradas, Integ
 
     @Override
     public CorEntradas save(CorEntradas entity) {
-        acrescentarQuantidadeCorEstoque(buscarCor(entity.getCor().getId()), entity.getQuantidade());
+        Cor cor = buscarCor(entity.getCor().getId());
+        acrescentarQuantidadeCorEstoque(cor, entity.getQuantidade());
+        CorEntradas corEntradas = corEntradasRepository.save(entity);
+        cartaoKanBanService.criarCartoesKanBan(cor, entity);
         return corEntradasRepository.save(entity);
     }
 

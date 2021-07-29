@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorAlca;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.AlcaDTO;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,8 @@ public class CorAlcaDTO extends CorDTO<CorAlca, CorAlcaDTO, Integer> {
     @Override
     public CorAlca makeEntityfromDTO(CorAlcaDTO dto) {
         return new CorAlca(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
-                dto.getQuantidadeEstoque(), alca.makeEntityfromDTO(dto.getAlca()));
+                dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), alca.makeEntityfromDTO(dto.getAlca()));
     }
 
     public AlcaDTO getAlca() {

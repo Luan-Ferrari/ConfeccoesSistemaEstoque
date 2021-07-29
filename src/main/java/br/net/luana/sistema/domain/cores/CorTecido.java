@@ -1,6 +1,7 @@
 package br.net.luana.sistema.domain.cores;
 
 import br.net.luana.sistema.domain.composicoes.Composicao;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
 
 import javax.persistence.Entity;
@@ -28,9 +29,12 @@ public class CorTecido extends Cor {
                      String nome,
                      String observacoes,
                      Double quantidadeEstoque,
+                     Double quantidadeKanBan,
+                     UnidadeMedida unidadeMedida,
                      Tecido tecido,
                      Composicao composicao) {
-        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque,
+                quantidadeKanBan, unidadeMedida);
         this.composicao = composicao;
         this.tecido = tecido;
     }

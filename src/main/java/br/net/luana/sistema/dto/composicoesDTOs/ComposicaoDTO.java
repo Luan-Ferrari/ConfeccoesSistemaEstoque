@@ -6,6 +6,7 @@ import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +23,13 @@ public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Inte
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private Integer numero;
 
-    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @NotEmpty(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<FioDTO> fios = new ArrayList<>();
 
-    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @NotEmpty(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<Integer> porcentagens = new ArrayList<>();
 
-    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    @NotEmpty(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<ModoLavarDTO> modoLavar = new ArrayList<>();
 
     public ComposicaoDTO() {

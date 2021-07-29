@@ -31,10 +31,11 @@ public class Alca extends MateriaPrima {
                 String observacoes,
                 Boolean desuso,
                 UnidadeMedida unidadeMedida,
+                Double quantidadeKanBan,
                 Fornecedor fornecedor,
                 TipoAlca tipoAlca
     ) {
-        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, fornecedor);
+        super(id, referenciaNaFabrica, observacoes, desuso, unidadeMedida, quantidadeKanBan, fornecedor);
         this.tipoAlca = tipoAlca;
     }
 

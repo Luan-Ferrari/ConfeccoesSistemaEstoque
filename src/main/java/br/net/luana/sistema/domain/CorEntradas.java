@@ -5,6 +5,8 @@ import br.net.luana.sistema.domain.cores.Cor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +24,9 @@ public class CorEntradas implements MasterDomain, Serializable {
     @ManyToOne
     @JoinColumn(name = "cor_id")
     private Cor cor;
+
+    @OneToMany(mappedBy = "corEntrada")
+    private List<CartaoKanBan> cartoesCanKan = new ArrayList<>();
 
     public CorEntradas() {
     }
@@ -85,6 +90,14 @@ public class CorEntradas implements MasterDomain, Serializable {
 
     public void setCor(Cor cor) {
         this.cor = cor;
+    }
+
+    public List<CartaoKanBan> getCartoesCanKan() {
+        return cartoesCanKan;
+    }
+
+    public void setCartoesCanKan(List<CartaoKanBan> cartoesCanKan) {
+        this.cartoesCanKan = cartoesCanKan;
     }
 
     @Override

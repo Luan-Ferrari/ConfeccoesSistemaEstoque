@@ -39,7 +39,7 @@ public class BojoDTO extends MateriaPrimaDTO<Bojo, BojoDTO, Integer> {
     @Override
     public Bojo makeEntityfromDTO(BojoDTO dto) {
         return new Bojo(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
                 tipoBojo.makeEntityfromDTO(dto.getTipoBojo()));
     }
 

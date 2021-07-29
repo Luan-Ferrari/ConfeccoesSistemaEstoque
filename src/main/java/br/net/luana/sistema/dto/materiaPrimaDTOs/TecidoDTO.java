@@ -44,7 +44,7 @@ public class TecidoDTO extends MateriaPrimaDTO<Tecido, TecidoDTO, Integer> {
     @Override
     public Tecido makeEntityfromDTO(TecidoDTO dto) {
         return new Tecido(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
                 tipoTecido.makeEntityfromDTO(dto.getTipoTecido()),
                 tecidoClasse.makeEntityfromDTO(dto.getTecidoClasse()));
     }

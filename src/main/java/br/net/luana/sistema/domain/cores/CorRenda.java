@@ -1,5 +1,6 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Renda;
 
 import javax.persistence.Entity;
@@ -22,8 +23,11 @@ public class CorRenda extends Cor {
                     String nome,
                     String observacoes,
                     Double quantidadeEstoque,
+                    Double quantidadeKanBan,
+                    UnidadeMedida unidadeMedida,
                     Renda renda) {
-        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque,
+                quantidadeKanBan, unidadeMedida);
         this.renda = renda;
     }
 

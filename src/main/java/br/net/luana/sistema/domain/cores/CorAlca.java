@@ -1,5 +1,6 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Alca;
 
 import javax.persistence.Entity;
@@ -22,10 +23,14 @@ public class CorAlca extends Cor {
                    String nome,
                    String observacoes,
                    Double quantidadeEstoque,
+                   Double quantidadeKanBan,
+                   UnidadeMedida unidadeMedida,
                    Alca alca) {
-        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque);
+        super(id, referenciaNaFabrica, nome, observacoes, quantidadeEstoque,
+                quantidadeKanBan, unidadeMedida);
         this.alca = alca;
     }
+
 
     public Alca getAlca() {
         return alca;

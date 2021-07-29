@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorElastico;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.ElasticoDTO;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,8 @@ public class CorElasticoDTO extends CorDTO<CorElastico, CorElasticoDTO, Integer>
     @Override
     public CorElastico makeEntityfromDTO(CorElasticoDTO dto) {
         return new CorElastico(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
-                dto.getQuantidadeEstoque(), elastico.makeEntityfromDTO(dto.getElastico()));
+                dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), elastico.makeEntityfromDTO(dto.getElastico()));
     }
 
     public ElasticoDTO getElastico() {

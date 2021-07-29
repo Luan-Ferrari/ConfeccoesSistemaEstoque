@@ -31,6 +31,9 @@ public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaP
     private Integer unidadeMedida;
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private Double quantidadeKanBan;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private Fornecedor fornecedor;
 
     public MateriaPrimaDTO() {
@@ -84,6 +87,14 @@ public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaP
 
     public void setUnidadeMedida(Integer unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
+    }
+
+    public Double getQuantidadeKanBan() {
+        return quantidadeKanBan;
+    }
+
+    public void setQuantidadeKanBan(Double quantidadeKanBan) {
+        this.quantidadeKanBan = quantidadeKanBan;
     }
 
     public Fornecedor getFornecedor() {

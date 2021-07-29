@@ -39,7 +39,7 @@ public class LinhaDTO extends MateriaPrimaDTO<Linha, LinhaDTO, Integer> {
     @Override
     public Linha makeEntityfromDTO(LinhaDTO dto) {
         return new Linha(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
                 tipoLinha.makeEntityfromDTO(dto.getTipoLinha()));
     }
 

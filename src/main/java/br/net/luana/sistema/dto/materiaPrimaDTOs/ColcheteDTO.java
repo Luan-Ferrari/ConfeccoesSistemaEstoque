@@ -39,7 +39,7 @@ public class ColcheteDTO extends MateriaPrimaDTO<Colchete, ColcheteDTO, Integer>
     @Override
     public Colchete makeEntityfromDTO(ColcheteDTO dto) {
         return new Colchete(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
                 tipoColchete.makeEntityfromDTO(dto.getTipoColchete()));
     }
 

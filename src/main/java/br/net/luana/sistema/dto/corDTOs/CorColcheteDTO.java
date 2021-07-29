@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorColchete;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.ColcheteDTO;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,8 @@ public class CorColcheteDTO extends CorDTO<CorColchete, CorColcheteDTO, Integer>
     @Override
     public CorColchete makeEntityfromDTO(CorColcheteDTO dto) {
         return new CorColchete(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
-                dto.getQuantidadeEstoque(), colchete.makeEntityfromDTO(dto.getColchete()));
+                dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), colchete.makeEntityfromDTO(dto.getColchete()));
     }
 
     public ColcheteDTO getColchete() {

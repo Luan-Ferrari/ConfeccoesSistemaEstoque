@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.Cor;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
 import org.hibernate.validator.constraints.Length;
@@ -38,6 +39,12 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
             message = ValidationsValues.DIGITS_MESSAGE)
     private Double quantidadeEstoque;
 
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private Double quantidadeKanBan;
+
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private Integer unidadeMedida;
+
 
     public CorDTO(){ }
 
@@ -47,6 +54,8 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         this.nome = entity.getNome();
         this.observacoes = entity.getObservacoes();
         this.quantidadeEstoque = entity.getQuantidadeEstoque();
+        this.quantidadeKanBan = entity.getQuantidadeKanBan();
+        this.unidadeMedida = (entity.getUnidadeMedida() == null) ? null : entity.getUnidadeMedida().getCodigo();
     }
 
     @Override
@@ -57,7 +66,8 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
     @Override
     public T makeEntityfromDTO(D dto) {
         return (T) new Cor(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(),
-                dto.getObservacoes(), dto.getQuantidadeEstoque());
+                dto.getObservacoes(), dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()));
     }
 
     public Integer getId() {
@@ -98,5 +108,21 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
 
     public void setQuantidadeEstoque(Double quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public Double getQuantidadeKanBan() {
+        return quantidadeKanBan;
+    }
+
+    public void setQuantidadeKanBan(Double quantidadeKanBan) {
+        this.quantidadeKanBan = quantidadeKanBan;
+    }
+
+    public Integer getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(Integer unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
     }
 }

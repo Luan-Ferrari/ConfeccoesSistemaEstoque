@@ -1,6 +1,7 @@
 package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.CorRenda;
+import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.RendaDTO;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,8 @@ public class CorRendaDTO extends CorDTO<CorRenda, CorRendaDTO, Integer> {
     @Override
     public CorRenda makeEntityfromDTO(CorRendaDTO dto) {
         return new CorRenda(dto.getId(), dto.getReferenciaNaFabrica(), dto.getNome(), dto.getObservacoes(),
-                dto.getQuantidadeEstoque(), renda.makeEntityfromDTO(dto.getRenda()));
+                dto.getQuantidadeEstoque(), dto.getQuantidadeKanBan(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), renda.makeEntityfromDTO(dto.getRenda()));
     }
 
     public RendaDTO getRenda() {
