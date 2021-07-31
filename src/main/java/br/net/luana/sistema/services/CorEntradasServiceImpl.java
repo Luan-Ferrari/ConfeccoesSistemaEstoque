@@ -1,7 +1,9 @@
 package br.net.luana.sistema.services;
 
+import br.net.luana.sistema.domain.CartaoKanBan;
 import br.net.luana.sistema.domain.CorEntradas;
 import br.net.luana.sistema.domain.cores.Cor;
+import br.net.luana.sistema.domain.enums.MotivoBaixaKanBan;
 import br.net.luana.sistema.repositories.CorEntradasRepository;
 import br.net.luana.sistema.repositories.corRepositories.CorRepository;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
@@ -39,6 +41,9 @@ public class CorEntradasServiceImpl extends MasterServiceImpl<CorEntradas, Integ
     }
 
     public void diminuirQuantidadeCorEstoque(Cor cor, Double quantidade) {
+        System.out.println(cor.getId());
+        System.out.println(cor.getReferenciaNaFabrica());
+        System.out.println(quantidade);
         cor.diminuirQuantidade(quantidade);
         corRepository.save(cor);
     }
@@ -78,5 +83,13 @@ public class CorEntradasServiceImpl extends MasterServiceImpl<CorEntradas, Integ
         }
         updateEntity.setQuantidade(entity.getQuantidade());
         updateEntity.setCor(entity.getCor());
+
+        for(CartaoKanBan cartao : updateEntity.getCartoesCanKan()) {
+            cartaoKanBanService.baixarCartao(cartao, MotivoBaixaKanBan.ERRO);
+        }
+        Cor cor = buscarCor(updateEntity.getCor().getId());
+        System.out.println(cor.getId());
+        System.out.println(cor.getNome());
+        cartaoKanBanService.criarCartoesKanBan(cor, updateEntity);
     }
 }

@@ -21,6 +21,9 @@ public class CorEntradas implements MasterDomain, Serializable {
     private Double preco;
     private Double quantidade;
 
+    private Integer qtdeKanBanCriados;
+    private Integer qtdeKanBanBaixados;
+
     @ManyToOne
     @JoinColumn(name = "cor_id")
     private Cor cor;
@@ -98,6 +101,22 @@ public class CorEntradas implements MasterDomain, Serializable {
 
     public void setCartoesCanKan(List<CartaoKanBan> cartoesCanKan) {
         this.cartoesCanKan = cartoesCanKan;
+    }
+
+    public Integer getQtdeKanBanCriados() {
+        return qtdeKanBanCriados;
+    }
+
+    public void setQtdeKanBanCriados(Integer qtdeKanBanCriados) {
+        this.qtdeKanBanCriados = qtdeKanBanCriados;
+    }
+
+    public Integer getQtdeKanBanBaixados() {
+        return qtdeKanBanBaixados;
+    }
+
+    public void setQtdeKanBanBaixados(Integer qtdeKanBanBaixados) {
+        this.qtdeKanBanBaixados = qtdeKanBanBaixados;
     }
 
     @Override

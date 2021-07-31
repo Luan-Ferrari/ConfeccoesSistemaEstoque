@@ -1,8 +1,11 @@
 package br.net.luana.sistema.services;
 
 import br.net.luana.sistema.domain.CartaoKanBan;
+import br.net.luana.sistema.domain.CartaoKanBanHistorico;
 import br.net.luana.sistema.domain.CorEntradas;
 import br.net.luana.sistema.domain.cores.Cor;
+import br.net.luana.sistema.domain.enums.MotivoBaixaKanBan;
+import br.net.luana.sistema.repositories.CartaoKanBanHistoricoRepository;
 import br.net.luana.sistema.repositories.CartaoKanBanRepository;
 import br.net.luana.sistema.repositories.corRepositories.CorRepository;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +26,8 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
 
     @Autowired
     private CartaoKanBanRepository cartaoKanBanRepository;
+    @Autowired
+    private CartaoKanBanHistoricoRepository cartaoKanBanHistoricoRepository;
     @Autowired
     private CorRepository corRepository;
     @Autowired
@@ -77,7 +83,16 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
         return cartoes;
     }
 
-    public List<String> baixarCarteosEmLote(List<Integer> lista) {
+    public void baixarCartao(CartaoKanBan cartao, MotivoBaixaKanBan motivoBaixa) {
+        if(cartao.getEmUso() == true) {
+            cartao.setEmUso(false);
+            criarCartaoKanBanHistorico(cartao, motivoBaixa);
+            save(cartao);
+        }
+    }
+
+
+    public List<String> baixarCarteosEmLote(List<Integer> lista, MotivoBaixaKanBan motivoBaixa) {
         List<String> retornos = new ArrayList<>();
         for(Integer codigo : lista) {
             try {
@@ -89,6 +104,7 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
                     cartao.setEmUso(false);
                     corEntradasService.diminuirQuantidadeCorEstoque(cartao.getCorEntradas().getCor(),
                             cartao.getQuantidadeArmazenada());
+                    criarCartaoKanBanHistorico(cartao, motivoBaixa);
                     String retorno = "Cartão baixado com sucesso";
                     retornos.add(retorno);
                 }
@@ -98,6 +114,19 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
             }
         }
         return retornos;
+    }
+
+    private void criarCartaoKanBanHistorico(CartaoKanBan cartao, MotivoBaixaKanBan motivoBaixa) {
+        CartaoKanBanHistorico cartaoHistorico = new CartaoKanBanHistorico();
+
+        cartaoHistorico.setCodigoCartao(cartao.getCodigoCartao());
+        cartaoHistorico.setQuantidadeArmazenada(cartao.getQuantidadeArmazenada());
+        cartaoHistorico.setUnidadeMedida(cartao.getUnidadeMedida());
+        cartaoHistorico.setDataBaixa(LocalDate.now());
+        cartaoHistorico.setMotivoBaixa(motivoBaixa);
+        cartaoHistorico.setCorEntradas(cartao.getCorEntradas());
+
+        cartaoKanBanHistoricoRepository.save(cartaoHistorico);
     }
 
     private int criarCodigoCartao () {
