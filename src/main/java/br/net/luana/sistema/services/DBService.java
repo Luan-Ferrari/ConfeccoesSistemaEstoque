@@ -35,8 +35,6 @@ public class DBService {
     @Autowired
     private TelefoneRepository telefoneRepository;
     @Autowired
-    private TipoFornecedorRepository tipoFornecedorRepository;
-    @Autowired
     private FornecedorRepository fornecedorRepository;
     @Autowired
     private TecidoClasseRepository tecidoClasseRepository;
@@ -94,58 +92,30 @@ public class DBService {
     private TipoElasticoRepository tipoElasticoRepository;
     @Autowired
     private TipoLinhaRepository tipoLinhaRepository;
+    @Autowired
+    private CidadeRepository cidadeRepository;
 
 
     public void intanciateTestDatabase() throws ParseException {
 
         //criando contatos
-        Contato cont1 = new Contato(null, "Fulano da Silva", FuncaoContato.VENDEDOR);
-        Contato cont2 = new Contato(null, "Ciclano da Silva", FuncaoContato.MANUTENCAO);
-        Contato cont3 = new Contato(null, "Beltrano da Silva", FuncaoContato.TRANSPORTE);
-        Contato cont4 = new Contato(null, "Fulano da Fonseca", FuncaoContato.ESCRITORIO);
-        Contato cont5 = new Contato(null, "Fulano de Moura", FuncaoContato.VENDEDOR);
-        Contato cont6 = new Contato(null, "Fulano Aspargo", FuncaoContato.VENDEDOR);
+        Contato cont1 = new Contato(null, "Fulano da Silva", "Vendedor", "fulano@gmail.com");
+        Contato cont2 = new Contato(null, "Ciclano da Silva", "Vendedor", "ciclano@gmail.com");
+        Contato cont3 = new Contato(null, "Beltrano da Silva", "Contador", "beltrano@gmail.com");
+        Contato cont4 = new Contato(null, "Fulano da Fonseca", "Motorista", "fulano@hotmail.com");
+        Contato cont5 = new Contato(null, "Fulano de Moura", "Entregador", "fulano@yahoo.com");
+        Contato cont6 = new Contato(null, "Fulano Aspargo", "Aspargo", "aspargo@gmail.com");
 
-        //criando telefones
-        Telefone tel1 = new Telefone(null, "54", "999887766", null, TipoTelefone.CELULAR, cont1);
-        Telefone tel2 = new Telefone(null, "49", "999887765", null, TipoTelefone.CELULAR_E_WHATSAPP, cont2);
-        Telefone tel3 = new Telefone(null, "47", "35223522", null, TipoTelefone.FIXO,cont3);
-        Telefone tel4 = new Telefone(null, "51", "999887764", null, TipoTelefone.CELULAR_E_WHATSAPP,cont4);
-        Telefone tel5 = new Telefone(null, "55", "999887762", null, TipoTelefone.CELULAR,cont5);
-        Telefone tel6 = new Telefone(null, "54", "89897575", "2002", TipoTelefone.FIXO,cont6);
-        Telefone tel7 = new Telefone(null, "54", "999887760", null, TipoTelefone.CELULAR,cont1);
 
-        //associando os telefones aos seus contatos
-        cont1.getTelefones().addAll(Arrays.asList(tel1, tel7));
-        cont2.getTelefones().addAll(Arrays.asList(tel2));
-        cont3.getTelefones().addAll(Arrays.asList(tel3));
-        cont4.getTelefones().addAll(Arrays.asList(tel4));
-        cont5.getTelefones().addAll(Arrays.asList(tel5));
-        cont6.getTelefones().addAll(Arrays.asList(tel6));
-
-        //criando tipos de fornecedor
-        TipoFornecedor tipFornec1 = new TipoFornecedor(null, "Tecido");
-        TipoFornecedor tipFornec2 = new TipoFornecedor(null, "Bojo");
-        TipoFornecedor tipFornec3 = new TipoFornecedor(null, "Elástico");
-        TipoFornecedor tipFornec4 = new TipoFornecedor(null, "Renda");
-        TipoFornecedor tipFornec5 = new TipoFornecedor(null, "Botão");
+        //criando cidades
+        Cidade cidade1 = new Cidade(null, "Erechim", Estado.RS);
+        Cidade cidade2 = new Cidade(null, "Blumenau", Estado.SC);
 
         //criando fornecedores
-        Fornecedor fornec1 = new Fornecedor(null, "Ramalhete", "001112220000133", "ramalhete@email.com");
-        Fornecedor fornec2 = new Fornecedor(null, "Peteca", "11222333000144", "peteca@email.com");
-        Fornecedor fornec3 = new Fornecedor(null, "Down Bojos", "22333444000155", "downbojos@email.com");
-        Fornecedor fornec4 = new Fornecedor(null, "Malharia da Esquina", "33444555000166", "malhariadaesquina@email.com");
-
-        //associando fornecedores e tipos fornecedores
-        fornec1.getTipoFornecedor().addAll(Arrays.asList(tipFornec1, tipFornec2, tipFornec3, tipFornec4));
-        fornec2.getTipoFornecedor().addAll(Arrays.asList(tipFornec1, tipFornec3));
-        fornec3.getTipoFornecedor().addAll(Arrays.asList(tipFornec2));
-        fornec4.getTipoFornecedor().addAll(Arrays.asList(tipFornec1, tipFornec3, tipFornec4, tipFornec5));
-
-        tipFornec1.getFornecedores().addAll(Arrays.asList(fornec1, fornec2, fornec3));
-        tipFornec2.getFornecedores().addAll(Arrays.asList(fornec1, fornec3));
-        tipFornec3.getFornecedores().addAll(Arrays.asList(fornec1, fornec2, fornec4));
-        tipFornec4.getFornecedores().addAll(Arrays.asList(fornec1, fornec4));
+        Fornecedor fornec1 = new Fornecedor(null, "Ramalhete", "001112220000133", "ramalhete@email.com", "Aviamentos", cidade2);
+        Fornecedor fornec2 = new Fornecedor(null, "Peteca", "11222333000144", "peteca@email.com", "Malhas", cidade2);
+        Fornecedor fornec3 = new Fornecedor(null, "Down Bojos", "22333444000155", "downbojos@email.com", "Bojos", cidade2);
+        Fornecedor fornec4 = new Fornecedor(null, "Malharia da Esquina", "33444555000166", "malhariadaesquina@email.com", "Malhas", cidade1);
 
         //associando fornecedores e contatos
         fornec1.getContatos().addAll(Arrays.asList(cont1));
@@ -159,6 +129,25 @@ public class DBService {
         cont4.getFornecedores().addAll(Arrays.asList(fornec3));
         cont5.getFornecedores().addAll(Arrays.asList(fornec4));
         cont6.getFornecedores().addAll(Arrays.asList(fornec4));
+
+        //criando telefones
+        Telefone tel1 = new Telefone(null, "54", "999887766", null, cont1, null);
+        Telefone tel2 = new Telefone(null, "49", "999887765", null, cont2, null);
+        Telefone tel3 = new Telefone(null, "47", "35223522", null, null, fornec1);
+        Telefone tel4 = new Telefone(null, "51", "999887764", null, null, fornec2);
+        Telefone tel5 = new Telefone(null, "55", "999887762", null, null, fornec2);
+        Telefone tel6 = new Telefone(null, "54", "89897575", "2002", null, fornec2);
+        Telefone tel7 = new Telefone(null, "54", "999887760", null, cont1, null);
+
+        //associando os telefones aos seus contatos
+        cont1.getTelefones().addAll(Arrays.asList(tel1, tel7));
+        cont2.getTelefones().addAll(Arrays.asList(tel2));
+
+        //associando os telefones aos seus fornecedores
+        fornec1.getTelefones().addAll(Arrays.asList(tel3));
+        fornec2.getTelefones().addAll(Arrays.asList(tel4, tel5, tel6));
+
+
 
         //criando composiçoes
         Composicao comp1 = new Composicao(null, 10);
@@ -1101,15 +1090,14 @@ public class DBService {
 
 
 
+        //persistindo cidades
+        cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2));
 
         //persistindo dados de Contato
         contatoRepository.saveAll(Arrays.asList(cont1, cont2, cont3, cont4, cont5, cont6));
 
         //persistindo dados de Telefone
         telefoneRepository.saveAll(Arrays.asList(tel1, tel2, tel3, tel4, tel5, tel6, tel7));
-
-        //persistindo dados de tipoFornecedor
-        tipoFornecedorRepository.saveAll(Arrays.asList(tipFornec1,tipFornec2, tipFornec3, tipFornec4, tipFornec5));
 
         //persistindo dados de fornecedor
         fornecedorRepository.saveAll(Arrays.asList(fornec1, fornec2, fornec3, fornec4));

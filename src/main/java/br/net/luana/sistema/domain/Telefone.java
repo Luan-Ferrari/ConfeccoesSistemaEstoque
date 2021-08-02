@@ -1,13 +1,11 @@
 package br.net.luana.sistema.domain;
 
-import br.net.luana.sistema.domain.enums.TipoTelefone;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Telefone implements Serializable {
+public class Telefone implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -16,11 +14,14 @@ public class Telefone implements Serializable {
     private String ddd;
     private String telefone;
     private String ramal;
-    private Integer tipoTelefone;
 
     @ManyToOne
     @JoinColumn(name = "contato_id")
     private Contato contato;
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 
     public Telefone() {
     }
@@ -29,14 +30,14 @@ public class Telefone implements Serializable {
                     String ddd,
                     String telefone,
                     String ramal,
-                    TipoTelefone tipoTelefone,
-                    Contato contato) {
+                    Contato contato,
+                    Fornecedor fornecedor) {
         this.id = id;
         this.ddd = ddd;
         this.telefone = telefone;
         this.ramal = ramal;
-        this.tipoTelefone = (tipoTelefone==null) ? null : tipoTelefone.getCodigo();
-        this.contato = contato;
+        this.contato = (contato == null) ? null : contato;
+        this.fornecedor = (fornecedor == null) ? null : fornecedor;
     }
 
     public Integer getId() {
@@ -71,14 +72,6 @@ public class Telefone implements Serializable {
         this.ramal = ramal;
     }
 
-    public TipoTelefone getTipoTelefone() {
-        return TipoTelefone.toEnum(tipoTelefone);
-    }
-
-    public void setTipoTelefone(TipoTelefone tipoTelefone) {
-        this.tipoTelefone = tipoTelefone.getCodigo();
-    }
-
     public Contato getContato() {
         return contato;
     }
@@ -87,8 +80,13 @@ public class Telefone implements Serializable {
         this.contato = contato;
     }
 
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
 
-
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,7 +1,5 @@
 package br.net.luana.sistema.domain;
 
-import br.net.luana.sistema.domain.enums.FuncaoContato;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,15 +7,15 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Contato implements Serializable {
+public class Contato implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private String funcao;
     private String email;
-    private Integer funcaoContato;
 
     @ManyToMany(mappedBy = "contatos")
     private List<Fornecedor> fornecedores = new ArrayList<>();
@@ -28,12 +26,14 @@ public class Contato implements Serializable {
     public Contato() {
     }
 
-    public Contato(Integer id, String nome, FuncaoContato funcaoContato) {
+    public Contato(Integer id, String nome, String funcao, String email) {
         this.id = id;
         this.nome = nome;
-        this.funcaoContato = (funcaoContato==null) ? null : funcaoContato.getCodigo();
+        this.funcao = funcao;
+        this.email = email;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -50,20 +50,20 @@ public class Contato implements Serializable {
         this.nome = nome;
     }
 
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public FuncaoContato getFuncaoContato() {
-        return FuncaoContato.toEnum(funcaoContato);
-    }
-
-    public void setFuncaoContato(FuncaoContato funcaoContato) {
-        this.funcaoContato = funcaoContato.getCodigo();
     }
 
     public List<Fornecedor> getFornecedores() {

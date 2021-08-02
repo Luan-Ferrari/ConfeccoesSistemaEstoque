@@ -1,7 +1,6 @@
 package br.net.luana.sistema.domain;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,18 +19,19 @@ public class Fornecedor implements MasterDomain, Serializable {
     private String cnpj;
     private String email;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "fornecedor_tipo_fornecedor",
-    joinColumns = @JoinColumn(name = "fornecedor_id"),
-    inverseJoinColumns = @JoinColumn(name = "tipo_fornecedor_id"))
-    private List<TipoFornecedor> tipoFornecedor = new ArrayList<>();
+    @OneToMany(mappedBy = "fornecedor")
+    private List<Telefone> telefones = new ArrayList<>();
 
-    @JsonIgnore
+
+    private String descricao;
+
+    @ManyToOne
+    @JoinColumn(name = "cidade_id")
+    private Cidade cidade;
+
     @OneToMany(mappedBy = "fornecedor")
     private List<MateriaPrima> materiasPrimas = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "fornecedor_contato",
     joinColumns = @JoinColumn(name = "fornecedor_id"),
@@ -41,11 +41,13 @@ public class Fornecedor implements MasterDomain, Serializable {
     public Fornecedor() {
     }
 
-    public Fornecedor(Integer id, String nome, String cnpj, String email) {
+    public Fornecedor(Integer id, String nome, String cnpj, String email, String descricao, Cidade cidade) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.email = email;
+        this.descricao = descricao;
+        this.cidade = cidade;
     }
 
     public Integer getId() {
@@ -80,12 +82,28 @@ public class Fornecedor implements MasterDomain, Serializable {
         this.email = email;
     }
 
-    public List<TipoFornecedor> getTipoFornecedor() {
-        return tipoFornecedor;
+    public List<Telefone> getTelefones() {
+        return telefones;
     }
 
-    public void setTipoFornecedor(List<TipoFornecedor> tipoFornecedor) {
-        this.tipoFornecedor = tipoFornecedor;
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
     public List<MateriaPrima> getMateriasPrimas() {

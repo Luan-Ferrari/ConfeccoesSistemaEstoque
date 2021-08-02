@@ -14,5 +14,6 @@ public class ValidationsValues {
     public static final String LENGTH = "O tamanho deve ser entre {min} e {max} caracteres";
     public static final String PAST_OR_PRESENT_MESSAGE = "A data deve ser igual ou anterior a data atual";
     public static final String DIGITS_MESSAGE = "O valor deve conter {integer} digitos inteiros e {fraction} casas decimais";
+    public static final String EMAIL = "E-mail Inválido";
 
 }
