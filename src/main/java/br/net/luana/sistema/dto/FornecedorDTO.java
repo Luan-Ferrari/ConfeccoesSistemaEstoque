@@ -64,8 +64,13 @@ public class FornecedorDTO
 
     @Override
     public Fornecedor makeEntityfromDTO(FornecedorDTO dto) {
-        return new Fornecedor(dto.getId(), dto.getNome(), dto.getCnpj(),
+        Fornecedor fornecedor = new Fornecedor(dto.getId(), dto.getNome(), dto.getCnpj(),
                 dto.getEmail(), dto.getDescricao(), dto.getCidade());
+        for(TelefoneDTO telefoneDTO : dto.getTelefones()) {
+            fornecedor.getTelefones().add(telefoneDTO.makeEntityfromDTO(telefoneDTO));
+        }
+        return fornecedor;
+
     }
 
     public Integer getId() {

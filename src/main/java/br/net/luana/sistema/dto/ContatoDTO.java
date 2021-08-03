@@ -1,7 +1,6 @@
 package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.Contato;
-import br.net.luana.sistema.domain.Telefone;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +31,7 @@ public class ContatoDTO
     @Email (message = ValidationsValues.EMAIL)
     private String email;
 
-    private List<FornecedorDTO> fornecedor = new ArrayList<>();
+    private List<FornecedorDTO> fornecedores = new ArrayList<>();
 
     private List<TelefoneDTO> telefones = new ArrayList<>();
 
@@ -44,7 +43,7 @@ public class ContatoDTO
         this.nome = entity.getNome();
         this.funcao = entity.getFuncao();
         this.email = entity.getEmail();
-        this.fornecedor = fornecedorDTO.makeListDTO(entity.getFornecedores());
+        this.fornecedores = fornecedorDTO.makeListDTO(entity.getFornecedores());
         this.telefones = telefoneDTO.makeListDTO(entity.getTelefones());
     }
 
@@ -57,10 +56,8 @@ public class ContatoDTO
     public Contato makeEntityfromDTO(ContatoDTO dto) {
         Contato contato = new Contato(dto.getId(), dto.getNome(), dto.getFuncao(),
                 dto.getEmail());
-        for(int i = 0; i < telefones.size(); i++) {
-            Telefone telefone = new Telefone();
-            telefone = telefoneDTO.makeEntityfromDTO(dto.getTelefones().get(i));
-            contato.getTelefones().add(telefone);
+        for(TelefoneDTO telefoneDTO : dto.getTelefones()) {
+            contato.getTelefones().add(telefoneDTO.makeEntityfromDTO(telefoneDTO));
         }
 
         for(FornecedorDTO fornecedor : dto.getFornecedor() ) {
@@ -102,11 +99,11 @@ public class ContatoDTO
     }
 
     public List<FornecedorDTO> getFornecedor() {
-        return fornecedor;
+        return fornecedores;
     }
 
-    public void setFornecedor(List<FornecedorDTO> fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setFornecedor(List<FornecedorDTO> fornecedores) {
+        this.fornecedores = fornecedores;
     }
 
     public List<TelefoneDTO> getTelefones() {

@@ -1,5 +1,6 @@
 package br.net.luana.sistema.services;
 
+import br.net.luana.sistema.domain.Contato;
 import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.Telefone;
 import br.net.luana.sistema.repositories.FornecedorRepository;
@@ -50,5 +51,17 @@ public class FornecedorServiceImpl
         updateEntity.setEmail(entity.getEmail());
         updateEntity.setDescricao(entity.getDescricao());
         updateEntity.setCidade(entity.getCidade());
+    }
+
+    @Override
+    public void adicionarContato(Contato contato, Integer fornecedorId) {
+        Fornecedor fornecedor = findById(fornecedorId);
+        fornecedor.getContatos().add(contato);
+    }
+
+    @Override
+    public void excluirContato(Contato contato, Integer fornecedorId) {
+        Fornecedor fornecedor = findById(fornecedorId);
+        fornecedor.getContatos().remove(contato);
     }
 }

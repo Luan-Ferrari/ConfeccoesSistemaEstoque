@@ -32,8 +32,7 @@ public class ContatoServiceImpl extends MasterServiceImpl<Contato, Integer>
             telefoneService.save(telefone);
         }
         for(Fornecedor fornecedor : entity.getFornecedores()) {
-            fornecedor = fornecedorService.findById(fornecedor.getId());
-            fornecedor.getContatos().add(entity);
+            fornecedorService.adicionarContato(entity, fornecedor.getId());
         }
         return entity;
     }
@@ -54,5 +53,17 @@ public class ContatoServiceImpl extends MasterServiceImpl<Contato, Integer>
         updateEntity.setNome(entity.getNome());
         updateEntity.setFuncao(entity.getFuncao());
         updateEntity.setEmail(entity.getEmail());
+    }
+
+    @Override
+    public void adicionarFornecedor(Integer contatoId, Integer fornecedorId) {
+        Contato contato = contatoRepository.findById(contatoId).get();
+        fornecedorService.adicionarContato(contato, fornecedorId);
+    }
+
+    @Override
+    public void excluirFornecedor(Integer contatoId, Integer fornecedorId) {
+        Contato contato = contatoRepository.findById(contatoId).get();
+        fornecedorService.excluirContato(contato, fornecedorId);
     }
 }

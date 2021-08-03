@@ -4,9 +4,7 @@ import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Fornecedor implements MasterDomain, Serializable {
@@ -32,11 +30,11 @@ public class Fornecedor implements MasterDomain, Serializable {
     @OneToMany(mappedBy = "fornecedor")
     private List<MateriaPrima> materiasPrimas = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "fornecedor_contato",
     joinColumns = @JoinColumn(name = "fornecedor_id"),
     inverseJoinColumns = @JoinColumn(name = "contato_id"))
-    private List<Contato> contatos = new ArrayList<>();
+    private Set<Contato> contatos = new HashSet<>();
 
     public Fornecedor() {
     }
@@ -114,11 +112,11 @@ public class Fornecedor implements MasterDomain, Serializable {
         this.materiasPrimas = materiasPrimas;
     }
 
-    public List<Contato> getContatos() {
+    public Set<Contato> getContatos() {
         return contatos;
     }
 
-    public void setContatos(List<Contato> contatos) {
+    public void setContatos(Set<Contato> contatos) {
         this.contatos = contatos;
     }
 
