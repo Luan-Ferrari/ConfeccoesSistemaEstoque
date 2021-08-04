@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FioRepository extends MasterRepository<Fio, Integer> {
+
+    Fio findByNome (String nome);
 }

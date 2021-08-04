@@ -4,6 +4,7 @@ import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
+import br.net.luana.sistema.services.validation.MateriaPrimaInsert;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@MateriaPrimaInsert
 @Component
 public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaPrimaDTO, ID extends Integer>
         extends MasterDTOImpl<T, D, ID>

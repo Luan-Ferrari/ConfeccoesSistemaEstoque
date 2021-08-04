@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CaixaBojoRepository extends MasterRepository<CaixaBojo, Integer> {
+
+    CaixaBojo findByNomeCaixa(String nome);
 }

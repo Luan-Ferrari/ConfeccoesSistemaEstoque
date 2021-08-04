@@ -7,10 +7,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = MateriaPrimaInsertValidator.class)
+@Constraint(validatedBy = FioInsertValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MateriaPrimaInsert {
+public @interface FioInsert {
     String message() default "Erro de validação";
 
     Class<?>[] groups() default {};

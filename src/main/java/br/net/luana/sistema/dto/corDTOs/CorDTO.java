@@ -4,6 +4,7 @@ import br.net.luana.sistema.domain.cores.Cor;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
+import br.net.luana.sistema.services.validation.CorInsert;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@CorInsert
 @Component
 public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         extends MasterDTOImpl<T, D, ID>

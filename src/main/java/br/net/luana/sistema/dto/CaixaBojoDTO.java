@@ -2,6 +2,7 @@ package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.CaixaBojo;
 import br.net.luana.sistema.dto.corDTOs.CorBojoDTO;
+import br.net.luana.sistema.services.validation.CaixaBojoInsert;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@CaixaBojoInsert
 @Component
 public class CaixaBojoDTO extends MasterDTOImpl<CaixaBojo, CaixaBojoDTO, Integer>
         implements Serializable {
