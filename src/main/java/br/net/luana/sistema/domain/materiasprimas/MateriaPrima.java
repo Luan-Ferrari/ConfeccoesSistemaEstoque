@@ -7,7 +7,6 @@ import br.net.luana.sistema.domain.enums.UnidadeMedida;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,12 +27,6 @@ public class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serial
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
-
-    @ManyToMany
-    @JoinTable(name = "materia_prima_colecao",
-    joinColumns = @JoinColumn(name = "materia_prima_id"),
-    inverseJoinColumns = @JoinColumn(name = "colecao_id"))
-    private List<Colecao> colecoes = new ArrayList<>();
 
     public MateriaPrima() {
     }
@@ -108,14 +101,6 @@ public class MateriaPrima implements MasterDomain, MateriaPrimaInterface, Serial
 
     public void setQuantidadeKanBan(Double quantidadeKanBan) {
         this.quantidadeKanBan = quantidadeKanBan;
-    }
-
-    public List<Colecao> getColecoes() {
-        return colecoes;
-    }
-
-    public void setColecoes(List<Colecao> colecoes) {
-        this.colecoes = colecoes;
     }
 
     @Override

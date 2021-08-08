@@ -1,6 +1,7 @@
 package br.net.luana.sistema.resources.exceptions;
 
 import br.net.luana.sistema.services.exceptions.DataIntegrityException;
+import br.net.luana.sistema.services.exceptions.NumeracaoRepetidaException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
 import br.net.luana.sistema.services.exceptions.PorcentagemComposicaoException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -91,6 +92,20 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.CONFLICT.value(),
                 "Conflito nos relacionamentos no banco de dados", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+    }
+
+    @ExceptionHandler(NumeracaoRepetidaException.class)
+    public ResponseEntity<StandardError> numeracaoRepetida(NumeracaoRepetidaException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Numeração repetida", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(IndexOutOfBoundsException.class)
+    public ResponseEntity<StandardError> indexOutOfBounds(IndexOutOfBoundsException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Cores sem numeração", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
 

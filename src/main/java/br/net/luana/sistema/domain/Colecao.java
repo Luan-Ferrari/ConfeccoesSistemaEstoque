@@ -1,6 +1,6 @@
 package br.net.luana.sistema.domain;
 
-import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.domain.cores.Cor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Colecao implements Serializable {
+public class Colecao implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -18,8 +18,8 @@ public class Colecao implements Serializable {
     private String nome;
     private Integer ano;
 
-    @ManyToMany(mappedBy = "colecoes")
-    private List<MateriaPrima> materiasPrimas = new ArrayList<>();
+    @OneToMany(mappedBy = "idPK.colecao")
+    private List<ColecaoCor> itensCores = new ArrayList<>();
 
     public Colecao() {
     }
@@ -54,12 +54,28 @@ public class Colecao implements Serializable {
         this.ano = ano;
     }
 
-    public List<MateriaPrima> getMateriasPrimas() {
-        return materiasPrimas;
+    public List<ColecaoCor> getItensCores() {
+        return itensCores;
     }
 
-    public void setMateriasPrimas(List<MateriaPrima> materiasPrimas) {
-        this.materiasPrimas = materiasPrimas;
+    public void setItensCores(List<ColecaoCor> itensCores) {
+        this.itensCores = itensCores;
+    }
+
+    public List<Cor> getCores() {
+        List<Cor> lista = new ArrayList<>();
+        for(ColecaoCor x : itensCores) {
+            lista.add(x.getCor());
+        }
+        return lista;
+    }
+
+    public List<Integer> getNumeros() {
+        List<Integer> lista = new ArrayList<>();
+        for(ColecaoCor x : itensCores) {
+            lista.add(x.getNumero());
+        }
+        return lista;
     }
 
     @Override

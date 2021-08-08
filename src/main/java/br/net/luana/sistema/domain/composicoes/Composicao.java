@@ -16,7 +16,7 @@ public class Composicao implements MasterDomain, Serializable {
 
     private Integer numero;
 
-    @OneToMany(mappedBy = "id.composicao")
+    @OneToMany(mappedBy = "idPK.composicao")
     private List<ComposicaoFio> itensFios = new ArrayList<>();
 
     @ManyToMany

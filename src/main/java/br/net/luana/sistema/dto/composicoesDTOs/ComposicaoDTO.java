@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ComposicaoDTO extends MasterDTOImpl<Composicao, ComposicaoDTO, Integer> {
-    private static final long serialVerisonUID = 1L;
+public class ComposicaoDTO
+        extends MasterDTOImpl<Composicao, ComposicaoDTO, Integer>
+        implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private FioDTO fioDTO = new FioDTO();
     private ModoLavarDTO modoLavarDTO = new ModoLavarDTO();

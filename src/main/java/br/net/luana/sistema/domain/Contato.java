@@ -33,7 +33,6 @@ public class Contato implements MasterDomain, Serializable {
         this.email = email;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }

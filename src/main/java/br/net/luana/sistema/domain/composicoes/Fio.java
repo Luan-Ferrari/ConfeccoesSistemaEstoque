@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Fio implements MasterDomain, Serializable {
@@ -16,7 +17,7 @@ public class Fio implements MasterDomain, Serializable {
     private Integer id;
     private String nome;
 
-    @OneToMany(mappedBy = "id.fio")
+    @OneToMany(mappedBy = "idPK.fio")
     private List<ComposicaoFio> itensFios = new ArrayList<>();
 
     public Fio() {
@@ -58,5 +59,18 @@ public class Fio implements MasterDomain, Serializable {
             lista.add(x.getComposicao());
         }
         return lista;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fio fio = (Fio) o;
+        return id.equals(fio.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

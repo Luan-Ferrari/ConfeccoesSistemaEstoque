@@ -7,12 +7,14 @@ import br.net.luana.sistema.domain.cores.Cor;
 import br.net.luana.sistema.domain.enums.MotivoBaixaKanBan;
 import br.net.luana.sistema.repositories.CartaoKanBanHistoricoRepository;
 import br.net.luana.sistema.repositories.CartaoKanBanRepository;
-import br.net.luana.sistema.repositories.corRepositories.CorRepository;
+import br.net.luana.sistema.services.corServices.CorService;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,7 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
     @Autowired
     private CartaoKanBanHistoricoRepository cartaoKanBanHistoricoRepository;
     @Autowired
-    private CorRepository corRepository;
-    @Autowired
-    private CorEntradasService corEntradasService;
+    private CorService<Cor, Integer> corService;
 
     public CartaoKanBanServiceImpl(CartaoKanBanRepository cartaoKanBanRepository) {
         super(cartaoKanBanRepository);
@@ -75,7 +75,10 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
         }
 
         if(sobras != 0) {
-            cartoes.get((cartoes.size())-1).setQuantidadeArmazenada(sobras);
+            BigDecimal sobraArredondada = new BigDecimal(sobras)
+                    .setScale(2, RoundingMode.HALF_EVEN);
+            cartoes.get((cartoes.size())-1)
+                    .setQuantidadeArmazenada(sobraArredondada.doubleValue());
         }
 
         cartaoKanBanRepository.saveAll(cartoes);
@@ -102,7 +105,8 @@ public class CartaoKanBanServiceImpl extends MasterServiceImpl<CartaoKanBan, Int
                     retornos.add(retorno);
                 } else {
                     cartao.setEmUso(false);
-                    corEntradasService.diminuirQuantidadeCorEstoque(cartao.getCorEntradas().getCor(),
+                    corService.diminuirQuantidadeCorEstoque(
+                            cartao.getCorEntradas().getCor(),
                             cartao.getQuantidadeArmazenada());
                     criarCartaoKanBanHistorico(cartao, motivoBaixa);
                     String retorno = "Cartão baixado com sucesso";

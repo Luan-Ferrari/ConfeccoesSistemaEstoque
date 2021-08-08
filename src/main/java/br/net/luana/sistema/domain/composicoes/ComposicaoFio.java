@@ -11,27 +11,26 @@ import java.util.Objects;
 public class ComposicaoFio implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
 
-    //@JsonIgnore
     @EmbeddedId
-    private ComposicaoFioPK id = new ComposicaoFioPK();
+    private ComposicaoFioPK idPK = new ComposicaoFioPK();
 
     private Integer porcentagem;
 
     public ComposicaoFio() {}
 
     public ComposicaoFio(Composicao composicao, Fio fio, Integer porcentagem) {
-        id.setComposicao(composicao);
-        id.setFio(fio);
+        idPK.setComposicao(composicao);
+        idPK.setFio(fio);
         this.porcentagem = porcentagem;
     }
 
-    public Composicao getComposicao() { return id.getComposicao(); }
+    public Composicao getComposicao() { return idPK.getComposicao(); }
 
-    public void setComposicao(Composicao composicao) { id.setComposicao(composicao); }
+    public void setComposicao(Composicao composicao) { idPK.setComposicao(composicao); }
 
-    public Fio getFio() { return id.getFio(); };
+    public Fio getFio() { return idPK.getFio(); };
 
-    public void setFio(Fio fio) { id.setFio(fio); }
+    public void setFio(Fio fio) { idPK.setFio(fio); }
 
     public Integer getPorcentagem() {
         return porcentagem;
@@ -39,6 +38,10 @@ public class ComposicaoFio implements MasterDomain, Serializable {
 
     public void setPorcentagem(Integer porcentagem) {
         this.porcentagem = porcentagem;
+    }
+
+    public ComposicaoFioPK getIdPK() {
+        return idPK;
     }
 
     @Override
@@ -51,11 +54,12 @@ public class ComposicaoFio implements MasterDomain, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ComposicaoFio that = (ComposicaoFio) o;
-        return Objects.equals(id, that.id) && Objects.equals(porcentagem, that.porcentagem);
+        return Objects.equals(idPK, that.idPK)
+                && Objects.equals(porcentagem, that.porcentagem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, porcentagem);
+        return Objects.hash(idPK, porcentagem);
     }
 }

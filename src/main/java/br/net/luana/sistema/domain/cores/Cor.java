@@ -1,5 +1,7 @@
 package br.net.luana.sistema.domain.cores;
 
+import br.net.luana.sistema.domain.Colecao;
+import br.net.luana.sistema.domain.ColecaoCor;
 import br.net.luana.sistema.domain.CorEntradas;
 import br.net.luana.sistema.domain.MasterDomain;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
@@ -27,6 +29,9 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
 
     @OneToMany(mappedBy = "cor")
     private List<CorEntradas> entradas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "idPK.cor")
+    private List<ColecaoCor> itensCores = new ArrayList<>();
 
     public Cor() {
     }
@@ -109,6 +114,22 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
 
     public void setEntradas(List<CorEntradas> entradas) {
         this.entradas = entradas;
+    }
+
+    public List<ColecaoCor> getItensCores() {
+        return itensCores;
+    }
+
+    public void setItensCores(List<ColecaoCor> itensCores) {
+        this.itensCores = itensCores;
+    }
+
+    public List<Colecao> getColecoes() {
+        List<Colecao> lista = new ArrayList<>();
+        for(ColecaoCor x : itensCores) {
+            lista.add(x.getColecao());
+        }
+        return lista;
     }
 
     @Override
