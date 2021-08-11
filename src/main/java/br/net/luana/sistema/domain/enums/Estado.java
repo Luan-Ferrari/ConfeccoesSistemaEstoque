@@ -50,9 +50,9 @@ public enum Estado {
             return null;
         }
 
-        for (Estado categoriaModoLavar : Estado.values()) {
-            if(codigo.equals(categoriaModoLavar.getCodigo())){
-                return categoriaModoLavar;
+        for (Estado estado : Estado.values()) {
+            if(codigo.equals(estado.getCodigo())){
+                return estado;
             }
         }
 

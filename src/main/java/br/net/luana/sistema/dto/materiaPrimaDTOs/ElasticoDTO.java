@@ -2,6 +2,7 @@ package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Elastico;
+import br.net.luana.sistema.dto.FornecedorDTO;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.corDTOs.CorDTO;
 import br.net.luana.sistema.dto.tipoDTOs.TipoElasticoDTO;
@@ -16,6 +17,7 @@ public class ElasticoDTO extends MateriaPrimaDTO<Elastico, ElasticoDTO, Integer>
     private static final long serialVersionUID = 1L;
 
     private CorDTO corDTO = new CorDTO();
+    private FornecedorDTO fornecedorDTO = new FornecedorDTO();
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private TipoElasticoDTO tipoElastico = new TipoElasticoDTO();
@@ -39,7 +41,8 @@ public class ElasticoDTO extends MateriaPrimaDTO<Elastico, ElasticoDTO, Integer>
     @Override
     public Elastico makeEntityfromDTO(ElasticoDTO dto) {
         return new Elastico(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(), dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),
+                fornecedorDTO.makeEntityfromDTO(dto.getFornecedor()),
                 tipoElastico.makeEntityfromDTO(dto.getTipoElastico()));
     }
 

@@ -25,9 +25,9 @@ public enum MotivoBaixaKanBan {
             return null;
         }
 
-        for (MotivoBaixaKanBan um : MotivoBaixaKanBan.values()) {
-            if(codigo.equals((um.getCodigo()))) {
-                return um;
+        for (MotivoBaixaKanBan motivo : MotivoBaixaKanBan.values()) {
+            if(codigo.equals((motivo.getCodigo()))) {
+                return motivo;
             }
         }
         throw new IllegalArgumentException("ID inválido: " + codigo);

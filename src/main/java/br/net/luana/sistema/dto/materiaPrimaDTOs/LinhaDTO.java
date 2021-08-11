@@ -2,6 +2,7 @@ package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Linha;
+import br.net.luana.sistema.dto.FornecedorDTO;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.corDTOs.CorDTO;
 import br.net.luana.sistema.dto.tipoDTOs.TipoLinhaDTO;
@@ -15,6 +16,7 @@ import java.util.List;
 public class LinhaDTO extends MateriaPrimaDTO<Linha, LinhaDTO, Integer> {
     private static final long serialVersionUID = 1L;
 
+    private FornecedorDTO fornecedorDTO = new FornecedorDTO();
     private CorDTO corDTO = new CorDTO();
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
@@ -39,7 +41,8 @@ public class LinhaDTO extends MateriaPrimaDTO<Linha, LinhaDTO, Integer> {
     @Override
     public Linha makeEntityfromDTO(LinhaDTO dto) {
         return new Linha(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),
+                fornecedorDTO.makeEntityfromDTO(dto.getFornecedor()),
                 tipoLinha.makeEntityfromDTO(dto.getTipoLinha()));
     }
 

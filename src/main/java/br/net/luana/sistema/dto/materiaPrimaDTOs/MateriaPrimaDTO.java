@@ -1,7 +1,7 @@
 package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
-import br.net.luana.sistema.domain.Fornecedor;
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.dto.FornecedorDTO;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.services.validation.MateriaPrimaInsert;
@@ -36,7 +36,7 @@ public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaP
     private Double quantidadeKanBan;
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
-    private Fornecedor fornecedor;
+    private FornecedorDTO fornecedor = new FornecedorDTO();
 
     public MateriaPrimaDTO() {
     }
@@ -47,7 +47,7 @@ public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaP
         this.observacoes = entity.getObservacoes();
         this.desuso = entity.getDesuso();
         this.unidadeMedida = (entity.getUnidadeMedida() == null) ? null : entity.getUnidadeMedida().getCodigo();
-        this.fornecedor = entity.getFornecedor();
+        this.fornecedor = fornecedor.makeDTO(entity.getFornecedor());
     }
 
 
@@ -99,11 +99,11 @@ public abstract class MateriaPrimaDTO<T extends MateriaPrima, D extends MateriaP
         this.quantidadeKanBan = quantidadeKanBan;
     }
 
-    public Fornecedor getFornecedor() {
+    public FornecedorDTO getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
+    public void setFornecedor(FornecedorDTO fornecedor) {
         this.fornecedor = fornecedor;
     }
 }

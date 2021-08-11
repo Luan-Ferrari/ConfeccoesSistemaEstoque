@@ -2,6 +2,7 @@ package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Bojo;
+import br.net.luana.sistema.dto.FornecedorDTO;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.corDTOs.CorDTO;
 import br.net.luana.sistema.dto.tipoDTOs.TipoBojoDTO;
@@ -16,6 +17,7 @@ public class BojoDTO extends MateriaPrimaDTO<Bojo, BojoDTO, Integer> {
     private static final long serialVersionUID = 1L;
 
     private CorDTO corDTO = new CorDTO();
+    private FornecedorDTO fornecedorDTO = new FornecedorDTO();
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private TipoBojoDTO tipoBojo = new TipoBojoDTO();
@@ -39,7 +41,8 @@ public class BojoDTO extends MateriaPrimaDTO<Bojo, BojoDTO, Integer> {
     @Override
     public Bojo makeEntityfromDTO(BojoDTO dto) {
         return new Bojo(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),
+                fornecedorDTO.makeEntityfromDTO(dto.getFornecedor()),
                 tipoBojo.makeEntityfromDTO(dto.getTipoBojo()));
     }
 

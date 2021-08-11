@@ -2,6 +2,7 @@ package br.net.luana.sistema.dto.materiaPrimaDTOs;
 
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
 import br.net.luana.sistema.domain.materiasprimas.Tecido;
+import br.net.luana.sistema.dto.FornecedorDTO;
 import br.net.luana.sistema.dto.TecidoClasseDTOForTecidoDTO;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.dto.corDTOs.CorDTO;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TecidoDTO extends MateriaPrimaDTO<Tecido, TecidoDTO, Integer> {
     private static final long serialVersionUID = 1L;
 
+    private FornecedorDTO fornecedorDTO = new FornecedorDTO();
     private CorDTO corDTO = new CorDTO();
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
@@ -44,7 +46,8 @@ public class TecidoDTO extends MateriaPrimaDTO<Tecido, TecidoDTO, Integer> {
     @Override
     public Tecido makeEntityfromDTO(TecidoDTO dto) {
         return new Tecido(dto.getId(), dto.getReferenciaNaFabrica(), dto.getObservacoes(), dto.getDesuso(),
-                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),  dto.getFornecedor(),
+                UnidadeMedida.toEnum(dto.getUnidadeMedida()), dto.getQuantidadeKanBan(),
+                fornecedorDTO.makeEntityfromDTO(dto.getFornecedor()),
                 tipoTecido.makeEntityfromDTO(dto.getTipoTecido()),
                 tecidoClasse.makeEntityfromDTO(dto.getTecidoClasse()));
     }

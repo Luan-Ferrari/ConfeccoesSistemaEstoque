@@ -1,6 +1,7 @@
 package br.net.luana.sistema.services.validation;
 
 import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
+import br.net.luana.sistema.dto.FornecedorDTO;
 import br.net.luana.sistema.dto.materiaPrimaDTOs.MateriaPrimaDTO;
 import br.net.luana.sistema.repositories.materiaPrimaRepositories.MateriaPrimaRepository;
 import br.net.luana.sistema.resources.exceptions.FieldMessage;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MateriaPrimaInsertValidator implements ConstraintValidator<MateriaPrimaInsert, MateriaPrimaDTO> {
+
+    private FornecedorDTO fornecedorDTO = new FornecedorDTO();
 
     @Autowired
     private MateriaPrimaRepository<MateriaPrima, Integer> repository;
@@ -25,7 +28,7 @@ public class MateriaPrimaInsertValidator implements ConstraintValidator<MateriaP
         List<FieldMessage> list = new ArrayList<>();
 
         MateriaPrima aux = repository.findByReferenciaNaFabricaAndFornecedor(objDto.getReferenciaNaFabrica(),
-                objDto.getFornecedor());
+                fornecedorDTO.makeEntityfromDTO(objDto.getFornecedor()));
         if (aux != null) {
             list.add(new FieldMessage("referenciaNaFabrica",
                     "referencia já cadastrada para este fornecedor"));

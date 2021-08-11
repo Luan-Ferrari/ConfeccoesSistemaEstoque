@@ -9,6 +9,7 @@ import br.net.luana.sistema.domain.cores.*;
 import br.net.luana.sistema.domain.enums.*;
 import br.net.luana.sistema.domain.materiasprimas.*;
 import br.net.luana.sistema.domain.tipos.*;
+import br.net.luana.sistema.domain.usuarios.Usuario;
 import br.net.luana.sistema.repositories.*;
 import br.net.luana.sistema.repositories.composicoes.ComposicaoFioRepository;
 import br.net.luana.sistema.repositories.composicoes.ComposicaoRepository;
@@ -17,7 +18,9 @@ import br.net.luana.sistema.repositories.composicoes.ModoLavarRepository;
 import br.net.luana.sistema.repositories.corRepositories.*;
 import br.net.luana.sistema.repositories.materiaPrimaRepositories.*;
 import br.net.luana.sistema.repositories.tipoRepositories.*;
+import br.net.luana.sistema.repositories.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,9 +97,17 @@ public class DBService {
     private TipoLinhaRepository tipoLinhaRepository;
     @Autowired
     private CidadeRepository cidadeRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     public void intanciateTestDatabase() throws ParseException {
+
+        //criando o administrador
+        Usuario admin = new Usuario(null, "Luan", passwordEncoder.encode("teste"));
+        admin.addPerfil(PerfilUsuario.ADMIN);
 
         //criando contatos
         Contato cont1 = new Contato(null, "Fulano da Silva", "Vendedor", "fulano@gmail.com");
@@ -1089,6 +1100,8 @@ public class DBService {
         corBojo217.getCaixas().addAll(Arrays.asList(caixa8));
 
 
+        //persistindo o admin
+        usuarioRepository.saveAll(Arrays.asList(admin));
 
         //persistindo cidades
         cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2));
