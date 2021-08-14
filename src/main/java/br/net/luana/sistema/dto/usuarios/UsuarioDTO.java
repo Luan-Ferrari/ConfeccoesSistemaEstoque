@@ -16,7 +16,6 @@ public class UsuarioDTO
         implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    //@Autowired
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private Integer id;

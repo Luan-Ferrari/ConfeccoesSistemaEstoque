@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepository extends MasterRepository<Usuario, Integer> {
+
+    Usuario findByNome(String nome);
 }
