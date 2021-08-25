@@ -2,6 +2,7 @@ package br.net.luana.sistema.dto.corDTOs;
 
 import br.net.luana.sistema.domain.cores.Cor;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
+import br.net.luana.sistema.dto.ImagesDTO;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
 import br.net.luana.sistema.services.validation.CorInsert;
@@ -47,6 +48,8 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private Integer unidadeMedida;
 
+    private ImagesDTO imagens = new ImagesDTO();
+
 
     public CorDTO(){ }
 
@@ -58,6 +61,7 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
         this.quantidadeEstoque = entity.getQuantidadeEstoque();
         this.quantidadeKanBan = entity.getQuantidadeKanBan();
         this.unidadeMedida = (entity.getUnidadeMedida() == null) ? null : entity.getUnidadeMedida().getCodigo();
+        this.imagens = (entity.getImageObject() == null) ? null : imagens.makeDTO(entity.getImageObject());
     }
 
     @Override
@@ -126,5 +130,13 @@ public class CorDTO <T extends Cor, D extends CorDTO, ID extends Integer>
 
     public void setUnidadeMedida(Integer unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
+    }
+
+    public ImagesDTO getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(ImagesDTO imagens) {
+        this.imagens = imagens;
     }
 }

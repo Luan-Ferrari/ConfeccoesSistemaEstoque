@@ -17,8 +17,6 @@ public class CorEntradasServiceImpl extends MasterServiceImpl<CorEntradas, Integ
 
     @Autowired
     private CorEntradasRepository corEntradasRepository;
-//    @Autowired
-//    private CorRepository corRepository;
     @Autowired
     private CorService<Cor, Integer> corService;
     @Autowired
@@ -27,22 +25,6 @@ public class CorEntradasServiceImpl extends MasterServiceImpl<CorEntradas, Integ
     public CorEntradasServiceImpl(CorEntradasRepository corEntradasRepository) {
         super(corEntradasRepository);
     }
-
-//    public Cor buscarCor(Integer id) {
-//        Optional<Cor> cor = corRepository.findById(id);
-//        return cor.orElseThrow(
-//                () -> new ObjectNotFoundException(id));
-//    }
-//
-//    public void acrescentarQuantidadeCorEstoque(Cor cor, Double quantidade) {
-//        cor.acrescentarQuantidade(quantidade);
-//        corRepository.save(cor);
-//    }
-//
-//    public void diminuirQuantidadeCorEstoque(Cor cor, Double quantidade) {
-//        cor.diminuirQuantidade(quantidade);
-//        corRepository.save(cor);
-//    }
 
     @Override
     public CorEntradas save(CorEntradas entity) {

@@ -58,16 +58,13 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
             Set<Fio> fiosComposicaoNova = new HashSet<>(composicaoNova.getFios());
 
             for (int i = 0; i < composicoesExistentes.size(); i++) {
-                System.out.println("Testando Composicao " + i);
                 Set<Fio> fiosComposicaoExistente = new HashSet<>(composicoesExistentes.get(i).getFios());
                 List<Boolean> listaAuxiliar = new ArrayList<>();
                 Boolean booleanAuxiliar;
 
                 if (fiosComposicaoExistente.equals(fiosComposicaoNova)) {
-                    System.out.println("Entrou no if composicao " + i);
 
                     for (int j = 0; j < composicoesExistentes.get(i).getFios().size(); j++) {
-                        System.out.println("Testando Fio " + j + "da composicao " + i);
                         listaAuxiliar.add(validarPorcentagens(
                                 composicoesExistentes.get(i).getPorcentagens().get(j),
                                 composicaoNova.getPorcentagens().get(j)));
@@ -93,7 +90,6 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
     }
 
     public boolean validarPorcentagens(Integer porcentagemExistente, Integer porcentagemNova) {
-        System.out.println("Entrou no método que valida porcentagens ");
         int tolerancia = 3;
         int limiteSuperior = porcentagemNova + tolerancia;
         int limiteInferior = porcentagemNova - tolerancia;

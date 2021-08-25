@@ -1,7 +1,6 @@
 package br.net.luana.sistema.resources.corResources;
 
 import br.net.luana.sistema.domain.cores.Cor;
-import br.net.luana.sistema.domain.materiasprimas.MateriaPrima;
 import br.net.luana.sistema.dto.MasterDTO;
 import br.net.luana.sistema.resources.MasterResource;
 

@@ -1,9 +1,5 @@
 package br.net.luana.sistema.services.exceptions;
 
-import br.net.luana.sistema.domain.Fornecedor;
-
-import java.io.Serializable;
-
 public class ObjectNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 

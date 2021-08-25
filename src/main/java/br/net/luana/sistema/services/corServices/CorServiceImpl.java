@@ -1,6 +1,7 @@
 package br.net.luana.sistema.services.corServices;
 
 import br.net.luana.sistema.domain.cores.Cor;
+import br.net.luana.sistema.domain.images.ImageObject;
 import br.net.luana.sistema.repositories.corRepositories.CorRepository;
 import br.net.luana.sistema.services.MasterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class CorServiceImpl<T extends Cor, ID extends Integer>
     public void diminuirQuantidadeCorEstoque(Cor cor, Double quantidade) {
         cor.diminuirQuantidade(quantidade);
         corRepository.save(cor);
+    }
+
+    public void createImageObject(Cor cor, String URI) {
+        ImageObject imageObject = new ImageObject(null, cor, URI);
+        cor.setImageObject(new ImageObject());
     }
 
     @Override

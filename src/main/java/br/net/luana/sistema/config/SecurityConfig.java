@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //endPoints 100% publicos
     private static final String[] PUBLIC_MATCHERS = {
             "/tecido",
-            "/usuario"
+            "/usuario",
+            "/images/**"
     };
 
     //endPoints somente leitura (GET)

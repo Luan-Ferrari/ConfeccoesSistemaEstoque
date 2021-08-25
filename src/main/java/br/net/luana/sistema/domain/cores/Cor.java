@@ -5,6 +5,7 @@ import br.net.luana.sistema.domain.ColecaoCor;
 import br.net.luana.sistema.domain.CorEntradas;
 import br.net.luana.sistema.domain.MasterDomain;
 import br.net.luana.sistema.domain.enums.UnidadeMedida;
+import br.net.luana.sistema.domain.images.ImageObject;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +27,9 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
     private Double quantidadeEstoque;
     private Double quantidadeKanBan;
     private Integer unidadeMedida;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "corOfImages")
+    private ImageObject imageObject;
 
     @OneToMany(mappedBy = "cor")
     private List<CorEntradas> entradas = new ArrayList<>();
@@ -106,6 +110,14 @@ public class Cor implements MasterDomain, CorInterface, Serializable {
 
     public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
         this.unidadeMedida = unidadeMedida.getCodigo();
+    }
+
+    public ImageObject getImageObject() {
+        return imageObject;
+    }
+
+    public void setImageObject(ImageObject imageObject) {
+        this.imageObject = imageObject;
     }
 
     public List<CorEntradas> getEntradas() {
