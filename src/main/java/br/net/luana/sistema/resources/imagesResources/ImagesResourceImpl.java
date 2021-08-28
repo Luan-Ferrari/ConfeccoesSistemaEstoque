@@ -20,8 +20,8 @@ public class ImagesResourceImpl implements ImagesResource{
     private ImagesService imagesService;
 
     @Override
-    public ResponseEntity<Void> createImageObject(Integer entityId, MultipartFile file) {
-        ImageObject imageObject = imagesService.createImageObject(entityId, file);
+    public ResponseEntity<Void> createImageObject(Integer corId, MultipartFile file) {
+        ImageObject imageObject = imagesService.setOrCreateImageObject(corId, file);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(imageObject.getId()).toUri();
@@ -30,8 +30,8 @@ public class ImagesResourceImpl implements ImagesResource{
     }
 
     @Override
-    public ResponseEntity<Void> addImage(Integer entityId, MultipartFile file) {
-        URIImage uriImage = imagesService.addImage(entityId, file);
+    public ResponseEntity<Void> addImage(Integer corId, MultipartFile file) {
+        URIImage uriImage = imagesService.addImage(corId, file);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(uriImage.getId()).toUri();
@@ -40,11 +40,11 @@ public class ImagesResourceImpl implements ImagesResource{
     }
 
     @Override
-    public ResponseEntity<Void> delete(Integer entityId, String URIFile, Boolean imageReduzida) {
+    public ResponseEntity<Void> delete(Integer corId, String URIFile, Boolean imageReduzida) {
         if (imageReduzida) {
-            imagesService.deleteImagemReduzida(entityId, URIFile);
+            imagesService.deleteImagemReduzida(corId, URIFile);
         } else {
-            imagesService.deleteImage(entityId, URIFile);
+            imagesService.deleteImage(corId, URIFile);
         }
         return ResponseEntity.noContent().build();
     }

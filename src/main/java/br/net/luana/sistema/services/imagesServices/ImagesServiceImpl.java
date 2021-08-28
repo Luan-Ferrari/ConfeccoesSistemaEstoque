@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityExistsException;
 import java.net.URI;
+import java.util.Optional;
 
 @Service
 public class ImagesServiceImpl implements ImagesService{
@@ -24,6 +26,22 @@ public class ImagesServiceImpl implements ImagesService{
     private CorService<Cor, Integer> corService;
     @Autowired
     private S3Service s3Service;
+
+
+    public ImageObject setOrCreateImageObject(Integer corId, MultipartFile file) {
+        try {
+            Optional<ImageObject> imageObject = imageObjectRepository.findById(corId);
+            if (imageObject.isPresent() && imageObject.get().getURIImageReduzida() == null) {
+                imageObject.get().setURIImageReduzida(uploadImages(file).toString());
+                return imageObjectRepository.save(imageObject.get());
+            } else {
+                return createImageObject(corId, file);
+            }
+        } catch (EntityExistsException e) {
+            throw new EntityExistsException();
+        }
+    }
+
 
     public ImageObject createImageObject(Integer corId, MultipartFile file) {
         ImageObject imageObject = new ImageObject();

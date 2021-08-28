@@ -89,6 +89,23 @@
 			<artifactId>imgscalr-lib</artifactId>
 			<version>4.2</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.sksamuel.scrimage/scrimage-core -->
+		<dependency>
+			<groupId>com.sksamuel.scrimage</groupId>
+			<artifactId>scrimage-core</artifactId>
+			<version>4.0.22</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.sksamuel.scrimage/scrimage-webp -->
+		<dependency>
+			<groupId>com.sksamuel.scrimage</groupId>
+			<artifactId>scrimage-webp</artifactId>
+			<version>4.0.22</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>

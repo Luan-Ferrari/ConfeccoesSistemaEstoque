@@ -8,6 +8,8 @@ import java.net.URI;
 
 public interface ImagesService {
 
+    public ImageObject setOrCreateImageObject(Integer corId, MultipartFile file);
+
     public ImageObject createImageObject(Integer corId, MultipartFile multipartFile);
 
     public URIImage addImage(Integer imageObjectId, MultipartFile file);

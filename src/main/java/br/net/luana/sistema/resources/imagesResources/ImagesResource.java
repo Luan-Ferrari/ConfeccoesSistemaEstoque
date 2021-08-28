@@ -9,16 +9,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ImagesResource {
 
-    @PostMapping("/{entityId}/new")
-    ResponseEntity<Void> createImageObject(@PathVariable Integer entityId,
+    @PostMapping("cor/{corId}/new")
+    ResponseEntity<Void> createImageObject(@PathVariable Integer corId,
                                            @RequestParam(name = "file") MultipartFile file);
 
-    @PostMapping("/{entityId}/add")
-    ResponseEntity<Void> addImage(@PathVariable Integer entityId,
+    @PostMapping("cor/{corId}/add")
+    ResponseEntity<Void> addImage(@PathVariable Integer corId,
                                   @RequestParam(name = "file") MultipartFile file);
 
-    @DeleteMapping("/{entityId}")
-    public abstract ResponseEntity<Void> delete(@PathVariable Integer entityId,
+    @DeleteMapping("cor/{corId}")
+    public abstract ResponseEntity<Void> delete(@PathVariable Integer corId,
                                                 @RequestParam (value = "uri") String URIFile,
                                                 @RequestParam (value = "reduzida") Boolean ImageReduzida);
 }
