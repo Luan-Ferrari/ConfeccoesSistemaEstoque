@@ -1,9 +1,9 @@
 package br.net.luana.sistema.resources.exceptions;
 
-import br.net.luana.sistema.services.exceptions.DataIntegrityException;
-import br.net.luana.sistema.services.exceptions.NumeracaoRepetidaException;
-import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
-import br.net.luana.sistema.services.exceptions.PorcentagemComposicaoException;
+import br.net.luana.sistema.services.exceptions.*;
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.hibernate.TransientPropertyValueException;
 import org.springframework.http.HttpStatus;
@@ -114,6 +114,35 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
                 "A cor informada já possui imagem reduzida", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(FileException.class)
+    public ResponseEntity<StandardError> fileException(FileException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Erro com o arquivo de imagem enviado", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(AmazonClientException.class)
+    public ResponseEntity<StandardError> amazonClientException(AmazonClientException e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Erro com o serviço de armazenamento de imagens", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(AmazonS3Exception.class)
+    public ResponseEntity<StandardError> amazonS3Exception(AmazonS3Exception e, HttpServletRequest request) {
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Erro com o serviço de armazenamento de imagens", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(AmazonServiceException.class)
+    public ResponseEntity<StandardError> amazonServiceException(AmazonServiceException e, HttpServletRequest request) {
+        HttpStatus code = HttpStatus.valueOf(e.getErrorCode());
+        StandardError err = new StandardError(System.currentTimeMillis(), code.value(),
+                "Erro com o serviço de armazenamento de imagens", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(code).body(err);
     }
 
 }

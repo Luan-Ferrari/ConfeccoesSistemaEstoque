@@ -32,7 +32,7 @@ public class CorServiceImpl<T extends Cor, ID extends Integer>
     }
 
     public void createImageObject(Cor cor, String URI) {
-        ImageObject imageObject = new ImageObject(null, cor, URI);
+        ImageObject imageObject = new ImageObject(null, cor);
         cor.setImageObject(new ImageObject());
     }
 

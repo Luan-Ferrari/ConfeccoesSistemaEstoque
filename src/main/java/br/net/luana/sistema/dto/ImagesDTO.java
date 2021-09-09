@@ -1,18 +1,20 @@
 package br.net.luana.sistema.dto;
 
 import br.net.luana.sistema.domain.images.ImageObject;
-import br.net.luana.sistema.domain.images.URIImage;
+import br.net.luana.sistema.domain.images.ProductImages;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ImagesDTO implements Serializable{
     private static final long serialVersionUID = 1L;
 
-        private String URIImagemReduzida;
+        private Set<String> URIsImagensPrincipais = new HashSet<>();
 
         private List<String> URIImagens = new ArrayList<>();
 
@@ -20,9 +22,9 @@ public class ImagesDTO implements Serializable{
         }
 
         public ImagesDTO(ImageObject entity) {
-            this.URIImagemReduzida = entity.getURIImageReduzida();
-            for(URIImage uriImage : entity.getURIImages()) {
-                this.URIImagens.add(uriImage.getURIImage());
+            this.URIsImagensPrincipais = entity.getURIsImagensPrincipais();
+            for(ProductImages image : entity.getProductImages()) {
+                this.URIImagens.add(image.getUriProductImage());
             }
         }
 
@@ -30,12 +32,12 @@ public class ImagesDTO implements Serializable{
             return new ImagesDTO(entity);
         }
 
-    public String getURIImagemReduzida() {
-        return URIImagemReduzida;
+    public Set<String> getURIsImagensPrincipais() {
+        return URIsImagensPrincipais;
     }
 
-    public void setURIImagemReduzida(String URIImagemReduzida) {
-        this.URIImagemReduzida = URIImagemReduzida;
+    public void setURIsImagensPrincipais(Set<String> URIsImagensPrincipais) {
+        this.URIsImagensPrincipais = URIsImagensPrincipais;
     }
 
     public List<String> getURIImagens() {

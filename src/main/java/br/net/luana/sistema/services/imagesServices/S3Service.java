@@ -1,18 +1,12 @@
 package br.net.luana.sistema.services.imagesServices;
 
+import br.net.luana.sistema.services.exceptions.FileException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.sksamuel.scrimage.ImmutableImage;
-import com.sksamuel.scrimage.nio.JpegWriter;
-import com.sksamuel.scrimage.webp.WebpWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -25,19 +19,19 @@ public class S3Service {
     @Value("${s3.bucket}")
     private String bucketName;
 
-    public URI uploadFile(MultipartFile multipartFile) {
-        try {
-            String fileName = multipartFile.getOriginalFilename();
-            InputStream is = multipartFile.getInputStream();
-            String contentType = multipartFile.getContentType();
-
-            //return uploadFile(is, fileName, contentType);
-            return uploadFileTeste(multipartFile);
-
-        } catch (IOException e) {
-            throw new RuntimeException("Erro de IO: " + e.getMessage());
-        }
-    }
+//    public URI uploadFile(MultipartFile multipartFile) {
+//        try {
+//            String fileName = multipartFile.getOriginalFilename();
+//            InputStream is = multipartFile.getInputStream();
+//            String contentType = multipartFile.getContentType();
+//
+//            //return uploadFile(is, fileName, contentType);
+//            return uploadFileTeste(multipartFile);
+//
+//        } catch (IOException e) {
+//            throw new FileException("Erro de IO: " + e.getMessage());
+//        }
+//    }
 //    public URI uploadFile(InputStream is, String fileName, String contentType) {
 //        try {
 //            ObjectMetadata meta = new ObjectMetadata();
@@ -108,45 +102,43 @@ public class S3Service {
 //        }
 //    }
 
-    public URI uploadFileTeste(MultipartFile multipartFile) throws IOException {
+    public URI uploadFile(File file, String fileName) {
         try {
-            long time1 = System.currentTimeMillis();
-            System.out.println("Time1: " + time1);
-            File file = new File("testeteste.jpeg");
-            long time2 = System.currentTimeMillis();
-            System.out.println("Time2: " + time2);
-            System.out.println("Demorou: " + (time2 - time1));
-            ImmutableImage image = ImmutableImage.loader()
-                    .fromStream(multipartFile.getInputStream());
-            long time3 = System.currentTimeMillis();
-            System.out.println("Time3: " + time3);
-            System.out.println("Demorou: " + (time3 - time2));
-            WebpWriter webpWriter = new WebpWriter();
-            long time4 = System.currentTimeMillis();
-            System.out.println("Time4: " + time4);
-            System.out.println("Demorou: " + (time4 - time3));
-            image.output(JpegWriter.compression(50), "testeteste.jpeg");
-            long time5 = System.currentTimeMillis();
-            System.out.println("Time5: " + time5);
-            System.out.println("Demorou: " + (time5 - time4));
+////            long time1 = System.currentTimeMillis();
+////            System.out.println("Time1: " + time1);
+//            File file = new File("testeteste.jpeg");
+////            long time2 = System.currentTimeMillis();
+////            System.out.println("Time2: " + time2);
+////            System.out.println("Demorou: " + (time2 - time1));
+//            ImmutableImage image = ImmutableImage.loader()
+//                    .fromStream(multipartFile.getInputStream());
+////            long time3 = System.currentTimeMillis();
+////            System.out.println("Time3: " + time3);
+////            System.out.println("Demorou: " + (time3 - time2));
+//            WebpWriter webpWriter = new WebpWriter();
+////            long time4 = System.currentTimeMillis();
+////            System.out.println("Time4: " + time4);
+////            System.out.println("Demorou: " + (time4 - time3));
+//            image.output(JpegWriter.compression(50), "testeteste.jpeg");
+////            long time5 = System.currentTimeMillis();
+////            System.out.println("Time5: " + time5);
+////            System.out.println("Demorou: " + (time5 - time4));
+//
+//            ObjectMetadata meta = new ObjectMetadata();
+//            meta.setContentType("webp");
+////            long time6 = System.currentTimeMillis();
+////            System.out.println("Time6: " + time6);
+////            System.out.println("Demorou: " + (time6 - time5));
 
-            ObjectMetadata meta = new ObjectMetadata();
-            meta.setContentType("webp");
-            long time6 = System.currentTimeMillis();
-            System.out.println("Time6: " + time6);
-            System.out.println("Demorou: " + (time6 - time5));
+            s3client.putObject(bucketName, fileName, file);
+//            long time7 = System.currentTimeMillis();
+//            System.out.println("Time7: " + time7);
+//            System.out.println("Demorou: " + (time7 - time6));
 
-            s3client.putObject(bucketName, "teste.jpeg", file);
-            long time7 = System.currentTimeMillis();
-            System.out.println("Time7: " + time7);
-            System.out.println("Demorou: " + (time7 - time6));
-
-            return s3client.getUrl(bucketName, "teste.jpeg").toURI();
+            return s3client.getUrl(bucketName, fileName).toURI();
 
         } catch (URISyntaxException e) {
-            throw new RuntimeException("Erro ao converter URL para URI");
-        } catch (IOException e) {
-            throw new IOException("Arquivo de imagem inválido");
+            throw new FileException("Erro ao converter URL para URI");
         }
     }
 

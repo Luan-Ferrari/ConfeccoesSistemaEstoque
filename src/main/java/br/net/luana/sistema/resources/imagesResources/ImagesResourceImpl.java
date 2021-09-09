@@ -1,7 +1,6 @@
 package br.net.luana.sistema.resources.imagesResources;
 
 import br.net.luana.sistema.domain.images.ImageObject;
-import br.net.luana.sistema.domain.images.URIImage;
 import br.net.luana.sistema.services.imagesServices.ImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +19,8 @@ public class ImagesResourceImpl implements ImagesResource{
     private ImagesService imagesService;
 
     @Override
-    public ResponseEntity<Void> createImageObject(Integer corId, MultipartFile file) {
-        ImageObject imageObject = imagesService.setOrCreateImageObject(corId, file);
+    public ResponseEntity<Void> createImageObject(Integer corId, MultipartFile file, Boolean imagemPrincipal) {
+        ImageObject imageObject = imagesService.rotinaParaUploadDeImagem(corId, file, imagemPrincipal);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(imageObject.getId()).toUri();
@@ -29,23 +28,23 @@ public class ImagesResourceImpl implements ImagesResource{
         return ResponseEntity.created(uri).build();
     }
 
-    @Override
-    public ResponseEntity<Void> addImage(Integer corId, MultipartFile file) {
-        URIImage uriImage = imagesService.addImage(corId, file);
+//    @Override
+//    public ResponseEntity<Void> addImage(Integer corId, MultipartFile file, Boolean smallImage) {
+//       ProductImages uriImage = imagesService.addImage(corId, file);
+//
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .path("/{id}").buildAndExpand(uriImage.getId()).toUri();
+//
+//        return ResponseEntity.created(uri).build();
+//    }
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(uriImage.getId()).toUri();
-
-        return ResponseEntity.created(uri).build();
-    }
-
-    @Override
-    public ResponseEntity<Void> delete(Integer corId, String URIFile, Boolean imageReduzida) {
-        if (imageReduzida) {
-            imagesService.deleteImagemReduzida(corId, URIFile);
-        } else {
-            imagesService.deleteImage(corId, URIFile);
-        }
-        return ResponseEntity.noContent().build();
-    }
+//    @Override
+//    public ResponseEntity<Void> delete(Integer corId, String URIFile, Boolean imageReduzida) {
+//        if (imageReduzida) {
+//            imagesService.deleteImagemReduzida(corId, URIFile);
+//        } else {
+//            imagesService.deleteImage(corId, URIFile);
+//        }
+//        return ResponseEntity.noContent().build();
+//    }
 }
