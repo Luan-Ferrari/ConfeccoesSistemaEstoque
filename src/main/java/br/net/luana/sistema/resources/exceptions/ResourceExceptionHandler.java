@@ -119,7 +119,7 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(FileException.class)
     public ResponseEntity<StandardError> fileException(FileException e, HttpServletRequest request) {
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
-                "Erro com o arquivo de imagem enviado", e.getMessage(), request.getRequestURI());
+                "Erro com imagem", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 

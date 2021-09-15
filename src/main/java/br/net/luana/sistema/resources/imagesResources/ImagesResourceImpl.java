@@ -28,23 +28,23 @@ public class ImagesResourceImpl implements ImagesResource{
         return ResponseEntity.created(uri).build();
     }
 
-//    @Override
-//    public ResponseEntity<Void> addImage(Integer corId, MultipartFile file, Boolean smallImage) {
-//       ProductImages uriImage = imagesService.addImage(corId, file);
-//
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}").buildAndExpand(uriImage.getId()).toUri();
-//
-//        return ResponseEntity.created(uri).build();
-//    }
+    @Override
+    public ResponseEntity<Void> delete(Integer corId, String prefixo, String URIFile) {
+        imagesService.rotinaParaExcluirImagem(corId, prefixo, URIFile);
+        return ResponseEntity.noContent().build();
+    }
 
-//    @Override
-//    public ResponseEntity<Void> delete(Integer corId, String URIFile, Boolean imageReduzida) {
-//        if (imageReduzida) {
-//            imagesService.deleteImagemReduzida(corId, URIFile);
-//        } else {
-//            imagesService.deleteImage(corId, URIFile);
-//        }
-//        return ResponseEntity.noContent().build();
-//    }
+    @Override
+    public ResponseEntity<Void> adicionaImagemPrincipal(Integer corId, String URIFile) {
+        imagesService.salvarImagemPrincipalNoBD(corId, URIFile);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> removeImagemPrincipal(Integer corId, String URIFile) {
+        imagesService.removerImagemPrincipalNoBD(corId, URIFile);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

@@ -2,7 +2,6 @@ package br.net.luana.sistema.domain.images;
 
 import br.net.luana.sistema.domain.MasterDomain;
 import br.net.luana.sistema.domain.cores.Cor;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,15 +13,6 @@ import java.util.Set;
 @Entity
 public class ImageObject implements MasterDomain, Serializable {
     private static final long serialVersionUID = 1L;
-
-    @Transient
-    @Value("${s3.default_uri}")
-    private String defaultURI;
-
-    @Transient
-    @Value("${s3.default_format}")
-    private String defaultFormat;
-
 
     @Id
     private Integer id;
@@ -80,13 +70,4 @@ public class ImageObject implements MasterDomain, Serializable {
         this.productImages = productImages;
     }
 
-    public Set<String> getURIsImagensPrincipais() {
-        Set<String> URIsImagensPrincipais = new HashSet<>();
-        for(String imagemPrincipal : imagensPrincipais) {
-            StringBuilder UriImage = new StringBuilder();
-            UriImage.append(defaultURI).append(imagemPrincipal).append(defaultFormat);
-            URIsImagensPrincipais.add(UriImage.toString());
-        }
-        return URIsImagensPrincipais;
-    }
 }

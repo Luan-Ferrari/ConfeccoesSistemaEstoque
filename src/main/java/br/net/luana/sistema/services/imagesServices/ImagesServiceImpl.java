@@ -10,11 +10,12 @@ import br.net.luana.sistema.services.exceptions.FileException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
 import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.webp.WebpWriter;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityExistsException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -46,27 +47,32 @@ public class ImagesServiceImpl implements ImagesService{
         if (obj.isPresent()) {
             return obj.get();
         } else {
-            return null;
+            throw new ObjectNotFoundException(entityId);
         }
     }
 
+    //ok
     public ImageObject rotinaParaUploadDeImagem(Integer corId, MultipartFile multipartFile,
                                                 Boolean imagemPrincipal) {
-        ImageObject imageObject = defineImageObject(corId);
-        String imageName = imageResolver.createImageName(corId);
-        List<String> fileNames = imageResolver.getListFileNames(imageName);
+        if(extensaoImagemPermitida(multipartFile)) {
+            ImageObject imageObject = defineImageObject(corId);
+            String imageName = imageResolver.createImageName(corId);
+            List<String> fileNames = imageResolver.getListFileNames(imageName);
 
-        for(int i = 0; i < fileNames.size(); i++ ) {
-            File fileWebp = convertToWebp(multipartFile, imageResolver.getLargura(i),
-                    imageResolver.getAltura(i));
-            uploadImage(fileWebp, fileNames.get(i));
+            for (int i = 0; i < fileNames.size(); i++) {
+                File fileWebp = convertToWebp(multipartFile, imageResolver.getLargura(i),
+                        imageResolver.getAltura(i));
+                uploadImage(fileWebp, fileNames.get(i));
 
-        }
-        rotinaParaPersistirNoBD(imageObject, imageName, imagemPrincipal);
+            }
+            rotinaParaPersistirNoBD(imageObject, imageName, imagemPrincipal);
 
-        return imageObject;
+            return imageObject;
+        } else
+            return null;
     }
 
+    //ok
     public void rotinaParaPersistirNoBD(ImageObject imageObject, String imageName, Boolean imagemPrincipal) {
 
         ProductImages productImages = new ProductImages();
@@ -75,29 +81,18 @@ public class ImagesServiceImpl implements ImagesService{
         productImages = productImagesRepository.save(productImages);
 
         if(imagemPrincipal) {
-            if(!listaImagensPrincipaisCompleta(imageObject)) {
-                imageObject.getImagensPrincipais().add(imageName);
-                imageObject = imageObjectRepository.save(imageObject);
-            } else {
-                throw new FileException("TEM MUITA IMAGEM PRINCIPAL");
-            }
+            salvarImagemPrincipalNoBD(imageObject, imageName);
         }
     }
 
     //ok
     public ImageObject defineImageObject(Integer corId) {
-        try {
-            ImageObject imageObject = findById(corId);
-            if (imageObject == null) {
-                Cor cor = corService.findById(corId);
-                return createImageObject(cor);
-            } else {
-                return imageObject;
-            }
-        } catch (EntityExistsException e) {
-            throw new EntityExistsException();
-        } catch (ObjectNotFoundException e) {
-            throw new ObjectNotFoundException(corId);
+        Optional<ImageObject> imageObject = imageObjectRepository.findById(corId);
+        if (imageObject.isEmpty()) {
+            Cor cor = corService.findById(corId);
+            return createImageObject(cor);
+        } else {
+            return imageObject.get();
         }
     }
 
@@ -107,53 +102,6 @@ public class ImagesServiceImpl implements ImagesService{
         imageObject.setCor(cor);
         return imageObjectRepository.save(imageObject);
     }
-
-
-
-    // recorte da funcao defineImageObject
-//        if (imagemPrincipal) {
-//        if(!listaImagensPrincipaisCompleta(imageObject.get())) {
-//            imageObject.get().getImagensPrincipais().add(uploadImageMaster(corId, file));
-//        } else {
-//            throw new EntityExistsException();
-//        }
-//    }
-//
-//                imageObject.get().setSmallImageName(uploadImages(file).toString());
-//                return imageObjectRepository.save(imageObject.get());
-//} else {
-//        return createImageObject(corId, file);
-//        }
-//
-
-
-//    public ProductImages addImage(Integer imageObjectId, MultipartFile file) {
-//        ProductImages uriImage = new ProductImages();
-//        uriImage.setImageObject(imageObjectRepository.findById(imageObjectId).get());
-//        uriImage.setURIImage(uploadImages(file).toString());
-//        return productImagesRepository.save(uriImage);
-//    }
-
-//    public void deleteImage(Integer corId, String URIFile) {
-//        ProductImages image = productImagesRepository.findByURIImage(URIFile);
-//        if (image != null && image.getImageObject().getCor().getId().equals(corId)) {
-//            s3Service.deleteFile(URIFile);
-//            productImagesRepository.deleteById(image.getId());
-//        } else {
-//            throw new ObjectNotFoundException(URIFile);
-//        }
-//    }
-//
-//    public void deleteImagemReduzida(Integer corId, String URFile) {
-//        ImageObject imageObject = imageObjectRepository.findByURIImageReduzida(URFile);
-//        if(imageObject != null && imageObject.getCor().getId().equals(corId)) {
-//            s3Service.deleteFile(URFile);
-//            //imageObject.setURIImageReduzida(null);
-//            imageObjectRepository.save(imageObject);
-//        } else {
-//            throw new ObjectNotFoundException(URFile);
-//        }
-//    }
 
     //ok
     public boolean listaImagensPrincipaisCompleta(ImageObject imageObject) {
@@ -165,20 +113,94 @@ public class ImagesServiceImpl implements ImagesService{
     }
 
     //ok
+    public Boolean extensaoImagemPermitida(MultipartFile multipartFile) {
+        String extensao = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+        if(!"png".equals(extensao) && !"jpg".equals(extensao)) {
+            throw new FileException("Somente arquivos PNG e JPG são permitidos");
+        }
+        return true;
+    }
+
+    //ok
     public File convertToWebp(MultipartFile multipartFile, Integer largura, Integer altura) {
         try {
             File file = new File(".temp/imagesService/webpTemporario.webp");
             ImmutableImage image = ImmutableImage.loader().fromStream(multipartFile.getInputStream());
             WebpWriter webpWriter = new WebpWriter(); //Serve para controlar a qualidade da imagem webp de saída
-            image.fit(largura, altura, Color.CYAN).output(WebpWriter.DEFAULT, ".temp/imagesService/webpTemporario.webp");
+            image.fit(largura, altura, Color.WHITE).output(WebpWriter.DEFAULT, ".temp/imagesService/webpTemporario.webp");
 
             return file;
 
         } catch (IOException e) {
-            throw new FileException("Deu um erro na conversão para WEBP");
+            throw new FileException("Erro ao ler, formatar ou converter para .webp " + e.getMessage());
         }
     }
 
+    //ok
+    public ImageObject rotinaParaExcluirImagem(Integer corId, String prefixo, String uri) {
+        ImageObject imageObject = findById(corId);
+        String imageName = imageResolver.getFileNameByURI(prefixo, uri);
+        List<String> fileNames = imageResolver.getListFileNames(imageName);
+
+        for(String fileName : fileNames) {
+            deleteImage(fileName);
+        }
+
+        rotinaParaExcluirNoBD(imageObject, imageName);
+
+        return imageObject;
+    }
+
+    //ok
+    @Transactional
+    public void rotinaParaExcluirNoBD(ImageObject imageObject, String imageName) {
+
+        productImagesRepository.deleteByImageName(imageName);
+
+        removerImagemPrincipalNoBD(imageObject, imageName);
+    }
+
+    //ok
+    public void removerImagemPrincipalNoBD(Integer corId, String uri) {
+        ImageObject imageObject = findById(corId);
+        String imageName = imageResolver.getFileNameByURI("cor", uri);
+        removerImagemPrincipalNoBD(imageObject, imageName);
+    }
+
+    //ok
+    public void removerImagemPrincipalNoBD(ImageObject imageObject, String imageName) {
+        imageObject.getImagensPrincipais().remove(imageName);
+        imageObjectRepository.save(imageObject);
+    }
+
+    //ok
+    public void salvarImagemPrincipalNoBD(Integer corId, String uri) {
+        ImageObject imageObject = findById(corId);
+        String imageName = imageResolver.getFileNameByURI("cor", uri);
+
+        ProductImages productImages = productImagesRepository.findByImageName(imageName);
+        if(productImages != null && productImages.getImageObject().getId() == corId) {
+            salvarImagemPrincipalNoBD(imageObject, imageName);
+        } else {
+            throw new FileException("URI da imagem inexistente ou imagem não pertence ao produto ID " +
+                    corId);
+        }
+    }
+
+    //ok
+    public void salvarImagemPrincipalNoBD(ImageObject imageObject, String imageName) {
+        if(!listaImagensPrincipaisCompleta(imageObject)) {
+            imageObject.getImagensPrincipais().add(imageName);
+            imageObject = imageObjectRepository.save(imageObject);
+        } else {
+            throw new FileException("Já existem 2 imagens principais para este recurso");
+        }
+    }
+
+    //ok
+    public void deleteImage(String fileName) { s3Service.deleteFile(fileName);}
+
+    //ok
     public URI uploadImage(File file, String fileName) {
         return s3Service.uploadFile(file, fileName);
     }

@@ -11,11 +11,4 @@ public class FileException extends RuntimeException {
         super(msg, cause);
     }
 
-    public FileException(Integer id) {
-        super("Impossível excluir recurso ID " + id + " por possuir recursos associados");
-    }
-
-    public FileException(Integer id, Throwable cause) {
-        super("Impossível excluir recurso ID " + id + " por possuir recursos associados", cause);
-    }
 }
