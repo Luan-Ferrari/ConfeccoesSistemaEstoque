@@ -26,6 +26,9 @@ public class ComposicaoDTO
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private Integer numero;
 
+    @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
+    private Boolean tipoPorcentagemMinima;
+
     @NotEmpty(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private List<FioDTO> fios = new ArrayList<>();
 
@@ -41,6 +44,7 @@ public class ComposicaoDTO
     public ComposicaoDTO(Composicao entity) {
         this.id = entity.getId();
         this.numero = entity.getNumero();
+        this.tipoPorcentagemMinima = entity.getTipoPorcentagemMinima();
         this.fios = fioDTO.makeListDTO(entity.getFios());
         this.porcentagens = entity.getPorcentagens();
         this.modoLavar = modoLavarDTO.makeListDTO(entity.getModoLavar());
@@ -56,6 +60,7 @@ public class ComposicaoDTO
         Composicao composicao = new Composicao();
         composicao.setId(dto.getId());
         composicao.setNumero(dto.getNumero());
+        composicao.setTipoPorcentagemMinima(dto.getTipoPorcentagemMinima());
         for (int i = 0; i < fios.size(); i++ ) {
             ComposicaoFio composicaoFio = new ComposicaoFio(composicao,
                     fioDTO.makeEntityfromDTO(fios.get(i)),
@@ -82,6 +87,14 @@ public class ComposicaoDTO
 
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Boolean getTipoPorcentagemMinima() {
+        return tipoPorcentagemMinima;
+    }
+
+    public void setTipoPorcentagemMinima(Boolean tipoPorcentagemMinima) {
+        this.tipoPorcentagemMinima = tipoPorcentagemMinima;
     }
 
     public List<FioDTO> getFios() {

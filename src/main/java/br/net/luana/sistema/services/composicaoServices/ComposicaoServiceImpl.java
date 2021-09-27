@@ -12,14 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
 public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer>
         implements ComposicaoService {
+
+    private final int porcentagemMinima = 85;
+    private final int toleranciaPorcentagem = 3;
 
     @Autowired
     private ComposicaoRepository composicaoRepository;
@@ -55,22 +56,33 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
         if(composicaoNova.verificaTotalComposicao()) {
             List<Composicao> composicoesDuplicadas = new ArrayList<>();
             List<Composicao> composicoesExistentes = findAll();
-            Set<Fio> fiosComposicaoNova = new HashSet<>(composicaoNova.getFios());
+            List<Fio> fiosComposicaoNova = new ArrayList<>(composicaoNova.getFios());
 
-            for (int i = 0; i < composicoesExistentes.size(); i++) {
-                Set<Fio> fiosComposicaoExistente = new HashSet<>(composicoesExistentes.get(i).getFios());
+            for (Composicao composicao : composicoesExistentes) {
+                List<Fio> fiosComposicaoExistente = new ArrayList<>(composicao.getFios());
                 List<Boolean> listaAuxiliar = new ArrayList<>();
-                Boolean booleanAuxiliar;
 
-                if (fiosComposicaoExistente.equals(fiosComposicaoNova)) {
+                if(composicao.getTipoPorcentagemMinima()) {
+                    for(Fio fio : composicao.getFios())
+                    if(validarPorcentagemMinima(fio, composicaoNova)) {
+                        composicoesDuplicadas.add(composicao);
+                    }
+                }
 
-                    for (int j = 0; j < composicoesExistentes.get(i).getFios().size(); j++) {
+                if (fiosComposicaoExistente.containsAll(fiosComposicaoNova) &&
+                    fiosComposicaoNova.containsAll(fiosComposicaoExistente)) {
+
+                    for (int j = 0; j < composicao.getFios().size(); j++) {
+
+                        int posicaoFioComposicaoNova = fiosComposicaoNova.indexOf(
+                                composicao.getFios().get(j));
+
                         listaAuxiliar.add(validarPorcentagens(
-                                composicoesExistentes.get(i).getPorcentagens().get(j),
-                                composicaoNova.getPorcentagens().get(j)));
+                                composicao.getPorcentagens().get(j),
+                                composicaoNova.getPorcentagens().get(posicaoFioComposicaoNova)));
                     }
                     if (verificaListaAuxiliar(listaAuxiliar)) {
-                        composicoesDuplicadas.add(composicoesExistentes.get(i));
+                        composicoesDuplicadas.add(composicao);
                     }
                 }
             }
@@ -90,14 +102,24 @@ public class ComposicaoServiceImpl extends MasterServiceImpl<Composicao, Integer
     }
 
     public boolean validarPorcentagens(Integer porcentagemExistente, Integer porcentagemNova) {
-        int tolerancia = 3;
-        int limiteSuperior = porcentagemNova + tolerancia;
-        int limiteInferior = porcentagemNova - tolerancia;
+        int limiteSuperior = porcentagemNova + toleranciaPorcentagem;
+        int limiteInferior = porcentagemNova - toleranciaPorcentagem;
         if (porcentagemExistente <= limiteSuperior && porcentagemExistente >= limiteInferior) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public boolean validarPorcentagemMinima(Fio fio, Composicao composicaoNova) {
+        if(composicaoNova.getFios().contains(fio)) {
+            int porcentagemNova = composicaoNova.getPorcentagens().get(
+                    composicaoNova.getFios().indexOf(fio));
+            if (porcentagemNova >= porcentagemMinima) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

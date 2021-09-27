@@ -12,10 +12,12 @@ public class PorcentagemComposicaoException extends RuntimeException{
     }
 
     public PorcentagemComposicaoException() {
-        super("A soma das porcentagens informadas não é 100%");
+        super("A soma das porcentagens informadas não é 100% para " +
+                "composição simples ou de 85% para composições 'Mínimo 85%'");
     }
 
     public PorcentagemComposicaoException(Throwable cause) {
-        super("A soma das porcentagens informadas não é 100%", cause);
+        super("A soma das porcentagens informadas não é 100% para " +
+                "composição simples ou de 85% para composições 'Mínimo 85%'", cause);
     }
 }

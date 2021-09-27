@@ -16,6 +16,8 @@ public class Composicao implements MasterDomain, Serializable {
 
     private Integer numero;
 
+    private Boolean tipoPorcentagemMinima;
+
     @OneToMany(mappedBy = "idPK.composicao")
     private List<ComposicaoFio> itensFios = new ArrayList<>();
 
@@ -28,9 +30,10 @@ public class Composicao implements MasterDomain, Serializable {
     public Composicao() {
     }
 
-    public Composicao(Integer id, Integer numero) {
+    public Composicao(Integer id, Integer numero, Boolean tipoPorcentagemMinima) {
         this.id = id;
         this.numero = numero;
+        this.tipoPorcentagemMinima = tipoPorcentagemMinima;
     }
 
     public Integer getId() {
@@ -47,6 +50,14 @@ public class Composicao implements MasterDomain, Serializable {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Boolean getTipoPorcentagemMinima() {
+        return tipoPorcentagemMinima;
+    }
+
+    public void setTipoPorcentagemMinima(Boolean tipoPorcentagemMinima) {
+        this.tipoPorcentagemMinima = tipoPorcentagemMinima;
     }
 
     public List<ComposicaoFio> getItensFios() {
@@ -94,7 +105,12 @@ public class Composicao implements MasterDomain, Serializable {
         for (ComposicaoFio composicaoFio : itensFios) {
             soma += composicaoFio.getPorcentagem();
         }
-        if(soma != 100) {
+
+        if (soma != 85 && tipoPorcentagemMinima == true) {
+            return false;
+        }
+
+        if(soma != 100 && tipoPorcentagemMinima == false) {
             return false;
         }
         return true;

@@ -161,9 +161,9 @@ public class DBService {
 
 
         //criando composiçoes
-        Composicao comp1 = new Composicao(null, 10);
-        Composicao comp2 = new Composicao(null, 20);
-        Composicao comp3 = new Composicao(null,30);
+        Composicao comp1 = new Composicao(null, 10, false);
+        Composicao comp2 = new Composicao(null, 20, false);
+        Composicao comp3 = new Composicao(null,30, false);
 
         //criando fios
         Fio fio1 = new Fio(null, "Algodao");
