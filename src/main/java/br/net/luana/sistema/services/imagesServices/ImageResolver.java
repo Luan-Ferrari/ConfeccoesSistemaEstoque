@@ -2,10 +2,7 @@ package br.net.luana.sistema.services.imagesServices;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ImageResolver {
@@ -23,8 +20,30 @@ public class ImageResolver {
     public String createImageName(Integer corId) {
         StringBuilder imageName = new StringBuilder();
         imageName.append(prefixoCor).append(corId).append("_")
-                .append(System.currentTimeMillis()).append("_");
+                .append(createHash()).append("_");
         return imageName.toString();
+    }
+
+    public String createHash() {
+        List<Character> characters = new ArrayList<>();
+        characters.addAll(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
+
+        Random random = new Random();
+
+        StringBuilder hash = new StringBuilder();
+        hash.append(Long.toString(System.currentTimeMillis() + Math.abs(random.nextLong())))
+                .append(Long.toString(System.currentTimeMillis() + Math.abs(random.nextLong())));
+
+        int quantidadeTrocas = random.nextInt(hash.length());
+
+        for(int j = 0; j <= quantidadeTrocas; j++) {
+            int posicaoTroca = random.nextInt(hash.length());
+            char caractereSubstituto = characters.get(random.nextInt(characters.size()));
+            hash.setCharAt(posicaoTroca, caractereSubstituto);
+        }
+
+        return hash.toString();
     }
 
     public List<String> getListFileNames(String fileName) {

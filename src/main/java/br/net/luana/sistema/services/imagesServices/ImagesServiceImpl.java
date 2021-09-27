@@ -40,7 +40,6 @@ public class ImagesServiceImpl implements ImagesService{
     private ImageResolver imageResolver;
 
 
-    //ok
     @Override
     public ImageObject findById(Integer entityId) {
         Optional<ImageObject> obj = imageObjectRepository.findById(entityId);
@@ -51,7 +50,6 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public ImageObject rotinaParaUploadDeImagem(Integer corId, MultipartFile multipartFile,
                                                 Boolean imagemPrincipal) {
         if(extensaoImagemPermitida(multipartFile)) {
@@ -72,7 +70,6 @@ public class ImagesServiceImpl implements ImagesService{
             return null;
     }
 
-    //ok
     public void rotinaParaPersistirNoBD(ImageObject imageObject, String imageName, Boolean imagemPrincipal) {
 
         ProductImages productImages = new ProductImages();
@@ -85,7 +82,6 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public ImageObject defineImageObject(Integer corId) {
         Optional<ImageObject> imageObject = imageObjectRepository.findById(corId);
         if (imageObject.isEmpty()) {
@@ -96,14 +92,12 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public ImageObject createImageObject(Cor cor) {
         ImageObject imageObject = new ImageObject();
         imageObject.setCor(cor);
         return imageObjectRepository.save(imageObject);
     }
 
-    //ok
     public boolean listaImagensPrincipaisCompleta(ImageObject imageObject) {
         if (imageObject.getImagensPrincipais().size() < quantidadeMaximaImagensPrincipais) {
             return false;
@@ -112,7 +106,6 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public Boolean extensaoImagemPermitida(MultipartFile multipartFile) {
         String extensao = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         if(!"png".equals(extensao) && !"jpg".equals(extensao)) {
@@ -121,7 +114,6 @@ public class ImagesServiceImpl implements ImagesService{
         return true;
     }
 
-    //ok
     public File convertToWebp(MultipartFile multipartFile, Integer largura, Integer altura) {
         try {
             File file = new File(".temp/imagesService/webpTemporario.webp");
@@ -136,7 +128,6 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public ImageObject rotinaParaExcluirImagem(Integer corId, String prefixo, String uri) {
         ImageObject imageObject = findById(corId);
         String imageName = imageResolver.getFileNameByURI(prefixo, uri);
@@ -151,7 +142,6 @@ public class ImagesServiceImpl implements ImagesService{
         return imageObject;
     }
 
-    //ok
     @Transactional
     public void rotinaParaExcluirNoBD(ImageObject imageObject, String imageName) {
 
@@ -160,20 +150,17 @@ public class ImagesServiceImpl implements ImagesService{
         removerImagemPrincipalNoBD(imageObject, imageName);
     }
 
-    //ok
     public void removerImagemPrincipalNoBD(Integer corId, String uri) {
         ImageObject imageObject = findById(corId);
         String imageName = imageResolver.getFileNameByURI("cor", uri);
         removerImagemPrincipalNoBD(imageObject, imageName);
     }
 
-    //ok
     public void removerImagemPrincipalNoBD(ImageObject imageObject, String imageName) {
         imageObject.getImagensPrincipais().remove(imageName);
         imageObjectRepository.save(imageObject);
     }
 
-    //ok
     public void salvarImagemPrincipalNoBD(Integer corId, String uri) {
         ImageObject imageObject = findById(corId);
         String imageName = imageResolver.getFileNameByURI("cor", uri);
@@ -187,7 +174,6 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public void salvarImagemPrincipalNoBD(ImageObject imageObject, String imageName) {
         if(!listaImagensPrincipaisCompleta(imageObject)) {
             imageObject.getImagensPrincipais().add(imageName);
@@ -197,10 +183,8 @@ public class ImagesServiceImpl implements ImagesService{
         }
     }
 
-    //ok
     public void deleteImage(String fileName) { s3Service.deleteFile(fileName);}
 
-    //ok
     public URI uploadImage(File file, String fileName) {
         return s3Service.uploadFile(file, fileName);
     }
