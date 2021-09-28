@@ -24,6 +24,13 @@ public class ImageResolver {
         return imageName.toString();
     }
 
+    public String createImageName(Integer id, String prefixo) {
+        StringBuilder imageName = new StringBuilder();
+        imageName.append(prefixo).append(id).append("_")
+                .append(createHash()).append("_").append(defaultFormat);
+        return imageName.toString();
+    }
+
     public String createHash() {
         List<Character> characters = new ArrayList<>();
         characters.addAll(Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -54,6 +61,10 @@ public class ImageResolver {
             listFileNames.add(createFileName);
         }
         return listFileNames;
+    }
+
+    public String getUriImagem(String imageName) {
+        return new StringBuilder().append(defaultURI).append(imageName).toString();
     }
 
     public List<String> getUrisImagens(String imageName) {

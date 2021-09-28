@@ -20,6 +20,5 @@ public class ModoLavarServiceImpl extends MasterServiceImpl<ModoLavar, Integer>
         updateEntity.setId(entity.getId());
         updateEntity.setCategoria(entity.getCategoria());
         updateEntity.setDescricao(entity.getDescricao());
-        updateEntity.setDescricaoImagem(entity.getDescricaoImagem());
     }
 }

@@ -192,11 +192,11 @@ public class DBService {
         fio5.getItensFios().addAll(Arrays.asList(composicaoFio6));
 
         //criando modo_lavar
-        ModoLavar modoLavar1 = new ModoLavar(null, CategoriaModoLavar.LAVAGEM, "Lavar a mão", "Um balde com agua");
-        ModoLavar modoLavar2 = new ModoLavar(null, CategoriaModoLavar.ALVEJAMENTO, "Não alvejar", "Triangulo com um X");
-        ModoLavar modoLavar3 = new ModoLavar(null, CategoriaModoLavar.SECAGEM_NATURAL, "Secar pendurado", "Parece um envelope");
-        ModoLavar modoLavar4 = new ModoLavar(null, CategoriaModoLavar.PASSADORIA, "Não Passar", "Um ferro de passar com um X");
-        ModoLavar modoLavar5 = new ModoLavar(null, CategoriaModoLavar.LIMPEZA_SECO_PROFISSIONAL, "Não lavar a seco", "Um círculo com um X");
+        ModoLavar modoLavar1 = new ModoLavar(null, CategoriaModoLavar.LAVAGEM, "Lavar a mão");
+        ModoLavar modoLavar2 = new ModoLavar(null, CategoriaModoLavar.ALVEJAMENTO, "Não alvejar");
+        ModoLavar modoLavar3 = new ModoLavar(null, CategoriaModoLavar.SECAGEM_NATURAL, "Secar pendurado");
+        ModoLavar modoLavar4 = new ModoLavar(null, CategoriaModoLavar.PASSADORIA, "Não Passar");
+        ModoLavar modoLavar5 = new ModoLavar(null, CategoriaModoLavar.LIMPEZA_SECO_PROFISSIONAL, "Não lavar a seco");
 
         //associando composicao e modo_lavar
         comp1.getItensModoLavar().addAll(Arrays.asList(modoLavar1, modoLavar2, modoLavar3, modoLavar4, modoLavar5));

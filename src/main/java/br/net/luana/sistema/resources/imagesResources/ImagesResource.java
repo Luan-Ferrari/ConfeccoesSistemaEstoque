@@ -23,4 +23,13 @@ public interface ImagesResource {
     @DeleteMapping("cor/{corId}/imagemPrincipal")
     public abstract ResponseEntity<Void> removeImagemPrincipal(@PathVariable Integer corId,
                                                                @RequestParam (value = "uri") String URIFile);
+
+    @PostMapping("modoLavar/{modoLavarId}")
+    ResponseEntity<Void> uploadModoLavarImage(@PathVariable Integer modoLavarId,
+                                           @RequestParam(name = "file") MultipartFile file);
+
+    @DeleteMapping("modoLavar/{modoLavarId}")
+    public abstract ResponseEntity<Void> deleteModoLavarImage(@PathVariable Integer modoLavarId,
+                                                @RequestParam (value = "uri") String URIFile);
+
 }

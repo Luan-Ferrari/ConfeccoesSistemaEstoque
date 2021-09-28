@@ -46,5 +46,17 @@ public class ImagesResourceImpl implements ImagesResource{
         return ResponseEntity.noContent().build();
     }
 
+    @Override
+    public ResponseEntity<Void> uploadModoLavarImage(Integer modoLavarId, MultipartFile file) {
+        URI uri = imagesService.uploadModoLavarImage(modoLavarId, file);
+        return ResponseEntity.created(uri).build();
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteModoLavarImage(Integer modoLavarId, String URIFile) {
+        imagesService.deleteModoLavarImage(modoLavarId, URIFile);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

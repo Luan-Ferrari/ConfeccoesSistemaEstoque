@@ -4,6 +4,8 @@ import br.net.luana.sistema.domain.composicoes.ModoLavar;
 import br.net.luana.sistema.domain.enums.CategoriaModoLavar;
 import br.net.luana.sistema.dto.MasterDTOImpl;
 import br.net.luana.sistema.dto.ValidationsValues;
+import br.net.luana.sistema.services.imagesServices.ImageResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +15,9 @@ import javax.validation.constraints.NotNull;
 public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer> {
     private static final long serialVerisonUID = 1L;
 
+    @Autowired
+    private ImageResolver imageResolver = new ImageResolver();
+
     private Integer id;
 
     @NotNull(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
@@ -21,8 +26,7 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
     @NotBlank(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
     private String descricao;
 
-    @NotBlank(message = ValidationsValues.NOT_BLANK_OR_NOT_NULL_MESSAGE)
-    private String descricaoImagem;
+    private String imagem;
 
     public ModoLavarDTO() {
     }
@@ -31,7 +35,7 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
         this.id = entity.getId();
         this.categoria = entity.getCategoria().getCodigo();
         this.descricao = entity.getDescricao();
-        this.descricaoImagem = entity.getDescricaoImagem();
+        this.imagem = (entity.getImageName() == null) ? null : imageResolver.getUriImagem(entity.getImageName());
     }
 
     @Override
@@ -41,8 +45,7 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
 
     @Override
     public ModoLavar makeEntityfromDTO(ModoLavarDTO dto) {
-        return new ModoLavar(dto.getId(), CategoriaModoLavar.toEnum(dto.getCategoria()), dto.getDescricao(),
-                getDescricaoImagem());
+        return new ModoLavar(dto.getId(), CategoriaModoLavar.toEnum(dto.getCategoria()), dto.getDescricao());
     }
 
     public Integer getId() {
@@ -69,13 +72,11 @@ public class ModoLavarDTO extends MasterDTOImpl<ModoLavar, ModoLavarDTO, Integer
         this.descricao = descricao;
     }
 
-    public String getDescricaoImagem() {
-        return descricaoImagem;
+    public String getImagem() {
+        return imagem;
     }
 
-    public void setDescricaoImagem(String descricaoImagem) {
-        this.descricaoImagem = descricaoImagem;
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
-
-
 }

@@ -20,16 +20,15 @@ public class ModoLavar implements MasterDomain, Serializable {
 
     private Integer categoria;
     private String descricao;
-    private String descricaoImagem;
+    private String imageName;
 
     public ModoLavar() {
     }
 
-    public ModoLavar(Integer id, CategoriaModoLavar categoriaModoLavar, String descricao, String descricaoImagem) {
+    public ModoLavar(Integer id, CategoriaModoLavar categoriaModoLavar, String descricao) {
         this.id = id;
         this.categoria = (categoriaModoLavar == null) ? null : categoriaModoLavar.getCodigo();
         this.descricao = descricao;
-        this.descricaoImagem = descricaoImagem;
     }
 
     public Integer getId() {
@@ -56,12 +55,12 @@ public class ModoLavar implements MasterDomain, Serializable {
         this.descricao = descricao;
     }
 
-    public String getDescricaoImagem() {
-        return descricaoImagem;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setDescricaoImagem(String descricaoImagem) {
-        this.descricaoImagem = descricaoImagem;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Override

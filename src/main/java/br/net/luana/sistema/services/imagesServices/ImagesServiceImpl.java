@@ -1,10 +1,12 @@
 package br.net.luana.sistema.services.imagesServices;
 
+import br.net.luana.sistema.domain.composicoes.ModoLavar;
 import br.net.luana.sistema.domain.cores.Cor;
 import br.net.luana.sistema.domain.images.ImageObject;
 import br.net.luana.sistema.domain.images.ProductImages;
 import br.net.luana.sistema.repositories.imagesRepositories.ImageObjectRepository;
 import br.net.luana.sistema.repositories.imagesRepositories.ProductImagesRepository;
+import br.net.luana.sistema.services.composicaoServices.ModoLavarService;
 import br.net.luana.sistema.services.corServices.CorService;
 import br.net.luana.sistema.services.exceptions.FileException;
 import br.net.luana.sistema.services.exceptions.ObjectNotFoundException;
@@ -38,6 +40,8 @@ public class ImagesServiceImpl implements ImagesService{
     private S3Service s3Service;
     @Autowired
     private ImageResolver imageResolver;
+    @Autowired
+    private ModoLavarService modoLavarService;
 
 
     @Override
@@ -181,6 +185,32 @@ public class ImagesServiceImpl implements ImagesService{
         } else {
             throw new FileException("Já existem 2 imagens principais para este recurso");
         }
+    }
+
+    public void deleteModoLavarImage(Integer modoLavarId, String uri) {
+        ModoLavar modoLavar = modoLavarService.findById(modoLavarId);
+        String imageName = imageResolver.getFileNameByURI("ml", uri);
+        deleteImage(imageName);
+
+        modoLavar.setImageName(null);
+        modoLavarService.save(modoLavar);
+    }
+
+    public URI uploadModoLavarImage(Integer modoLavarId, MultipartFile multipartFile) {
+        URI uri;
+        if(extensaoImagemPermitida(multipartFile)) {
+            String imageName = imageResolver.createImageName(modoLavarId, "ml");
+            File file = convertToWebp(multipartFile, 150, 150);
+
+            uri = uploadImage(file, imageName);
+
+            ModoLavar modoLavar = modoLavarService.findById(modoLavarId);
+            modoLavar.setImageName(imageName);
+            modoLavar = modoLavarService.save(modoLavar);
+
+            return uri;
+        }
+        return null;
     }
 
     public void deleteImage(String fileName) { s3Service.deleteFile(fileName);}
